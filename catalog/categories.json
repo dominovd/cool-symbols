@@ -1,0 +1,419 @@
+{
+  "categories": [
+    {
+      "slug": "heart-symbols",
+      "emoji": "♥",
+      "displayName": "Heart Symbols",
+      "h1": "Heart Symbols ♥ — Copy and Paste",
+      "title": "Heart Symbols ♥ Copy & Paste — 40+ Heart Emojis & Text Hearts",
+      "description": "40+ heart symbols and emojis to copy and paste — ♥ ♡ ❤ 💕 💖 💗 and every color heart. Click to copy. Works on Instagram, TikTok, Discord.",
+      "unicodeBlock": "Various Unicode blocks (Miscellaneous Symbols, Dingbats, Emoticons)",
+      "intro": "Heart symbols are the most-used decorations in modern messaging, from love confessions to playful brand statements. This page gathers every popular heart Unicode supports — the classic black ♥, the outlined ♡, the colored heart emojis in every shade, the floral ❦ and curled ❧, and special combinations like the on-fire ❤️‍🔥 and mending ❤️‍🩹. Click any one to copy it instantly. Paste anywhere Unicode is accepted — captions, bios, texts, comments, song lyrics.",
+      "symbols": ["♥", "♡", "❤", "❥", "❦", "❧", "ღ", "❣", "♥️", "❤️", "🧡", "💛", "💚", "💙", "💜", "🤎", "🖤", "🤍", "💕", "💖", "💗", "💘", "💝", "💞", "💟", "💔", "💋", "❤️‍🔥", "❤️‍🩹", "♥︎", "♡︎", "❤︎", "❣️", "ෆ", "⩇", "⛧", "ღ︎", "❥︎"],
+      "howToUse": "Tap or click any heart above to copy it to your clipboard, then paste it wherever you want — Instagram bio, TikTok caption, Discord status, text message, comment, document. The symbols are plain Unicode text, not images, so they render at the same size as surrounding text and inherit the font and color of whatever app you paste into. To insert multiple hearts at once, copy them one at a time and chain them in your text, or copy from a styled string like ♡⋆｡˚⋆♡ for instant aesthetic effect. On desktop, the system shortcut for emoji is Ctrl/Cmd+Ctrl+Space (Mac) or Win+. (Windows), but copy-paste is faster for the lesser-known text hearts.",
+      "useCases": [
+        { "title": "Instagram and TikTok bios", "description": "Pair hearts with dividers and dotted lines for that signature aesthetic profile look — try ‧₊˚ 🖤 ⋅♡ ‧₊˚." },
+        { "title": "Couple and friendship names", "description": "Replace the space between two names with a heart: Sam♡Alex. Works in contact lists, shared documents, and messenger profiles." },
+        { "title": "Brand and product copy", "description": "Soften commercial messages with a small ♥ next to a call-to-action. Conversion-friendly without being saccharine." },
+        { "title": "Comments and reactions", "description": "When the platform doesn't have a reaction button, drop a ♥, 💕, or ❤️ in the reply field. Works on every app that accepts Unicode." },
+        { "title": "Song lyrics and quotes", "description": "Visual punctuation between lines: ♡ ⋆ ♡. Adds rhythm without breaking the text flow." }
+      ],
+      "faq": [
+        { "question": "What's the difference between ♥, ❤, and ❤️?", "answer": "♥ is the Black Heart Suit from the playing-card set (U+2665), rendered as a flat text glyph. ❤ is the Heavy Black Heart from Dingbats (U+2764), also a text glyph but bolder. ❤️ is the same character with a variant selector U+FE0F appended that tells your device to render it as a color emoji instead of text. Different surface, same idea." },
+        { "question": "Why do some hearts show as boxes on certain devices?", "answer": "Less common heart variants like ❦ or ❣ exist in Unicode but aren't included in every font. Older phones, older browsers, and some Linux distributions may show a fallback box. Stick to ♥, ♡, ❤️, and the colored emoji hearts for maximum compatibility across devices." },
+        { "question": "Can I use heart symbols in usernames?", "answer": "Most platforms allow Unicode characters in display names: Discord, Instagram, TikTok, Telegram, Twitter/X. Some platforms restrict username creation to ASCII — check the field's rules. Display names and bios are almost always Unicode-friendly." }
+      ],
+      "related": [
+        { "slug": "flower-symbols", "name": "Flower Symbols", "emoji": "❀" },
+        { "slug": "star-symbols", "name": "Star Symbols", "emoji": "★" },
+        { "slug": "aesthetic-symbols", "name": "Aesthetic Symbols", "emoji": "✦" },
+        { "slug": "zodiac-symbols", "name": "Zodiac Symbols", "emoji": "♈" },
+        { "slug": "punctuation-symbols", "name": "Punctuation", "emoji": "❝" }
+      ]
+    },
+
+    {
+      "slug": "star-symbols",
+      "emoji": "★",
+      "displayName": "Star Symbols",
+      "h1": "Star Symbols ★ — Copy and Paste",
+      "title": "Star Symbols ★ Copy & Paste — 40+ Stars and Sparkles",
+      "description": "40+ star symbols and sparkle characters — ★ ☆ ✦ ✧ ✨ ⭐ and more. Click to copy. Works in Instagram bios, gaming names, and aesthetic captions.",
+      "unicodeBlock": "Miscellaneous Symbols & Dingbats (U+2605, U+2729–U+274B)",
+      "intro": "Stars are everywhere in profile aesthetics, gaming usernames, ratings, and visual accents. This collection includes the solid ★ and outline ☆, the four-point sparkles ✦ ✧, twelve-point bursts ✪ ✫, eight-point and six-point variants used in flags and ornaments, and the animated emoji sparkles ✨ 🌟 💫. Use them as ratings, decorative bullet points, or to mark something special in plain text. Click any star to copy.",
+      "symbols": ["★", "☆", "⭐", "✦", "✧", "✩", "✪", "✫", "✬", "✭", "✮", "✯", "✰", "⋆", "✶", "✷", "✸", "✹", "✺", "❇", "❈", "❉", "❊", "❋", "✨", "🌟", "💫", "🌠", "⚝", "⍟", "⭑", "⭒", "✤", "✥", "⚹", "✱", "✲", "✳", "✴", "✵", "❂", "✻", "✼"],
+      "howToUse": "Click any star to copy. Stars work as inline ratings (★★★★☆), as decorative spacers between words (Hello ✦ World), as bullet points in lists, or as visual emphasis around a word (✧ NEW ✧). Combine outlines and solids for partial-rating displays. Smaller stars like ⋆ and ⭒ work well as subtle text accents that don't overpower the line; larger ones like ✨ or 🌟 are best for headlines and captions where you want them to pop. On phones, holding a star symbol in the keyboard often reveals related variants.",
+      "useCases": [
+        { "title": "User ratings and reviews", "description": "Manual rating displays where the platform doesn't render stars natively — \"4.5 ★★★★☆\" works in plain text everywhere." },
+        { "title": "Gaming usernames", "description": "Decorate names with star brackets — ★ShadowSlayer★ — or use ⋆˚࿔ ✧ as a username prefix. Popular in PUBG, Free Fire, Valorant, Fortnite." },
+        { "title": "Bio sparkle accents", "description": "Sprinkle ⋆ and ✧ around your name or tagline for an aesthetic Instagram or TikTok look — ⋆˚ writer ˚⋆." },
+        { "title": "Section dividers", "description": "Use a row of stars as a header divider — ✦ ✦ ✦ — between bio sections or in long posts." },
+        { "title": "Special offers and highlights", "description": "Highlight a featured product or limited offer in text-only marketing — ✨ NEW ✨ or 🌟 LIMITED 🌟." }
+      ],
+      "faq": [
+        { "question": "What's the difference between ★ and ⭐?", "answer": "★ (Black Star, U+2605) is a text glyph — it renders as monochrome text in the surrounding font. ⭐ (Star, U+2B50) is an emoji — devices render it as a yellow color image regardless of font. Use ★ when you want it to match surrounding text color, ⭐ when you want a yellow icon." },
+        { "question": "Why do some star sparkles look animated on iPhone?", "answer": "Emoji like ✨ and 💫 are static Unicode characters, but Apple, Google, and Samsung each ship slightly different artwork for them. Apple's design for ✨ is a sparkly cluster that can look animated against the iOS keyboard glow — the character itself is still a single still emoji." },
+        { "question": "Can I use stars in URLs or filenames?", "answer": "URLs require percent-encoding for non-ASCII characters, so ★ becomes %E2%98%85 — technically allowed but messy. Filenames support Unicode on macOS and modern Linux/Windows, though some older tools choke. For display, stars are universal; for technical identifiers, use ASCII." }
+      ],
+      "related": [
+        { "slug": "heart-symbols", "name": "Heart Symbols", "emoji": "♥" },
+        { "slug": "zodiac-symbols", "name": "Zodiac Symbols", "emoji": "♈" },
+        { "slug": "aesthetic-symbols", "name": "Aesthetic Symbols", "emoji": "✦" },
+        { "slug": "shape-symbols", "name": "Shape Symbols", "emoji": "◆" },
+        { "slug": "weather-symbols", "name": "Weather Symbols", "emoji": "☀" }
+      ]
+    },
+
+    {
+      "slug": "arrow-symbols",
+      "emoji": "→",
+      "displayName": "Arrow Symbols",
+      "h1": "Arrow Symbols → — Copy and Paste",
+      "title": "Arrow Symbols → Copy & Paste — 80+ Arrows in Every Direction",
+      "description": "80+ arrow symbols to copy and paste — → ← ↑ ↓ ⇒ ➤ ➔ and dozens more. Single, double, curved, decorative arrows. Click to copy.",
+      "unicodeBlock": "Arrows (U+2190–U+21FF), Supplemental Arrows, Dingbats",
+      "intro": "Arrows are the most practical category in Unicode — they direct attention, indicate flow, mark causes and effects, and decorate calls-to-action. This page covers every popular arrow shape: cardinal and diagonal directions, single and double lines, curved and looped, decorative dingbat arrows, and special variants like the long ⟶ and the heavy ➜. Useful for diagrams in plain text, navigation hints in bios, step-by-step instructions, and pointer accents.",
+      "symbols": ["←", "→", "↑", "↓", "↔", "↕", "↖", "↗", "↘", "↙", "⇐", "⇒", "⇑", "⇓", "⇔", "⇕", "⇖", "⇗", "⇘", "⇙", "⟵", "⟶", "⟷", "⟸", "⟹", "⟺", "↩", "↪", "↫", "↬", "↶", "↷", "⤴", "⤵", "⤶", "⤷", "↞", "↠", "↟", "↡", "➜", "➝", "➞", "➟", "➠", "➢", "➣", "➤", "➥", "➦", "➧", "➨", "➩", "➪", "➫", "➬", "➭", "➮", "➯", "➱", "➲", "➳", "➵", "➸", "➻", "➼", "➽", "➾", "⮕", "⮙", "⮘", "⮚", "↜", "↝", "↣", "↤", "↥", "↦", "↧", "⇇", "⇉", "⇈", "⇊", "⇄", "⇅", "⇆", "⇋", "⇌"],
+      "howToUse": "Click any arrow to copy. Use → and ← as inline navigation pointers (click here → link), ⇒ to show causation in plain-text logic (input ⇒ output), ➤ as a stylish bullet point in lists, and ↳ as a reply or sub-item indicator. Decorative arrows like ➜ and ⮕ work great as CTA pointers in social bios — ➜ check my latest post. Combine cardinal arrows for compass directions in maps or game descriptions. Long arrows like ⟶ visually emphasize a connection across longer text; short ones like → are subtle inline indicators.",
+      "useCases": [
+        { "title": "Bio call-to-actions", "description": "Point to your latest project or link in bio — ➜ new song dropping Friday — or use a curved ↳ to indicate a reply or follow-up note." },
+        { "title": "Plain-text diagrams", "description": "Sketch process flows in places without drawing tools — start → process → end. Useful in Slack messages, code comments, and notes." },
+        { "title": "Step-by-step instructions", "description": "Replace numbered steps with ➔ or ➤ for cleaner-looking how-to text. Add hierarchy with ➤ for main steps and ↳ for sub-steps." },
+        { "title": "Game commands and controls", "description": "Reference WASD or arrow keys in tutorials and forum posts — ↑↓←→ rendered visually rather than written as words." },
+        { "title": "Comparison and exchange", "description": "Use ⇄ or ⇋ to indicate two-way relationships — give ⇄ take, source ⇋ output, mutual transformations." }
+      ],
+      "faq": [
+        { "question": "What's the difference between → and ⇒?", "answer": "→ (U+2192, Rightwards Arrow) is the everyday directional arrow used for navigation hints and inline pointers. ⇒ (U+21D2, Rightwards Double Arrow) carries a stronger meaning in writing — it's used in math and logic to signal implication or 'therefore.' Use → for direction, ⇒ for cause-and-effect." },
+        { "question": "Are there arrows that match a specific style — round, sharp, hand-drawn?", "answer": "Unicode includes several stylistic arrow families. Dingbats arrows (➜ ➔ ➞ ➢) are heavier and more decorative, suitable for headlines. Mathematical arrows (⇒ ⟶ ⟹) are cleaner and uniform. Plain arrows (→ ⇐ ↔) match the surrounding text font. There are no hand-drawn arrows in Unicode — you'd need a custom font or SVG for those." },
+        { "question": "Can I make a diagonal arrow at a specific angle?", "answer": "Unicode covers eight cardinal and ordinal directions (N, NE, E, SE, S, SW, W, NW). For angles in between, you'd combine arrows with letters or use box-drawing characters. The closest you'll get to an arbitrary angle in pure text is ↗ / ↘ / ↖ / ↙ paired with surrounding context." }
+      ],
+      "related": [
+        { "slug": "line-symbols", "name": "Lines & Boxes", "emoji": "─" },
+        { "slug": "shape-symbols", "name": "Shape Symbols", "emoji": "◆" },
+        { "slug": "math-symbols", "name": "Math Symbols", "emoji": "∞" },
+        { "slug": "punctuation-symbols", "name": "Punctuation", "emoji": "❝" },
+        { "slug": "aesthetic-symbols", "name": "Aesthetic Symbols", "emoji": "✦" }
+      ]
+    },
+
+    {
+      "slug": "math-symbols",
+      "emoji": "∞",
+      "displayName": "Math Symbols",
+      "h1": "Math Symbols ∞ — Copy and Paste",
+      "title": "Math Symbols ∞ Copy & Paste — 70+ Mathematical Characters",
+      "description": "70+ math symbols to copy and paste — ∞ ≠ ≈ ≤ ≥ π Σ ∫ ∂ √ ∑ and Greek letters. Click to copy. For equations, papers, and notes.",
+      "unicodeBlock": "Mathematical Operators (U+2200–U+22FF), Greek Letters",
+      "intro": "Mathematical symbols cover everything from elementary operators (± × ÷ √) to advanced notation (∫ ∂ ∇ ∑ ∏), set theory (∀ ∃ ∈ ⊂ ∪ ∩), comparisons (≠ ≈ ≤ ≥), and the full Greek alphabet used as variables. This page bundles the most-needed math characters in one place so you don't need to dig through symbol pickers or LaTeX cheat sheets. Useful for academic writing, technical documentation, plain-text equations in chat, and code comments.",
+      "symbols": ["∞", "≠", "≈", "≤", "≥", "±", "×", "÷", "√", "∛", "∜", "∑", "∏", "∫", "∮", "∂", "∆", "∇", "π", "Σ", "Ω", "Φ", "Ψ", "α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "ι", "κ", "λ", "μ", "ν", "ξ", "ο", "ρ", "σ", "τ", "υ", "φ", "χ", "ψ", "ω", "Α", "Β", "Γ", "Δ", "Ε", "Ζ", "Η", "Θ", "Ι", "Κ", "Λ", "Ν", "Ξ", "Ο", "Π", "Ρ", "Τ", "Υ", "Χ", "⊕", "⊗", "⊖", "⊘", "⊙", "∘", "∙", "∝", "∴", "∵", "∗", "∠", "∡", "∢", "∥", "⊥", "∶", "∀", "∃", "∄", "∈", "∉", "∋", "⊂", "⊃", "⊆", "⊇", "∪", "∩", "∅", "ℕ", "ℤ", "ℚ", "ℝ", "ℂ", "≪", "≫", "≡", "≢", "≅", "≃"],
+      "howToUse": "Click any character to copy. Use × and ÷ instead of x and / in plain-text multiplication and division for clearer notation. Greek letters work as variable names in informal math (let α be the angle, β the offset). The infinity ∞ sign is widely understood. Set-theory symbols (∀ ∃ ∈ ⊂ ∪ ∩) are useful for logic and database conditions written in plain English. Blackboard-bold letters (ℕ ℤ ℝ ℂ) stand for number sets — natural, integer, real, complex — common in math papers and Wikipedia articles. Combine with parentheses and superscripts (typed normally) for inline equations.",
+      "useCases": [
+        { "title": "Plain-text equations in chat", "description": "Send a quick math expression without LaTeX — 2π × r = circumference, or x ≤ y < z. Slack, Discord, and email all render these correctly." },
+        { "title": "Code comments and docstrings", "description": "Annotate algorithms with mathematical notation in comments — \"runs in O(n²) time\" or \"// approximation: f(x) ≈ x − x³/6.\"" },
+        { "title": "Academic writing in plain editors", "description": "Use when MathType, LaTeX, or Equation Editor isn't available — perfect for forum posts, blog drafts, and exam notes typed in a regular text app." },
+        { "title": "Spreadsheet labels", "description": "Use ± for tolerance, ≥ for thresholds, ∑ for total rows. Cleaner than spelling out 'plus or minus' or 'greater than or equal.'" },
+        { "title": "Greek letters as variables", "description": "When code or notes call for stylistic variable names, use α β γ δ θ φ ω directly — common in physics, statistics, and machine-learning literature." }
+      ],
+      "faq": [
+        { "question": "Why are there separate × and ⋅ for multiplication?", "answer": "Both are valid. × (Multiplication Sign, U+00D7) is the elementary-school version used for explicit multiplication of numbers. ⋅ (Dot Operator, U+22C5) is the centered-dot version used in higher math when × would clash with the variable x. Choose by audience: × for clarity with broad readers, ⋅ for formal math writing." },
+        { "question": "Where can I find a real division line like a fraction bar?", "answer": "Unicode has ⁄ (Fraction Slash, U+2044) for typesetting fractions inline — \"3⁄4\" renders better than \"3/4\" in good fonts. For stacked fractions, you need either LaTeX, MathML, or composing them as images. The ÷ sign is the operational division symbol; the fraction slash is the typographic one." },
+        { "question": "Are these symbols searchable in Google?", "answer": "Most browsers and search engines treat math symbols as searchable Unicode. You can google a question like 'what does ∂ mean' and get correct results. However, some symbols (especially blackboard-bold ℕ ℤ ℝ) may be tokenized inconsistently in older search systems." }
+      ],
+      "related": [
+        { "slug": "arrow-symbols", "name": "Arrow Symbols", "emoji": "→" },
+        { "slug": "currency-symbols", "name": "Currency Symbols", "emoji": "$" },
+        { "slug": "shape-symbols", "name": "Shape Symbols", "emoji": "◆" },
+        { "slug": "line-symbols", "name": "Lines & Boxes", "emoji": "─" },
+        { "slug": "punctuation-symbols", "name": "Punctuation", "emoji": "❝" }
+      ]
+    },
+
+    {
+      "slug": "currency-symbols",
+      "emoji": "$",
+      "displayName": "Currency Symbols",
+      "h1": "Currency Symbols $ — Copy and Paste",
+      "title": "Currency Symbols $ Copy & Paste — All World Currency Signs",
+      "description": "All world currency symbols to copy and paste — $ € £ ¥ ₹ ₽ ₩ ₿ and more. Click to copy. For finance docs, prices, and international communication.",
+      "unicodeBlock": "Currency Symbols (U+20A0–U+20CF) and Latin-1 Supplement",
+      "intro": "Currency symbols mark prices, contracts, and financial communication in every language. This page lists every Unicode-recognized currency sign — from globally familiar ones like $ € £ ¥ to regional currencies (₹ Indian rupee, ₽ Russian ruble, ₩ South Korean won, ₺ Turkish lira), historic units (₯ drachma, ₧ peseta), and the cryptocurrency ₿. Use them when typing prices in casual writing, drafting international invoices, or labeling spreadsheet columns.",
+      "symbols": ["$", "€", "£", "¥", "₹", "₽", "₩", "₿", "¢", "₪", "₺", "₴", "₦", "₱", "₲", "₵", "₸", "₼", "ƒ", "¤", "₭", "₥", "₧", "₨", "₯", "₰", "₳", "₶", "₷", "₻", "₾", "৳", "﷼", "円", "元", "₠", "₡", "₢", "₣", "₤", "₦", "₫", "圓"],
+      "howToUse": "Click any symbol to copy. Place currency signs before the amount in English ($100, €50) and after in many European conventions (100 $, 50 €). For accounting, the dollar sign usually appears with the column-aligned amount: $ 1,234.56. The cent sign ¢ is for sub-dollar prices (99¢). For multi-currency contexts, use the ISO three-letter code (USD, EUR, JPY) for unambiguous machine-readable text and Unicode symbols for headlines and prices. Note that some apps autocomplete or autoformat dollar signs — paste raw text if you need the symbol preserved verbatim.",
+      "useCases": [
+        { "title": "International product listings", "description": "Show prices in customers' local currency on product pages and contracts — ₹999 for India, ¥1500 for Japan, R$50 for Brazil (BRL has no standalone Unicode symbol; use R$)." },
+        { "title": "Spreadsheet formatting", "description": "Use the symbol in custom number formats so values display as $1,234.56 or €1.234,56 depending on the locale." },
+        { "title": "Crypto communication", "description": "The bitcoin sign ₿ (U+20BF) is the only major crypto with a Unicode symbol. Use it in casual chat about bitcoin prices and tip amounts." },
+        { "title": "Historical and academic writing", "description": "Older currencies like ₧ peseta and ₤ Italian lira have Unicode glyphs for historical accuracy in books and articles about pre-Euro economies." },
+        { "title": "Decorative price tags", "description": "Combine with brackets or dividers for retail-style emphasis — 「 $99 」 or ▸ €49 only ▸." }
+      ],
+      "faq": [
+        { "question": "Why doesn't every currency have a unique symbol?", "answer": "Unicode adds a symbol only when a currency has wide visual recognition for its sign. Currencies without a distinctive glyph use either their ISO three-letter code (BRL, CHF, AED) or a Latin abbreviation. Brazilian real, Swiss franc, and UAE dirham fall into this group." },
+        { "question": "Where is the rupee symbol — ₹ or Rs?", "answer": "The Indian rupee sign ₹ (U+20B9) was added to Unicode in 2010 and is now widely supported. Older systems and Indian fonts predating 2010 still use 'Rs' or 'Rs.' as the abbreviation. For Pakistani and Sri Lankan rupees, the dedicated ₨ sign (U+20A8) is used." },
+        { "question": "How do I find the symbol for a less-common currency?", "answer": "Search Unicode by country name (\"Unicode symbol for Thai baht\") — the official Unicode block name is 'Currency Symbols' and Wikipedia maintains a complete table. Currencies introduced after their host country joined Unicode-aware tech (e.g., post-2010) are most likely to have dedicated glyphs." }
+      ],
+      "related": [
+        { "slug": "math-symbols", "name": "Math Symbols", "emoji": "∞" },
+        { "slug": "punctuation-symbols", "name": "Punctuation", "emoji": "❝" },
+        { "slug": "aesthetic-symbols", "name": "Aesthetic Symbols", "emoji": "✦" },
+        { "slug": "arrow-symbols", "name": "Arrow Symbols", "emoji": "→" },
+        { "slug": "line-symbols", "name": "Lines & Boxes", "emoji": "─" }
+      ]
+    },
+
+    {
+      "slug": "music-symbols",
+      "emoji": "♪",
+      "displayName": "Music Symbols",
+      "h1": "Music Symbols ♪ — Copy and Paste",
+      "title": "Music Symbols ♪ Copy & Paste — Notes, Clefs and Musical Glyphs",
+      "description": "Music symbols to copy and paste — ♩ ♪ ♫ ♬ ♭ ♮ ♯ 𝄞 and instrument emojis. Click to copy. For song titles, playlists, and music posts.",
+      "unicodeBlock": "Miscellaneous Symbols (U+2660–U+266F), Musical Symbols (U+1D100–U+1D1FF)",
+      "intro": "Music symbols decorate playlists, song titles, lyric posts, and music-themed bios. Unicode includes the four common note shapes (quarter ♩, eighth ♪, beamed ♫ ♬), the accidentals (♭ flat, ♮ natural, ♯ sharp), the treble and bass clefs as 𝄞 𝄢, and the full musical-instrument emoji set 🎵 🎶 🎼 🎷 🎸. Useful for any kind of music-related content where you want a visual cue without breaking the line of text.",
+      "symbols": ["♩", "♪", "♫", "♬", "♭", "♮", "♯", "𝄞", "𝄢", "𝄪", "𝄫", "𝄐", "𝄑", "𝄚", "𝄻", "𝄼", "𝄽", "𝄾", "𝄿", "𝅀", "🎵", "🎶", "🎼", "🎤", "🎧", "🎷", "🎸", "🎹", "🎺", "🎻", "🪕", "🥁", "🪘", "🪗", "🪈", "🎙️", "🎚️", "🎛️", "🎟️"],
+      "howToUse": "Click any symbol to copy. The most universal note glyphs are ♪ (single eighth) and ♬ (beamed pair) — they render reliably across every platform. Use them around song titles in playlist captions (♪ now playing: song name ♪) or after lyrics in social posts. Clefs 𝄞 𝄢 work in modern fonts on iOS, Android, macOS, Windows 10+; older systems may show boxes — when in doubt, fall back to ♩ ♪ ♫. The sharp ♯ and flat ♭ are also useful in non-musical contexts: C♯ as a programming language, B♭ as a key signature in a song title.",
+      "useCases": [
+        { "title": "Playlist and song titles", "description": "Wrap song names in note symbols — ♪ Blinding Lights ♪ — or use them as bullet points in a playlist list. Works in Spotify descriptions, YouTube titles, Apple Music playlists." },
+        { "title": "Lyric posts and quotes", "description": "Mark quoted lyrics with ♫ at the start and end. Helps readers distinguish lyrics from the surrounding caption text." },
+        { "title": "Music-related bios", "description": "Compose an aesthetic music bio — ♪ vinyl & cassettes / ♫ lo-fi producer. Pair with related dividers for full effect." },
+        { "title": "Genre and key labels", "description": "Use ♯ and ♭ in song key labels — \"in F♯ minor\" or \"key: Bb (♭)\". Common in producer bios and song descriptions." },
+        { "title": "Concert and event posts", "description": "Add 🎤 or 🎸 next to event details — 🎸 live at the venue, Friday 9pm — for instant visual grouping." }
+      ],
+      "faq": [
+        { "question": "Why does the treble clef 𝄞 show as a box?", "answer": "The musical-symbols Unicode block (U+1D100–U+1D1FF) is outside the Basic Multilingual Plane and requires fonts that explicitly include musical glyphs. Most modern systems support it (iOS 13+, recent Android, Windows 10+ with Segoe UI Symbol). Older devices fall back to a missing-glyph box. The fallback is to use ♩ ♪ ♫ instead, which are in the BMP and supported everywhere." },
+        { "question": "How do I type a sharp ♯ that isn't autocorrected to hashtag #?", "answer": "Many keyboards autocorrect ♯ to # because # is far more common. To preserve ♯, paste from this page or use your system's emoji/symbol picker. On macOS, also accessible via the Character Viewer (Ctrl+Cmd+Space). The two characters look similar but have different Unicode code points — ♯ is U+266F (Music Sharp Sign), # is U+0023 (Number Sign)." },
+        { "question": "Are there guitar tab symbols in Unicode?", "answer": "Unicode doesn't have dedicated guitar tablature glyphs. Tabs are conventionally written using ASCII numbers and dashes (e.g., 'e|--3--2--0--'), with the music staff drawn using the pipe character |. For tablature in social media posts, plain ASCII remains the standard." }
+      ],
+      "related": [
+        { "slug": "aesthetic-symbols", "name": "Aesthetic Symbols", "emoji": "✦" },
+        { "slug": "star-symbols", "name": "Star Symbols", "emoji": "★" },
+        { "slug": "heart-symbols", "name": "Heart Symbols", "emoji": "♥" },
+        { "slug": "line-symbols", "name": "Lines & Boxes", "emoji": "─" },
+        { "slug": "punctuation-symbols", "name": "Punctuation", "emoji": "❝" }
+      ]
+    },
+
+    {
+      "slug": "flower-symbols",
+      "emoji": "❀",
+      "displayName": "Flower Symbols",
+      "h1": "Flower Symbols ❀ — Copy and Paste",
+      "title": "Flower Symbols ❀ Copy & Paste — Floral Characters and Emojis",
+      "description": "Flower symbols to copy and paste — ❀ ✿ ❁ ❃ ❋ 🌸 🌺 🌻 🌷 and more. Click to copy. Perfect for aesthetic bios and floral captions.",
+      "unicodeBlock": "Dingbats (U+2722–U+274B), Miscellaneous Symbols, Emoji",
+      "intro": "Flower symbols are a staple of aesthetic bios, soft posts, and decorative profile design. The text-only versions from the Dingbats block (❀ ✿ ❁ ❃ ❋ ✾ ✺ ✹) look like stylized rosettes and render in the surrounding font color, ideal for clean minimalist looks. The emoji set (🌸 🌺 🌻 🌷 🌹 🌼) renders as full-color flower images, perfect for warmer, more illustrative captions. Combine with hearts and stars for the classic bloom aesthetic.",
+      "symbols": ["❀", "✿", "❁", "❃", "❋", "❊", "✾", "✽", "✼", "❇", "✺", "✹", "✸", "❉", "❈", "✤", "✥", "☘", "⚘", "🌸", "🌺", "🌻", "🌷", "🌹", "🌼", "💐", "🪷", "🌱", "🌿", "🍀", "🌾", "🌵", "🌴", "🌳", "🌲", "🪴", "🌶️", "🪸", "🪻", "🪺"],
+      "howToUse": "Click any flower to copy. Text-only floral glyphs (❀ ✿ ❁) work as decorative bullet points, section breaks, or accents around a word — ❀ welcome ❀. They sit naturally in the line of text without overpowering it. Color emoji flowers (🌸 🌺 🌻) are heavier and best used sparingly — one or two per caption for visual punctuation rather than every line. Combine with stars or hearts for popular aesthetic patterns: ✿ ♡ ✿, ⋆˚ ✿ ˚⋆, or ☘ ✦ ☘. The Hibiscus 🌺 and Cherry Blossom 🌸 are the most-used in 2025 social aesthetic.",
+      "useCases": [
+        { "title": "Spring and seasonal posts", "description": "Decorate cherry-blossom-season Instagram captions and spring-launch product posts with 🌸 ❀ ✿. Adds seasonal context without writing it out." },
+        { "title": "Aesthetic Instagram and TikTok bios", "description": "Mix text flowers with text dividers — ‧₊˚ ❀ ⋅ ⋆ ⋅ ❀ ˚₊‧ — for the soft girl/cottagecore look popular among teen and twenty-something accounts." },
+        { "title": "Plant and wellness brands", "description": "Use 🌿 🌱 and ☘ in branded copy and product names. Subtle visual cues that the brand is in the wellness, herbal, or eco space." },
+        { "title": "Floral-themed business and weddings", "description": "Florists, event planners, and wedding stationery designers can use ✿ ❁ ❀ in headline text for a hand-drawn feel without using actual graphics." },
+        { "title": "Comments and birthday wishes", "description": "Replace cake emoji with 🌹 💐 in birthday messages for a more elegant tone — happy birthday 💐 — especially for older recipients." }
+      ],
+      "faq": [
+        { "question": "Are ❀ and 🌸 the same flower?", "answer": "No. ❀ (Black Florette, U+2740) is a stylized abstract rosette from the Dingbats block, rendered as a text glyph in your font color. 🌸 (Cherry Blossom, U+1F338) is a specific real-world flower emoji rendered as colored artwork. Use ❀ for typographic decoration, 🌸 when you want the literal flower." },
+        { "question": "Which flower is the most popular aesthetic symbol?", "answer": "In 2024-2026 trends, ✿ (Black Florette, U+273F) is the dominant text-style flower in aesthetic bios — it's smaller and more delicate than ❀, and pairs well with hearts and combining symbols. Among emoji, 🌸 leads for soft/kawaii aesthetics, and 🌺 for warmer or tropical themes." },
+        { "question": "Why does ☘ shamrock show in different colors?", "answer": "☘ (Shamrock, U+2618) is technically a symbol character, not an emoji, but most modern systems render it as a green leaf anyway. Some older fonts show it as a monochrome outline. The fully-emoji-styled version is 🍀 (Four Leaf Clover, U+1F340), which is always green-colored on emoji-capable devices." }
+      ],
+      "related": [
+        { "slug": "heart-symbols", "name": "Heart Symbols", "emoji": "♥" },
+        { "slug": "star-symbols", "name": "Star Symbols", "emoji": "★" },
+        { "slug": "aesthetic-symbols", "name": "Aesthetic Symbols", "emoji": "✦" },
+        { "slug": "weather-symbols", "name": "Weather Symbols", "emoji": "☀" },
+        { "slug": "zodiac-symbols", "name": "Zodiac Symbols", "emoji": "♈" }
+      ]
+    },
+
+    {
+      "slug": "line-symbols",
+      "emoji": "─",
+      "displayName": "Line & Box Symbols",
+      "h1": "Line Symbols ─ — Box-Drawing Characters",
+      "title": "Line Symbols ─ Copy & Paste — Box Drawing Characters and Dividers",
+      "description": "Line and box-drawing symbols to copy and paste — ─ ━ │ ┃ ╔ ╗ ╚ ╝ and more. For ASCII boxes, dividers, and plain-text frames.",
+      "unicodeBlock": "Box Drawing (U+2500–U+257F), Block Elements (U+2580–U+259F)",
+      "intro": "Box-drawing characters are the building blocks of plain-text frames, tables, and ASCII art. They include horizontal and vertical lines in single and double weights (─ ━ ═ │ ┃ ║), corner pieces (╔ ╗ ╚ ╝ ╭ ╮ ╯ ╰), T-junctions (┬ ┴ ├ ┤), and cross intersections (┼ ╬). The block-element characters (█ ▀ ▄ ░ ▒ ▓) handle filled rectangles and shading. Together they let you draw clean ASCII layouts that work in any monospace terminal or text editor.",
+      "symbols": ["─", "━", "│", "┃", "╌", "╍", "╎", "╏", "═", "║", "╔", "╗", "╚", "╝", "╠", "╣", "╦", "╩", "╬", "┌", "┐", "└", "┘", "├", "┤", "┬", "┴", "┼", "╭", "╮", "╯", "╰", "╴", "╵", "╶", "╷", "▀", "▄", "█", "▌", "▐", "░", "▒", "▓", "▔", "▕", "▖", "▗", "▘", "▙", "▚", "▛", "▜", "▝", "▞", "▟"],
+      "howToUse": "Click any character to copy. Lines and boxes only render correctly in monospace contexts where every character has the same width — code editors, terminals, code blocks in chat apps, ASCII art posts. In proportional fonts they'll look jagged. Use ─ ━ for horizontal dividers across a fixed-width terminal. Corner pieces (╭ ╮ ╯ ╰) draw rounded boxes; (┌ ┐ └ ┘) draw sharp ones; (╔ ╗ ╚ ╝) draw double-line boxes. Combine with vertical bars (│ ┃ ║) for full frames. Block elements (█ ▀ ▄) are the basis of low-resolution pixel art and progress bars in CLI tools.",
+      "useCases": [
+        { "title": "ASCII art and pixel drawings", "description": "Draw small icons, hearts, and logos in plain text using █ ▀ ▄ and shading characters ░ ▒ ▓. Common in old-school forum posts and code-tutorial illustrations." },
+        { "title": "Code comments and headers", "description": "Section dividers in source files — ─────────── new module ─────────── — make long files easier to scan when scrolling." },
+        { "title": "Terminal output formatting", "description": "Build text-based tables and panels in command-line tool output. The double-line set (═ ║) draws emphasis around critical messages." },
+        { "title": "Plain-text receipt and ticket layouts", "description": "Mock up receipts or tickets in a monospace font for prototyping — corners, lines, and column dividers make a structured look without images." },
+        { "title": "Chat-message dividers", "description": "Insert ───────── between sections of a long message in Slack, Discord, or Telegram (which render dividers OK because chat apps use proportional fonts that handle these characters gracefully)." }
+      ],
+      "faq": [
+        { "question": "Why does my box look broken in normal text?", "answer": "Box-drawing characters are designed for monospace fonts where every character occupies exactly one cell. In proportional fonts (used by most websites and chat apps in their main text area) the widths vary, so the lines no longer line up. To preview correctly, paste into a code editor, terminal, or code-formatted block in chat (\\` or ``` markdown)." },
+        { "question": "What's the difference between ─ and ━?", "answer": "─ (Box Drawings Light Horizontal, U+2500) is a single thin line. ━ (Box Drawings Heavy Horizontal, U+2501) is a thicker, bolder version. Use light for fine dividers and headings, heavy for emphasis or major section breaks. They can be mixed in the same drawing for visual hierarchy." },
+        { "question": "Can I make a rounded-corner box?", "answer": "Yes — use ╭ ╮ ╯ ╰ for the four rounded corners and combine with ─ and │ for the sides. The full rounded-box set is: ╭─╮ / │ │ / ╰─╯ stacked vertically. Most code editors and modern terminals render these correctly." }
+      ],
+      "related": [
+        { "slug": "shape-symbols", "name": "Shape Symbols", "emoji": "◆" },
+        { "slug": "arrow-symbols", "name": "Arrow Symbols", "emoji": "→" },
+        { "slug": "aesthetic-symbols", "name": "Aesthetic Symbols", "emoji": "✦" },
+        { "slug": "punctuation-symbols", "name": "Punctuation", "emoji": "❝" },
+        { "slug": "math-symbols", "name": "Math Symbols", "emoji": "∞" }
+      ]
+    },
+
+    {
+      "slug": "shape-symbols",
+      "emoji": "◆",
+      "displayName": "Shape Symbols",
+      "h1": "Shape Symbols ◆ — Copy and Paste",
+      "title": "Shape Symbols ◆ Copy & Paste — Geometric Characters and Bullets",
+      "description": "Geometric shape symbols to copy and paste — ◆ ◇ ● ○ ■ □ ▲ ▼ and more. Click to copy. For bullets, design accents, and plain-text geometry.",
+      "unicodeBlock": "Geometric Shapes (U+25A0–U+25FF), Geometric Shapes Extended",
+      "intro": "Geometric shapes cover everything from simple bullet points (● ○ ■ □) to filled triangles (▲ ▼ ◀ ▶), diamonds (◆ ◇ ◈), circles in various fill states (◐ ◑ ◒ ◓), patterned squares (▤ ▥ ▦ ▧), and modern additions like the hexagon (⬢ ⬣) and pentagon (⬠ ⬟). They're the go-to choice for plain-text bullet points where the standard • feels too small, for inline icons in checklists, and for decorative dividers in modern minimalist design.",
+      "symbols": ["◆", "◇", "◈", "◉", "○", "●", "◐", "◑", "◒", "◓", "◔", "◕", "◖", "◗", "■", "□", "▢", "▣", "▤", "▥", "▦", "▧", "▨", "▩", "▪", "▫", "▬", "▭", "▮", "▯", "▰", "▱", "▲", "△", "▴", "▵", "▶", "▷", "▸", "▹", "▼", "▽", "▾", "▿", "◀", "◁", "◂", "◃", "◄", "◅", "◢", "◣", "◤", "◥", "⬡", "⬢", "⬣", "⬠", "⬟", "⬞", "⬝", "⬜", "⬛", "⭐"],
+      "howToUse": "Click any shape to copy. Use ● and ○ as solid and outline bullet points in checklists, completed/incomplete markers, or radio-button mockups. Diamonds ◆ ◇ make stylish bullets for headings. Triangle pointers (▶ ▼ ◀ ▲) work as expand/collapse indicators in documentation, play/pause hints, or directional cues. Half-filled circles (◐ ◑ ◒ ◓) are useful for progress indicators in plain-text status reports. Squares (■ □ ▢) are common in task lists, similar to checkbox UI. Hexagons (⬡ ⬢) are a 2020s aesthetic favorite for modern app branding and crypto/tech labels.",
+      "useCases": [
+        { "title": "Custom bullet points", "description": "Replace boring • bullets with ◆ ▸ ▪ ◉ in lists and outlines for instant visual upgrade. Works in any text doc, slide deck, or social caption." },
+        { "title": "Progress and completion markers", "description": "Use ● for done, ○ for todo, ◐ for in-progress in plain-text checklists. Quick visual scan replaces the need for [x] / [ ] markdown." },
+        { "title": "Diagrams and flowcharts in text", "description": "Outline ASCII flowcharts with shapes for nodes and arrows for connections — ◆ decision, ◯ start, ■ process. Useful in code comments and design notes." },
+        { "title": "Stylized bio headers", "description": "Break bio sections with ▬▬▬▬▬▬▬ or ◆◆◆ — adds structure without using more text." },
+        { "title": "Game and app UI mockups", "description": "Mock UI controls in plain text for early-stage design discussions — ▶ play, ▮▮ pause, ▼ menu. Faster than sketching in Figma for quick comms." }
+      ],
+      "faq": [
+        { "question": "Why are there so many similar-looking circles?", "answer": "Each circle variant covers a specific use case in Unicode. ○ (White Circle) and ● (Black Circle) are general-purpose. ◯ (Large Circle) is bigger. ◌ (Dotted Circle) marks placeholders in linguistic notation. ⊙ ⊕ ⊗ are mathematical operators. ◉ (Fisheye) is used in audio interfaces. The variation lets you pick exactly the right weight and meaning for your context." },
+        { "question": "Are hexagons widely supported?", "answer": "⬡ (Light Hexagon) and ⬢ (Black Hexagon) were added in Unicode 5.1 (2008) and are supported in all modern fonts. Older Windows XP-era fonts may render them as missing glyphs, but on any device from the last decade they look correct." },
+        { "question": "Can I use shapes in a Twitter or Instagram name?", "answer": "Yes, most shape symbols are accepted in display names on Twitter/X, Instagram, TikTok, and Discord. They sometimes get stripped from URL-style handles (the @username) but display names support nearly any Unicode character. Test by saving the profile and viewing it from a different account to be sure." }
+      ],
+      "related": [
+        { "slug": "line-symbols", "name": "Lines & Boxes", "emoji": "─" },
+        { "slug": "arrow-symbols", "name": "Arrow Symbols", "emoji": "→" },
+        { "slug": "math-symbols", "name": "Math Symbols", "emoji": "∞" },
+        { "slug": "aesthetic-symbols", "name": "Aesthetic Symbols", "emoji": "✦" },
+        { "slug": "star-symbols", "name": "Star Symbols", "emoji": "★" }
+      ]
+    },
+
+    {
+      "slug": "weather-symbols",
+      "emoji": "☀",
+      "displayName": "Weather Symbols",
+      "h1": "Weather Symbols ☀ — Copy and Paste",
+      "title": "Weather Symbols ☀ Copy & Paste — Sun, Cloud, Snow and More",
+      "description": "Weather symbols to copy and paste — ☀ ☁ ☂ ☃ ☄ ❄ 🌤 🌧 🌪 and more. Click to copy. For forecasts, captions, and weather posts.",
+      "unicodeBlock": "Miscellaneous Symbols (U+2600–U+26FF), Weather Emoji",
+      "intro": "Weather symbols cover sun ☀, clouds ☁ ⛅, rain ☔ 🌧, snow ❄ ☃, lightning ⚡, rainbow 🌈, and the more dramatic events like tornado 🌪 and thunderstorm ⛈. The text-style versions (☀ ☁ ☂ ❄) render in font color and work as minimalist accents. The emoji versions (🌤 🌥 🌧 🌨) bring full-color forecasts to chat and social posts. Useful for weather-themed bios, travel captions, mood posts, and seasonal product communication.",
+      "symbols": ["☀", "☁", "☂", "☃", "☄", "☇", "☈", "☉", "☼", "☽", "☾", "❄", "❅", "❆", "☔", "⛈", "🌤", "🌥", "🌦", "🌧", "🌨", "🌩", "🌪", "🌫", "🌬", "🌈", "⚡", "🌡", "☀️", "❄️", "☂️", "⛅", "🌪️", "🌀", "🌬️", "🌝", "🌛", "🌜", "🌚", "🌕", "🌖", "🌗", "🌘", "🌑", "🌒", "🌓", "🌔"],
+      "howToUse": "Click any symbol to copy. The text-style sun ☀ and cloud ☁ pair well with minimal aesthetic bios and weather-app interfaces. Use ❄ as a snowflake bullet in winter-themed lists or ☂ next to umbrella shop links. Emoji versions like 🌧 ⛈ 🌪 are heavier and better for individual emphasis — \"rainy day vibes 🌧\" — rather than repeated decoration. The crescent moon ☾ and full moon emoji series (🌕 🌖 🌗 🌘) double as time-of-day markers and astrology/aesthetic accents. Combine snowflake ❄ with stars ✦ for winter wonderland decorations in cards and posts.",
+      "useCases": [
+        { "title": "Weather forecast posts", "description": "Quickly indicate weather in event posts without writing it out — \"☀ outdoor market this Saturday\" or \"⛈ event moved indoors.\" Self-explanatory across languages." },
+        { "title": "Travel and vacation captions", "description": "Mark the vibe of a destination in one character — ☀ for beach, ❄ for ski, 🌧 for atmospheric city — in Instagram captions and TikTok video descriptions." },
+        { "title": "Mood and journal posts", "description": "Weather symbols as emotional metaphors are an old internet tradition — ⛈ for a bad day, ☀ for hopeful, 🌫 for unclear. More expressive than a single sad/happy emoji." },
+        { "title": "Seasonal store and product copy", "description": "Mark seasonal collections with ❄ winter, 🌸 spring, ☀ summer, 🍂 autumn (the autumn leaf is in the food/nature emoji set, see Flowers page). Quick visual sort." },
+        { "title": "Moon-phase astrology and aesthetic", "description": "Use the moon-phase sequence (🌑 🌒 🌓 🌔 🌕 🌖 🌗 🌘) as decorative dividers between sections of an astrology post or aesthetic bio." }
+      ],
+      "faq": [
+        { "question": "What's the difference between ☀ and ☀️?", "answer": "☀ alone (Black Sun With Rays, U+2600) is the plain text-style sun glyph, displayed in the surrounding font color. Adding the variant selector U+FE0F (which you don't usually see, but renders the character as ☀️) makes the system render it as a full-color emoji. Most chat apps now render ☀ as ☀️ automatically when it stands by itself, so the distinction matters less in everyday use than it once did." },
+        { "question": "Is there a wind symbol?", "answer": "There are two close options: 🌬 (Wind Face) shows a face blowing wind, useful in weather captions; 🌪 (Tornado) is a strong-wind/storm marker. For directional wind, combine with arrow symbols — 🌬→ for east wind. No pure 'wind' arrow exists in Unicode itself." },
+        { "question": "Do moon phases work as decorative dividers?", "answer": "Yes, the eight moon-phase emoji (🌑 🌒 🌓 🌔 🌕 🌖 🌗 🌘) make great section breaks in aesthetic profiles, especially astrology and witch-aesthetic content. They're visually consistent in size and color across iOS, Android, and most chat apps. Use the full eight-phase sequence for a dramatic horizontal divider." }
+      ],
+      "related": [
+        { "slug": "zodiac-symbols", "name": "Zodiac Symbols", "emoji": "♈" },
+        { "slug": "flower-symbols", "name": "Flower Symbols", "emoji": "❀" },
+        { "slug": "star-symbols", "name": "Star Symbols", "emoji": "★" },
+        { "slug": "aesthetic-symbols", "name": "Aesthetic Symbols", "emoji": "✦" },
+        { "slug": "heart-symbols", "name": "Heart Symbols", "emoji": "♥" }
+      ]
+    },
+
+    {
+      "slug": "zodiac-symbols",
+      "emoji": "♈",
+      "displayName": "Zodiac Symbols",
+      "h1": "Zodiac Symbols ♈ — Copy and Paste",
+      "title": "Zodiac Symbols ♈ Copy & Paste — All 12 Star Signs Plus Planets",
+      "description": "All zodiac symbols to copy and paste — ♈ ♉ ♊ ♋ ♌ ♍ ♎ ♏ ♐ ♑ ♒ ♓ plus planet glyphs. Click to copy. For astrology posts and birthday captions.",
+      "unicodeBlock": "Miscellaneous Symbols (U+2648–U+2653)",
+      "intro": "The twelve zodiac symbols (♈ Aries through ♓ Pisces) are perennially popular in birthday posts, astrology content, dating profiles, and aesthetic bios. This page lists all twelve in standard order plus the alternate Ophiuchus ⛎ (the unofficial thirteenth sign), the seven classical planets (☉ ☽ ☿ ♀ ♂ ♃ ♄), and the modern outer planets (♅ ♆ ♇). Useful for instantly signaling your sun, moon, and rising signs in a bio or for tagging zodiac-themed posts.",
+      "symbols": ["♈", "♉", "♊", "♋", "♌", "♍", "♎", "♏", "♐", "♑", "♒", "♓", "⛎", "☉", "☽", "☿", "♀", "♁", "♂", "♃", "♄", "♅", "♆", "♇", "☄", "☼", "✦", "⚹", "⚺", "⚻", "⚼"],
+      "howToUse": "Click any symbol to copy. Place your sun sign next to your name in a bio (Alex ♍ writer, Tokyo) for instant context. List your full chart compactly — ☉ ♍ ☽ ♓ ↑ ♋ — to share sun, moon, and rising. The planet symbols are useful in astrology readings (Mercury ☿ retrograde, Venus ♀ in Taurus) and double as alchemy/historical symbols in fantasy writing. Female ♀ and male ♂ symbols are also used as gender markers in personals/dating and in scientific contexts. The ⛎ Ophiuchus sign is supported in Unicode but most modern astrology systems stick with the twelve classical signs.",
+      "useCases": [
+        { "title": "Astrology and birth chart posts", "description": "Compose chart breakdowns with ☉ ☽ ↑ for sun/moon/rising — readers immediately understand without you spelling it out. Common in astrology TikTok and Instagram." },
+        { "title": "Dating profile chart match", "description": "Add your sign and you're filtering for like-minded matches — many dating apps now have astrology fields, and writing 'Pisces ♓ looking for water signs' in a profile resonates." },
+        { "title": "Birthday wishes and zodiac season posts", "description": "Drop the corresponding symbol in birthday greetings — 'happy birthday, my fellow Libra ♎' — or post 'Cancer season begins ♋' at the start of each zodiac month." },
+        { "title": "Female and male symbols in scientific writing", "description": "♀ and ♂ are the Unicode gender markers used in biology, medicine, and demographics. They're more compact than spelling out 'female' / 'male' in tables and charts." },
+        { "title": "Aesthetic occult bio", "description": "Mix zodiac with moon-phase weather symbols and stars — ♈ ☾ ✦ — for the witch/celestial aesthetic favored in 2020s Tumblr-revival accounts." }
+      ],
+      "faq": [
+        { "question": "What's the deal with the 13th sign Ophiuchus ⛎?", "answer": "⛎ (Ophiuchus, U+26CE) was added to Unicode for completeness — astronomers note that the sun passes through the Ophiuchus constellation between Scorpio and Sagittarius. However, traditional Western astrology splits the sky into exactly 12 equal signs and doesn't use Ophiuchus. The symbol exists in Unicode mainly for sidereal-astrology and astronomy uses." },
+        { "question": "Why do ☉ and ☼ look the same?", "answer": "☉ (Sun, U+2609) and ☼ (White Sun With Rays, U+263C) are visually similar but technically different glyphs. ☉ is used in astrology and alchemy for the Sun planet. ☼ is from the same Miscellaneous Symbols block but more decorative. Pick whichever your font renders more pleasingly — they both mean 'sun.'" },
+        { "question": "Are planet symbols used outside astrology?", "answer": "Yes. ♀ and ♂ are the standard gender symbols in biology, medicine, demographics, and sociology. ☿ Mercury and ♃ Jupiter sometimes appear in chemistry texts referring to the elements (mercury and tin, respectively, in old alchemical notation). The full planet set is also popular in fantasy writing for magical/elemental affiliations." }
+      ],
+      "related": [
+        { "slug": "star-symbols", "name": "Star Symbols", "emoji": "★" },
+        { "slug": "weather-symbols", "name": "Weather Symbols", "emoji": "☀" },
+        { "slug": "aesthetic-symbols", "name": "Aesthetic Symbols", "emoji": "✦" },
+        { "slug": "heart-symbols", "name": "Heart Symbols", "emoji": "♥" },
+        { "slug": "flower-symbols", "name": "Flower Symbols", "emoji": "❀" }
+      ]
+    },
+
+    {
+      "slug": "punctuation-symbols",
+      "emoji": "❝",
+      "displayName": "Punctuation Symbols",
+      "h1": "Punctuation Symbols ❝ — Copy and Paste",
+      "title": "Punctuation Symbols ❝ Copy & Paste — Quotes, Dashes, and Special Marks",
+      "description": "Special punctuation symbols to copy and paste — « » ‹ › „ \" \" ' ' … — – ❝ ❞ ‰ † ‡ and more. For typography and writing.",
+      "unicodeBlock": "General Punctuation (U+2000–U+206F), Latin-1 Supplement",
+      "intro": "Beyond the basic period and comma, Unicode includes a rich set of typographic punctuation: smart quotes (\" \" ' '), foreign-language quotes (« » ‹ › „ \"), em and en dashes (— –), the ellipsis (…), section and pilcrow marks (§ ¶), daggers († ‡), bullets (• ‣), the per-mille and per-ten-thousand (‰ ‱), prime marks (′ ″ ‴), the reference marks (※ ⁂ ⁕), and decorative quote ornaments (❝ ❞ ❛ ❜). Useful for clean writing, multilingual content, and typographic polish.",
+      "symbols": ["«", "»", "‹", "›", "„", "“", "”", "‘", "’", "‚", "‛", "…", "—", "–", "¡", "¿", "§", "¶", "†", "‡", "•", "‣", "⁃", "‰", "‱", "′", "″", "‴", "※", "⁂", "⁕", "❝", "❞", "❛", "❜", "⁇", "⁈", "⁉", "‖", "‗", "‘", "’", "·", "ˆ", "˜", "¨", "¸", "˙", "˚", "°"],
+      "howToUse": "Click any mark to copy. Use smart quotes (“ ” ‘ ’) instead of straight quotes for cleaner typography in long-form writing — most writing apps auto-correct them but raw text files don't. The em dash — sets off interjections more strongly than commas or parentheses; the en dash – is for ranges (pages 5–10, the 2024–2026 season). The ellipsis … is one character, not three dots, and screen readers handle it more cleanly. Daggers († ‡) link to footnotes when superscript numbers feel too academic. The pilcrow ¶ marks paragraph breaks in print typography.",
+      "useCases": [
+        { "title": "Professional writing and articles", "description": "Replace 'straight quotes' with “smart quotes” and -- with — em dashes. The visual difference is small but it signals careful editing to discerning readers." },
+        { "title": "Multilingual content", "description": "Use « » for French and Russian quotations, „ \" for German, ‹ › for nested quotes inside the outer ones. Each language has its own conventional quote pair." },
+        { "title": "Footnote and reference marks", "description": "Use † for the first footnote, ‡ for the second, § for the third — a typographic convention in older books that's elegant for short, occasional notes." },
+        { "title": "Math and statistical writing", "description": "Use ′ and ″ for feet and inches (5′ 11″), arcminutes and arcseconds in astronomy, and prime/double-prime notation in derivatives. The plain quote characters don't render as crisply for these uses." },
+        { "title": "Decorative quote ornaments", "description": "❝ and ❞ are larger ornamental quote marks used for pull quotes and design accents — set off a key sentence in a long article with ❝ Quote ❞ for visual emphasis." }
+      ],
+      "faq": [
+        { "question": "Why does my smart quote sometimes flip the wrong way?", "answer": "Smart quotes are directional — ' is a left quote, ' is a right quote. Word processors automatically pick the correct one based on whether you're starting or ending a quotation. If you paste raw text from a plain editor, the system may not know which to use and you'll see the wrong direction. The fix is to type the opening quote at the start of a word and the closing at the end of a word." },
+        { "question": "What's the difference between – and — and -?", "answer": "Three different dashes. - (Hyphen, U+002D) joins compound words (well-known, twenty-one). – (En Dash, U+2013) marks ranges (5–10, Monday–Friday). — (Em Dash, U+2014) sets off interjections or parenthetical phrases — like this one. Length and meaning differ; using the right one is a hallmark of polished writing." },
+        { "question": "Is the ellipsis … better than typing three dots?", "answer": "Yes for typography. The single ellipsis character (…) is spaced tighter and renders as one glyph, so it doesn't break across line endings the way three separate dots can. Most word processors auto-replace '...' with '…', but in plain text editors and chat apps the conversion doesn't happen and you need to paste the character." }
+      ],
+      "related": [
+        { "slug": "aesthetic-symbols", "name": "Aesthetic Symbols", "emoji": "✦" },
+        { "slug": "arrow-symbols", "name": "Arrow Symbols", "emoji": "→" },
+        { "slug": "math-symbols", "name": "Math Symbols", "emoji": "∞" },
+        { "slug": "line-symbols", "name": "Lines & Boxes", "emoji": "─" },
+        { "slug": "heart-symbols", "name": "Heart Symbols", "emoji": "♥" }
+      ]
+    },
+
+    {
+      "slug": "aesthetic-symbols",
+      "emoji": "✦",
+      "displayName": "Aesthetic Symbols",
+      "h1": "Aesthetic Symbols ✦ — Copy and Paste",
+      "title": "Aesthetic Symbols ✦ Copy & Paste — Cute Text Decorations & Bio Accents",
+      "description": "Aesthetic symbols and cute text decorations to copy and paste — ✦ ✧ ⋆ ☾ ☽ 𓆸 ࿔ ⊹ ꒰꒱ and more. Perfect for Instagram, TikTok bios.",
+      "unicodeBlock": "Various Unicode blocks including Egyptian Hieroglyphs and Tibetan",
+      "intro": "Aesthetic symbols are the decorative glue of modern social-media profiles — the tiny stars, moons, sparkles, brackets, and exotic characters that frame names and bios in Instagram, TikTok, Telegram, and Discord. This page collects the most-used decorative glyphs from across Unicode: four-point sparkles ✦ ✧, combining dots ⋆ ⊹ ࿔, moon phases ☾ ☽ ☼, Egyptian-hieroglyph decoratives 𓆸 𓂃, Japanese-style brackets ꒰ ꒱ ❀, occult and religious 𖤍 𖠌 ✟, and miscellaneous flourishes ⌒ ⌗ ➶ that show up everywhere in aesthetic profile design.",
+      "symbols": ["✦", "✧", "⋆", "☾", "☽", "☼", "✯", "♛", "♚", "♜", "♝", "♞", "♟", "𓆸", "𓂃", "࿔", "⊹", "⌒", "⌗", "꒰", "꒱", "❀", "✿", "❁", "⚜", "✟", "☘", "✌", "✍", "☎", "✉", "✏", "✒", "✂", "⌛", "⌚", "☠", "☯", "☮", "♻", "⚓", "⚔", "⚖", "⚙", "⚡", "𖤐", "𖥧", "𖥦", "𖠌", "𖤍", "ʚɞ", "꒷꒦", "ᯓ★", "ྀི", "✦︎", "˚", "༘", "♡⃕", "❥︎", "𓏲", "𖧷", "⊰", "⊱", "❥", "‧₊˚", "ﾟ⋆", "✾", "❃", "❊", "❋", "♔", "♕", "♖"],
+      "howToUse": "Click any symbol to copy. Aesthetic decoration follows a few patterns: place small symbols (⋆ ⊹ ࿔) around a word or name for ambient sparkle, frame a phrase with paired brackets (꒰꒱ or ⊰⊱) for the soft-girl bracket look, or alternate decorative dots between words for spacing emphasis (word ⋆ word ⋆ word). The combining symbols (˚ ྀི ̥) sit above the previous character — use sparingly, they only display correctly with the right base. For maximum visual impact, sandwich your bio name with ‧₊˚ at the start and ˚₊‧ at the end. Mix with hearts, stars, and flowers from the related pages.",
+      "useCases": [
+        { "title": "Instagram and TikTok bio decoration", "description": "Frame your name or tagline with sparkle pairs — ‧₊˚ Alex ˚₊‧ or ꒰ writer ꒱ — the signature look of clean aesthetic accounts. Pinterest is full of inspiration boards." },
+        { "title": "Bracket-style nicknames", "description": "Wrap usernames or words with paired brackets — ꒰ shy bee ꒱, ⊰ moonchild ⊱, ❛ song ❜ — a popular look in K-pop, anime, and aesthetic spaces." },
+        { "title": "Soft / cottagecore / dreamcore profiles", "description": "Mix Egyptian-hieroglyph 𓆸 (a fish/insect glyph repurposed as a 'butterfly') with combining dots ⊹ ࿔ for the ethereal blog/Tumblr-revival look. ✦ as a center divider." },
+        { "title": "Witchcraft / occult / dark aesthetic", "description": "Combine ☾ ☽ moons with ✟ crosses and 𖤍 inverted hearts for the goth/witchy aesthetic. Pair with dark-themed font generators for full effect." },
+        { "title": "Section dividers in long bios", "description": "Use ✦ ✦ ✦ or 𓆸 ⋆ 𓆸 as horizontal breaks between bio sections — about, links, contact — for visual hierarchy in profiles that allow line breaks." }
+      ],
+      "faq": [
+        { "question": "Why does ࿔ show up as nothing on my phone?", "answer": "Combining symbols like ࿔ (Tibetan Sign), ྀི (Tibetan vowel marks), and similar exotic-script characters require fonts that include the relevant Unicode block. iPhones and recent Android devices have wide coverage; older Android devices and some desktop fonts may show a small box or nothing. The aesthetic still 'works' on most modern devices — but check how your bio renders on different phones before committing." },
+        { "question": "Where do people find new aesthetic symbol combinations?", "answer": "Pinterest is the dominant source — search 'aesthetic bio symbols' or 'cute Instagram bio' and you'll find hundreds of ready-to-copy templates. TikTok also has tutorial videos showing how to assemble specific looks. Most viral combinations recycle the same 20-30 core characters with different arrangements." },
+        { "question": "Can I use Egyptian-hieroglyph symbols like 𓆸 without disrespect?", "answer": "Generally yes — aesthetic accounts use them decoratively, not religiously, and Egyptian hieroglyphs aren't a living sacred script in the way some other ancient writing systems are. That said, individual symbols had specific meanings (𓆣 was a scarab, 𓆸 a fly/insect) and reading-context matters in academic or cultural-heritage contexts. For everyday aesthetic use, no one will object." }
+      ],
+      "related": [
+        { "slug": "heart-symbols", "name": "Heart Symbols", "emoji": "♥" },
+        { "slug": "star-symbols", "name": "Star Symbols", "emoji": "★" },
+        { "slug": "flower-symbols", "name": "Flower Symbols", "emoji": "❀" },
+        { "slug": "zodiac-symbols", "name": "Zodiac Symbols", "emoji": "♈" },
+        { "slug": "line-symbols", "name": "Lines & Boxes", "emoji": "─" }
+      ]
+    }
+  ]
+}

@@ -576,6 +576,48 @@
     transition: color 0.15s;
   }
   footer .footer-links a:hover { color: var(--text); }
+  /* ===== CATEGORY BROWSE GRID ===== */
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+  }
+  .category-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 10px;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
+    text-align: center;
+  }
+  .category-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    background: #1a1a2e;
+  }
+  .category-card .emoji { font-size: 28px; }
+  .category-card .name { font-size: 13px; color: #d8d8e8; font-weight: 500; }
+  .category-card .count { font-size: 11px; color: var(--muted); }
+  footer .footer-categories {
+    margin-top: 16px;
+    font-size: 12px;
+    max-width: 800px;
+    margin: 16px auto 0;
+    line-height: 1.9;
+  }
+  footer .footer-categories a {
+    color: var(--muted);
+    text-decoration: none;
+    margin: 0 5px;
+    transition: color 0.15s;
+  }
+  footer .footer-categories a:hover { color: var(--text); }
 </style>
 </head>
 <body>
@@ -630,6 +672,29 @@
     <div class="panel">
       <div id="catTabs" class="cat-tabs"></div>
       <div id="symbolsGrid" class="symbols-grid"></div>
+    </div>
+  </section>
+
+  <!-- ===== BROWSE CATEGORIES ===== -->
+  <section>
+    <h2>Browse Symbols by Category</h2>
+    <div class="panel">
+      <p style="color: var(--muted); font-size: 14px; margin: 0 0 16px;">Each category has a dedicated page with more symbols, use cases, and tips on where they work best.</p>
+      <div class="category-grid">
+        <a class="category-card" href="/heart-symbols"><span class="emoji">♥</span><span class="name">Heart Symbols</span><span class="count">38 symbols</span></a>
+        <a class="category-card" href="/star-symbols"><span class="emoji">★</span><span class="name">Star Symbols</span><span class="count">43 symbols</span></a>
+        <a class="category-card" href="/arrow-symbols"><span class="emoji">→</span><span class="name">Arrow Symbols</span><span class="count">88 symbols</span></a>
+        <a class="category-card" href="/math-symbols"><span class="emoji">∞</span><span class="name">Math Symbols</span><span class="count">106 symbols</span></a>
+        <a class="category-card" href="/currency-symbols"><span class="emoji">$</span><span class="name">Currency Symbols</span><span class="count">43 symbols</span></a>
+        <a class="category-card" href="/music-symbols"><span class="emoji">♪</span><span class="name">Music Symbols</span><span class="count">39 symbols</span></a>
+        <a class="category-card" href="/flower-symbols"><span class="emoji">❀</span><span class="name">Flower Symbols</span><span class="count">40 symbols</span></a>
+        <a class="category-card" href="/line-symbols"><span class="emoji">─</span><span class="name">Lines &amp; Boxes</span><span class="count">56 symbols</span></a>
+        <a class="category-card" href="/shape-symbols"><span class="emoji">◆</span><span class="name">Shape Symbols</span><span class="count">64 symbols</span></a>
+        <a class="category-card" href="/weather-symbols"><span class="emoji">☀</span><span class="name">Weather Symbols</span><span class="count">47 symbols</span></a>
+        <a class="category-card" href="/zodiac-symbols"><span class="emoji">♈</span><span class="name">Zodiac Symbols</span><span class="count">31 symbols</span></a>
+        <a class="category-card" href="/punctuation-symbols"><span class="emoji">❝</span><span class="name">Punctuation</span><span class="count">50 symbols</span></a>
+        <a class="category-card" href="/aesthetic-symbols"><span class="emoji">✦</span><span class="name">Aesthetic Symbols</span><span class="count">73 symbols</span></a>
+      </div>
     </div>
   </section>
 
@@ -713,6 +778,21 @@
 
 <footer>
   <strong>cool-symbols.net</strong> · free forever · made with ✦ and Unicode
+  <div class="footer-categories">
+    <a href="/heart-symbols">Hearts</a> ·
+    <a href="/star-symbols">Stars</a> ·
+    <a href="/arrow-symbols">Arrows</a> ·
+    <a href="/math-symbols">Math</a> ·
+    <a href="/currency-symbols">Currency</a> ·
+    <a href="/music-symbols">Music</a> ·
+    <a href="/flower-symbols">Flowers</a> ·
+    <a href="/line-symbols">Lines</a> ·
+    <a href="/shape-symbols">Shapes</a> ·
+    <a href="/weather-symbols">Weather</a> ·
+    <a href="/zodiac-symbols">Zodiac</a> ·
+    <a href="/punctuation-symbols">Punctuation</a> ·
+    <a href="/aesthetic-symbols">Aesthetic</a>
+  </div>
   <div class="footer-links">
     <a href="/about">About</a> ·
     <a href="/contact">Contact</a> ·

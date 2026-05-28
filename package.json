@@ -1,0 +1,9 @@
+{
+  "name": "cool-symbols",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI-powered symbol art, fancy text generator, and Unicode library at cool-symbols.net",
+  "engines": {
+    "node": ">=18"
+  }
+}

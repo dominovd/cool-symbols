@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cool Symbols — AI Symbol Art, Fancy Text & Copy-Paste Library</title>
+<meta name="description" content="Free AI-powered symbol art generator, fancy text fonts, and copy-paste Unicode library. Generate ASCII art, aesthetic usernames, decorated bios, and pixel art — click anything to copy." />
+<style>
+  :root {
+    --bg: #0f0f17;
+    --bg-2: #161623;
+    --panel: #1c1c2e;
+    --panel-2: #232338;
+    --border: #2a2a40;
+    --text: #e8e8f0;
+    --muted: #8a8aa3;
+    --accent: #7c5cff;
+    --accent-2: #ff5ca8;
+    --ok: #4ade80;
+    --err: #f87171;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: radial-gradient(1200px 600px at 10% -10%, rgba(124,92,255,0.18), transparent 60%),
+                radial-gradient(900px 500px at 90% 10%, rgba(255,92,168,0.15), transparent 60%),
+                var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+  header {
+    text-align: center;
+    padding: 60px 20px 30px;
+  }
+  header h1 {
+    font-size: clamp(28px, 4vw, 44px);
+    margin: 0 0 10px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: -0.02em;
+  }
+  header p { color: var(--muted); margin: 0; font-size: 16px; }
+  main { max-width: 1100px; margin: 0 auto; padding: 0 20px 80px; }
+  section { margin-top: 40px; }
+  section h2 {
+    font-size: 22px;
+    margin: 0 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  section h2 .pill {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    background: var(--panel);
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  section h2 .pill.glow {
+    background: linear-gradient(90deg, rgba(124,92,255,0.25), rgba(255,92,168,0.25));
+    color: var(--text);
+    border-color: rgba(124,92,255,0.5);
+  }
+  .panel {
+    background: linear-gradient(180deg, var(--panel), var(--panel-2));
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+  /* ===== AI TOOLS ===== */
+  .ai-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .ai-tab {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .ai-tab:hover { color: var(--text); border-color: var(--accent); }
+  .ai-tab.active {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: white;
+    border-color: transparent;
+  }
+  .ai-input-area {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .ai-prompt {
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0 0 4px;
+  }
+  .ai-field {
+    width: 100%;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 14px 16px;
+    border-radius: 10px;
+    font-size: 15px;
+    outline: none;
+    font-family: inherit;
+    resize: vertical;
+    transition: border-color 0.15s;
+  }
+  .ai-field:focus { border-color: var(--accent); }
+  .ai-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  .ai-btn {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.08s, opacity 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 20px rgba(124, 92, 255, 0.25);
+  }
+  .ai-btn:hover:not(:disabled) { box-shadow: 0 6px 28px rgba(124, 92, 255, 0.4); }
+  .ai-btn:active:not(:disabled) { transform: scale(0.97); }
+  .ai-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .ai-meta { font-size: 12px; color: var(--muted); margin-left: auto; }
+  .ai-meta b { color: var(--text); }
+  .ai-result {
+    margin-top: 16px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    min-height: 60px;
+    position: relative;
+    display: none;
+  }
+  .ai-result.show { display: block; }
+  .ai-result pre {
+    margin: 0;
+    white-space: pre;
+    overflow-x: auto;
+    font-family: "SF Mono", Menlo, Monaco, Consolas, monospace;
+    font-size: 13px;
+    line-height: 1.3;
+    color: var(--text);
+  }
+  .ai-result .result-text {
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-size: 16px;
+  }
+  .ai-result .copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .ai-result .copy-btn:hover { color: var(--text); border-color: var(--accent); }
+  .ai-loading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .spinner {
+    width: 16px; height: 16px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .ai-error { color: var(--err); font-size: 14px; }
+  /* ===== FANCY TEXT GENERATOR ===== */
+  .gen-input {
+    width: 100%;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 14px 16px;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .gen-input:focus { border-color: var(--accent); }
+  .styles {
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .style-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: transform 0.08s, border-color 0.15s, background 0.15s;
+  }
+  .style-row:hover { border-color: var(--accent); background: #1a1a2e; }
+  .style-row:active { transform: scale(0.995); }
+  .style-row .label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    flex-shrink: 0;
+    width: 130px;
+  }
+  .style-row .output {
+    font-size: 18px;
+    flex: 1;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+  .style-row .copy-hint {
+    font-size: 11px;
+    color: var(--muted);
+    opacity: 0;
+    transition: opacity 0.15s;
+    flex-shrink: 0;
+  }
+  .style-row:hover .copy-hint { opacity: 1; }
+  /* ===== SYMBOL LIBRARY ===== */
+  .cat-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .cat-tab {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .cat-tab:hover { color: var(--text); }
+  .cat-tab.active {
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    color: white;
+    border-color: transparent;
+  }
+  .symbols-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 8px;
+  }
+  .sym {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 22px;
+    cursor: pointer;
+    user-select: all;
+    transition: all 0.1s;
+  }
+  .sym:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    background: #1a1a2e;
+  }
+  .sym:active { transform: scale(0.94); }
+  /* ===== TOAST ===== */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--ok);
+    color: #0a0a14;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 30px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s;
+    box-shadow: 0 8px 30px rgba(74, 222, 128, 0.4);
+    z-index: 100;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    padding: 40px 20px 30px;
+    border-top: 1px solid var(--border);
+    margin-top: 60px;
+  }
+  footer strong { color: var(--text); }
+  @media (max-width: 600px) {
+    .style-row .label { width: 90px; font-size: 10px; }
+    .style-row .output { font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>✨ Cool Symbols</h1>
+  <p>AI symbol art · fancy text · copy-paste library — all free, all click-to-copy</p>
+</header>
+
+<main>
+
+  <!-- ===== AI TOOLS ===== -->
+  <section>
+    <h2>AI Tools <span class="pill glow">powered by Claude</span></h2>
+    <div class="panel">
+      <div id="aiTabs" class="ai-tabs"></div>
+
+      <div id="aiInputArea" class="ai-input-area">
+        <!-- dynamic input fields injected here -->
+      </div>
+
+      <div class="ai-controls">
+        <button id="aiGenerate" class="ai-btn">Generate ✨</button>
+        <div class="ai-meta"><b id="aiRemaining">20</b>/20 free generations today</div>
+      </div>
+
+      <div id="aiResult" class="ai-result">
+        <button class="copy-btn" id="aiCopyBtn">Copy</button>
+        <div id="aiResultContent"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FANCY TEXT GENERATOR ===== -->
+  <section>
+    <h2>Fancy Text Generator <span class="pill">Type → copy</span></h2>
+    <div class="panel">
+      <input id="genInput" class="gen-input" type="text" placeholder="Type your text here..." value="Cool Symbols" />
+      <div id="styles" class="styles"></div>
+    </div>
+  </section>
+
+  <!-- ===== SYMBOL LIBRARY ===== -->
+  <section>
+    <h2>Symbol Library <span class="pill">Click to copy</span></h2>
+    <div class="panel">
+      <div id="catTabs" class="cat-tabs"></div>
+      <div id="symbolsGrid" class="symbols-grid"></div>
+    </div>
+  </section>
+
+  <!-- ===== AESTHETIC DIVIDERS ===== -->
+  <section>
+    <h2>Aesthetic Dividers <span class="pill">For bios & profiles</span></h2>
+    <div class="panel">
+      <div id="dividers" class="styles"></div>
+    </div>
+  </section>
+
+</main>
+
+<div id="toast" class="toast">Copied!</div>
+
+<footer>
+  <strong>cool-symbols.net</strong> · free forever · no tracking
+</footer>
+
+<script>
+// ============= AI TOOLS =============
+const AI_MODES = [
+  {
+    id: 'ascii',
+    label: '🖼 ASCII Art',
+    prompt: 'What to draw?',
+    fields: [{ name: 'subject', placeholder: 'a bicycle, a cat, a sword...', type: 'input' }],
+    monospace: true,
+  },
+  {
+    id: 'names',
+    label: '🎮 Name Generator',
+    prompt: 'Theme + optional base name',
+    fields: [
+      { name: 'theme', placeholder: 'dark, kawaii, gaming, royal, neon...', type: 'input' },
+      { name: 'base', placeholder: 'Optional: base nickname to stylize', type: 'input' },
+    ],
+    monospace: false,
+  },
+  {
+    id: 'bio',
+    label: '📝 Bio Builder',
+    prompt: 'Describe yourself / your account',
+    fields: [{ name: 'about', placeholder: 'travel blogger, loves coffee, based in Tokyo...', type: 'textarea' }],
+    monospace: false,
+  },
+  {
+    id: 'logo',
+    label: '🔠 Block Logo',
+    prompt: 'Short word for the logo',
+    fields: [{ name: 'word', placeholder: 'NEON, COOL, PVP...', type: 'input' }],
+    monospace: true,
+  },
+  {
+    id: 'stylize',
+    label: '✨ Stylize Text',
+    prompt: 'Text to stylize with themed symbols',
+    fields: [
+      { name: 'text', placeholder: 'I love coffee', type: 'input' },
+      { name: 'mood', placeholder: 'cute, dark, royal, retro, witchy...', type: 'input' },
+    ],
+    monospace: false,
+  },
+  {
+    id: 'pixel',
+    label: '🟦 Pixel Art',
+    prompt: 'Object to render in pixel art',
+    fields: [{ name: 'subject', placeholder: 'heart, star, mushroom, sword...', type: 'input' }],
+    monospace: true,
+  },
+];
+
+let activeMode = AI_MODES[0];
+
+const aiTabs = document.getElementById('aiTabs');
+const aiInputArea = document.getElementById('aiInputArea');
+const aiBtn = document.getElementById('aiGenerate');
+const aiResult = document.getElementById('aiResult');
+const aiResultContent = document.getElementById('aiResultContent');
+const aiCopyBtn = document.getElementById('aiCopyBtn');
+const aiRemaining = document.getElementById('aiRemaining');
+
+function renderAiTabs() {
+  aiTabs.innerHTML = '';
+  AI_MODES.forEach(m => {
+    const t = document.createElement('div');
+    t.className = 'ai-tab' + (m.id === activeMode.id ? ' active' : '');
+    t.textContent = m.label;
+    t.addEventListener('click', () => {
+      activeMode = m;
+      renderAiTabs();
+      renderAiFields();
+      aiResult.classList.remove('show');
+    });
+    aiTabs.appendChild(t);
+  });
+}
+
+function renderAiFields() {
+  aiInputArea.innerHTML = '';
+  const p = document.createElement('div');
+  p.className = 'ai-prompt';
+  p.textContent = activeMode.prompt;
+  aiInputArea.appendChild(p);
+  activeMode.fields.forEach(f => {
+    const el = document.createElement(f.type === 'textarea' ? 'textarea' : 'input');
+    el.className = 'ai-field';
+    el.name = f.name;
+    el.placeholder = f.placeholder;
+    if (f.type === 'textarea') el.rows = 2;
+    if (f.type === 'input') el.type = 'text';
+    aiInputArea.appendChild(el);
+  });
+}
+
+function collectInputs() {
+  const inputs = {};
+  activeMode.fields.forEach(f => {
+    const el = aiInputArea.querySelector(`[name="${f.name}"]`);
+    inputs[f.name] = (el?.value || '').trim();
+  });
+  return inputs;
+}
+
+async function generate() {
+  const inputs = collectInputs();
+  const primary = Object.values(inputs).find(v => v);
+  if (!primary) { showError('Type something first.'); return; }
+
+  aiBtn.disabled = true;
+  aiResult.classList.add('show');
+  aiResultContent.innerHTML = '<div class="ai-loading"><div class="spinner"></div>Generating…</div>';
+
+  try {
+    const res = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ mode: activeMode.id, inputs }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      showError(data.error || 'Something went wrong.');
+      if (typeof data.remaining === 'number') aiRemaining.textContent = data.remaining;
+      return;
+    }
+    showResult(data.text, activeMode.monospace);
+    if (typeof data.remaining === 'number') aiRemaining.textContent = data.remaining;
+  } catch (e) {
+    showError('Network error. Try again.');
+  } finally {
+    aiBtn.disabled = false;
+  }
+}
+
+function showResult(text, mono) {
+  if (mono) {
+    aiResultContent.innerHTML = '<pre></pre>';
+    aiResultContent.querySelector('pre').textContent = text;
+  } else {
+    aiResultContent.innerHTML = '<div class="result-text"></div>';
+    aiResultContent.querySelector('.result-text').textContent = text;
+  }
+  aiCopyBtn.style.display = 'block';
+  aiCopyBtn._text = text;
+}
+
+function showError(msg) {
+  aiResultContent.innerHTML = `<div class="ai-error">${msg}</div>`;
+  aiCopyBtn.style.display = 'none';
+}
+
+aiBtn.addEventListener('click', generate);
+aiCopyBtn.addEventListener('click', () => copy(aiCopyBtn._text || ''));
+
+renderAiTabs();
+renderAiFields();
+
+// ============= FANCY TEXT TRANSFORMS =============
+const A = 'abcdefghijklmnopqrstuvwxyz';
+const A_UP = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const D = '0123456789';
+
+function mapChars(text, mapLower, mapUpper, mapDigit) {
+  return [...text].map(ch => {
+    const li = A.indexOf(ch);
+    if (li !== -1 && mapLower) return mapLower[li] || ch;
+    const ui = A_UP.indexOf(ch);
+    if (ui !== -1 && mapUpper) return mapUpper[ui] || ch;
+    const di = D.indexOf(ch);
+    if (di !== -1 && mapDigit) return mapDigit[di] || ch;
+    return ch;
+  }).join('');
+}
+
+const STYLES = [
+  { name: 'Bold',         fn: t => mapChars(t,
+      [...'𝐚𝐛𝐜𝐝𝐞𝐟𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫𝐬𝐭𝐮𝐯𝐰𝐱𝐲𝐳'],
+      [...'𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏𝐐𝐑𝐒𝐓𝐔𝐕𝐖𝐗𝐘𝐙'],
+      [...'𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗']) },
+  { name: 'Italic',       fn: t => mapChars(t,
+      [...'𝑎𝑏𝑐𝑑𝑒𝑓𝑔ℎ𝑖𝑗𝑘𝑙𝑚𝑛𝑜𝑝𝑞𝑟𝑠𝑡𝑢𝑣𝑤𝑥𝑦𝑧'],
+      [...'𝐴𝐵𝐶𝐷𝐸𝐹𝐺𝐻𝐼𝐽𝐾𝐿𝑀𝑁𝑂𝑃𝑄𝑅𝑆𝑇𝑈𝑉𝑊𝑋𝑌𝑍']) },
+  { name: 'Bold Italic',  fn: t => mapChars(t,
+      [...'𝒂𝒃𝒄𝒅𝒆𝒇𝒈𝒉𝒊𝒋𝒌𝒍𝒎𝒏𝒐𝒑𝒒𝒓𝒔𝒕𝒖𝒗𝒘𝒙𝒚𝒛'],
+      [...'𝑨𝑩𝑪𝑫𝑬𝑭𝑮𝑯𝑰𝑱𝑲𝑳𝑴𝑵𝑶𝑷𝑸𝑹𝑺𝑻𝑼𝑽𝑾𝑿𝒀𝒁']) },
+  { name: 'Script',       fn: t => mapChars(t,
+      [...'𝒶𝒷𝒸𝒹𝑒𝒻𝑔𝒽𝒾𝒿𝓀𝓁𝓂𝓃𝑜𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏'],
+      [...'𝒜ℬ𝒞𝒟ℰℱ𝒢ℋℐ𝒥𝒦ℒℳ𝒩𝒪𝒫𝒬ℛ𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵']) },
+  { name: 'Bold Script',  fn: t => mapChars(t,
+      [...'𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃'],
+      [...'𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩']) },
+  { name: 'Fraktur',      fn: t => mapChars(t,
+      [...'𝔞𝔟𝔠𝔡𝔢𝔣𝔤𝔥𝔦𝔧𝔨𝔩𝔪𝔫𝔬𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷'],
+      [...'𝔄𝔅ℭ𝔇𝔈𝔉𝔊ℌℑ𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔ℜ𝔖𝔗𝔘𝔙𝔚𝔛𝔜ℨ']) },
+  { name: 'Double-struck',fn: t => mapChars(t,
+      [...'𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫'],
+      [...'𝔸𝔹ℂ𝔻𝔼𝔽𝔾ℍ𝕀𝕁𝕂𝕃𝕄ℕ𝕆ℙℚℝ𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ'],
+      [...'𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡']) },
+  { name: 'Monospace',    fn: t => mapChars(t,
+      [...'𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣'],
+      [...'𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉'],
+      [...'𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿']) },
+  { name: 'Sans-serif',   fn: t => mapChars(t,
+      [...'𝖺𝖻𝖼𝖽𝖾𝖿𝗀𝗁𝗂𝗃𝗄𝗅𝗆𝗇𝗈𝗉𝗊𝗋𝗌𝗍𝗎𝗏𝗐𝗑𝗒𝗓'],
+      [...'𝖠𝖡𝖢𝖣𝖤𝖥𝖦𝖧𝖨𝖩𝖪𝖫𝖬𝖭𝖮𝖯𝖰𝖱𝖲𝖳𝖴𝖵𝖶𝖷𝖸𝖹'],
+      [...'𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫']) },
+  { name: 'Bubble',       fn: t => mapChars(t,
+      [...'ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ'],
+      [...'ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ'],
+      [...'⓪①②③④⑤⑥⑦⑧⑨']) },
+  { name: 'Squared',      fn: t => mapChars(t,
+      [...'🄰🄱🄲🄳🄴🄵🄶🄷🄸🄹🄺🄻🄼🄽🄾🄿🅀🅁🅂🅃🅄🅅🅆🅇🅈🅉'],
+      [...'🄰🄱🄲🄳🄴🄵🄶🄷🄸🄹🄺🄻🄼🄽🄾🄿🅀🅁🅂🅃🅄🅅🅆🅇🅈🅉']) },
+  { name: 'Fullwidth',    fn: t => mapChars(t,
+      [...'ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ'],
+      [...'ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ'],
+      [...'０１２３４５６７８９']).replace(/ /g, '　') },
+  { name: 'Small Caps',   fn: t => mapChars(t,
+      [...'ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ'],
+      [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ']) },
+  { name: 'Strikethrough',fn: t => [...t].map(c => c + '̶').join('') },
+  { name: 'Underline',    fn: t => [...t].map(c => c + '̲').join('') },
+  { name: 'Spaced Out',   fn: t => [...t.toUpperCase()].join(' ') },
+  { name: 'Aesthetic ☆',  fn: t => '☆ ' + [...t.toUpperCase()].join(' ') + ' ☆' },
+  { name: 'Stars ✧',      fn: t => '✧･ﾟ: *✧･ﾟ:* ' + t + ' *:･ﾟ✧*:･ﾟ✧' },
+  { name: 'Hearts ♡',     fn: t => '♡ ' + t + ' ♡' },
+  { name: 'Sparkles ✦',   fn: t => '⋆˚࿔ ' + t + ' 𝜗𝜚˚⋆' },
+];
+
+// ============= SYMBOL LIBRARY =============
+const CATEGORIES = {
+  '♥ Hearts': '♥ ♡ ❤ ❥ ❦ ❧ ღ 💕 💖 💗 💘 💝 💞 💟 💔 ❣ 🤍 🖤 💙 💚 💛 🧡 💜 🤎 ❤️‍🔥 ❤️‍🩹'.split(' '),
+  '★ Stars':  '★ ☆ ✦ ✧ ✩ ✪ ✫ ✬ ✭ ✮ ✯ ✰ ⋆ ✶ ✷ ✸ ✹ ✺ ❇ ❈ ❉ ❊ ❋ ✨ ⭐ 🌟 💫 🌠 ⚝ ⍟'.split(' '),
+  '→ Arrows': '← → ↑ ↓ ↔ ↕ ↖ ↗ ↘ ↙ ⇐ ⇒ ⇑ ⇓ ⇔ ⇕ ↞ ↠ ↟ ↡ ➜ ➝ ➞ ➟ ➠ ➢ ➣ ➤ ➥ ➦ ➧ ➨'.split(' '),
+  '∞ Math':   '∞ ≠ ≈ ≤ ≥ ± × ÷ √ ∑ ∏ ∫ ∂ ∆ ∇ π Σ Ω ∀ ∃ ∈ ∉ ⊂ ⊃ ∪ ∩ ⊕ ⊗ µ θ λ φ ψ α β γ δ'.split(' '),
+  '$ Currency':'$ € £ ¥ ₹ ₽ ₩ ₿ ¢ ₪ ₺ ₴ ₦ ₱ ₲ ₵ ₸ ₼ ƒ ¤'.split(' '),
+  '♪ Music':  '♩ ♪ ♫ ♬ ♭ ♮ ♯ 𝄞 𝄢 🎵 🎶 🎼 🎤 🎧 🎷 🎸 🎹 🎺 🎻 🪕 🥁'.split(' '),
+  '❀ Flowers':'❀ ✿ ❁ ❃ ❋ ❊ ✾ ✽ ✼ ❇ ✺ ✹ ✸ ❉ ❈ ☘ ✤ ✥ 🌸 🌺 🌻 🌷 🌹 🌼 💐 🪷 🌱'.split(' '),
+  '─ Lines':  '─ ━ │ ┃ ╌ ╍ ╎ ╏ ═ ║ ╔ ╗ ╚ ╝ ╠ ╣ ╦ ╩ ╬ ┌ ┐ └ ┘ ├ ┤ ┬ ┴ ┼ ╭ ╮ ╯ ╰'.split(' '),
+  '◆ Shapes': '◆ ◇ ◈ ◉ ○ ● ◐ ◑ ◒ ◓ ■ □ ▢ ▣ ▤ ▥ ▦ ▧ ▨ ▩ ▪ ▫ ▬ ▲ ▼ ◀ ▶ ◢ ◣ ◤ ◥'.split(' '),
+  '☀ Weather':'☀ ☁ ☂ ☃ ☄ ☇ ☈ ☉ ☼ ☽ ☾ ❄ ❅ ❆ ☔ ⛈ 🌤 🌥 🌦 🌧 🌨 🌩 🌪 🌫 🌬 🌈 ⚡'.split(' '),
+  '♈ Zodiac': '♈ ♉ ♊ ♋ ♌ ♍ ♎ ♏ ♐ ♑ ♒ ♓ ⛎ ☉ ☽ ☿ ♀ ♁ ♂ ♃ ♄ ♅ ♆ ♇'.split(' '),
+  '" Punctuation':'« » ‹ › „ " " \' \' … — – ¡ ¿ § ¶ † ‡ • ‰ ‱ ′ ″ ‴ ※ ⁂ ⁕ ❝ ❞'.split(' '),
+  '☯ Symbols':'☯ ☮ ✝ ☦ ☪ ☸ ☢ ☣ ⚛ ♻ ⚜ ⚓ ⚔ ⚖ ⚙ ⚡ ☘ ✌ ✍ ☎ ✉ ✏ ✒ ✂ ⌛ ⌚ ☠ ☢'.split(' '),
+};
+
+const DIVIDERS = [
+  { name: 'Sparkle line',  text: '⋆｡˚⋆୨ ୧⋆˚｡⋆' },
+  { name: 'Cloud trail',   text: '‧₊˚ ☁️⋅♡𓂃 ࣪˖ ִֶָ☾.' },
+  { name: 'Star path',     text: '꒰⑅ᵕ̈༚˚ ⊹꒱' },
+  { name: 'Heart row',     text: '♡⋆｡˚꩜｡˚⋆♡' },
+  { name: 'Bracket bio',   text: '⌗ ⌒⌒⌒  ╰┈➤' },
+  { name: 'Tilde wave',    text: '〜〜〜♡〜〜〜' },
+  { name: 'Dot leader',    text: '· · ─ · ✦ · ─ · ·' },
+  { name: 'Arrow header',  text: '╭─ ⋆⋅☆⋅⋆ ─╮' },
+  { name: 'Aesthetic box', text: '╭┄┄┄┄┄┄┄╮\n┊  ✿  ┊\n╰┄┄┄┄┄┄┄╯' },
+  { name: 'Triple star',   text: '✦ ✦ ✦' },
+  { name: 'Lotus break',   text: '𓆸 ⋆｡˚ 𓆸 ˚｡⋆ 𓆸' },
+  { name: 'Cute footer',   text: '⤿ ˚｡⋆୨୧˚ ⤾' },
+];
+
+const stylesEl = document.getElementById('styles');
+const dividersEl = document.getElementById('dividers');
+const catTabsEl = document.getElementById('catTabs');
+const gridEl = document.getElementById('symbolsGrid');
+const input = document.getElementById('genInput');
+const toast = document.getElementById('toast');
+
+function copy(text) {
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    toast.classList.add('show');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => toast.classList.remove('show'), 1200);
+  });
+}
+
+function renderStyles() {
+  const t = input.value || 'Cool Symbols';
+  stylesEl.innerHTML = '';
+  STYLES.forEach(s => {
+    const row = document.createElement('div');
+    row.className = 'style-row';
+    const out = s.fn(t);
+    row.innerHTML = `<div class="label">${s.name}</div><div class="output"></div><div class="copy-hint">click to copy</div>`;
+    row.querySelector('.output').textContent = out;
+    row.addEventListener('click', () => copy(out));
+    stylesEl.appendChild(row);
+  });
+}
+
+function renderDividers() {
+  dividersEl.innerHTML = '';
+  DIVIDERS.forEach(d => {
+    const row = document.createElement('div');
+    row.className = 'style-row';
+    row.innerHTML = `<div class="label">${d.name}</div><div class="output" style="white-space:pre-line"></div><div class="copy-hint">click to copy</div>`;
+    row.querySelector('.output').textContent = d.text;
+    row.addEventListener('click', () => copy(d.text));
+    dividersEl.appendChild(row);
+  });
+}
+
+function renderCategory(name) {
+  gridEl.innerHTML = '';
+  CATEGORIES[name].forEach(sym => {
+    const cell = document.createElement('div');
+    cell.className = 'sym';
+    cell.textContent = sym;
+    cell.addEventListener('click', () => copy(sym));
+    gridEl.appendChild(cell);
+  });
+}
+
+function renderCategories() {
+  catTabsEl.innerHTML = '';
+  Object.keys(CATEGORIES).forEach((name, i) => {
+    const tab = document.createElement('div');
+    tab.className = 'cat-tab' + (i === 0 ? ' active' : '');
+    tab.textContent = name;
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      renderCategory(name);
+    });
+    catTabsEl.appendChild(tab);
+  });
+  renderCategory(Object.keys(CATEGORIES)[0]);
+}
+
+input.addEventListener('input', renderStyles);
+renderStyles();
+renderDividers();
+renderCategories();
+</script>
+</body>
+</html>

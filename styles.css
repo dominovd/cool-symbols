@@ -1,0 +1,166 @@
+/* Shared styles for static pages (About, Privacy, Terms, Contact).
+   The main app page (index.html) keeps its own inline styles. */
+
+:root {
+  --bg: #0f0f17;
+  --bg-2: #161623;
+  --panel: #1c1c2e;
+  --panel-2: #232338;
+  --border: #2a2a40;
+  --text: #e8e8f0;
+  --muted: #8a8aa3;
+  --accent: #7c5cff;
+  --accent-2: #ff5ca8;
+  --link: #a78bfa;
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(124,92,255,0.18), transparent 60%),
+    radial-gradient(900px 500px at 90% 10%, rgba(255,92,168,0.15), transparent 60%),
+    var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.site-header {
+  padding: 30px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: center;
+}
+.site-header .nav {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.site-header .brand {
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.site-header .nav-links {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.site-header .nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.15s;
+}
+.site-header .nav-links a:hover { color: var(--text); }
+
+.page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 50px 20px 80px;
+}
+
+.page h1 {
+  font-size: clamp(28px, 4vw, 40px);
+  margin: 0 0 12px;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.page .lead {
+  font-size: 17px;
+  color: var(--muted);
+  margin: 0 0 30px;
+}
+
+.page h2 {
+  font-size: 22px;
+  margin: 36px 0 10px;
+  color: var(--text);
+}
+
+.page h3 {
+  font-size: 17px;
+  margin: 24px 0 8px;
+  color: var(--text);
+}
+
+.page p, .page li { font-size: 16px; color: #c8c8d8; }
+.page strong { color: var(--text); }
+
+.page ul, .page ol { padding-left: 22px; }
+.page li { margin-bottom: 6px; }
+
+.page a { color: var(--link); }
+
+.page .last-updated {
+  font-size: 13px;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: -16px;
+  margin-bottom: 24px;
+}
+
+.callout {
+  background: linear-gradient(180deg, var(--panel), var(--panel-2));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  margin: 24px 0;
+}
+
+.contact-card {
+  background: linear-gradient(180deg, var(--panel), var(--panel-2));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  margin-top: 24px;
+  text-align: center;
+}
+.contact-card a.email {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  transition: transform 0.1s, box-shadow 0.15s;
+}
+.contact-card a.email:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(124, 92, 255, 0.35);
+}
+
+.site-footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  padding: 30px 20px;
+  border-top: 1px solid var(--border);
+}
+.site-footer a {
+  color: var(--muted);
+  text-decoration: none;
+  margin: 0 8px;
+  transition: color 0.15s;
+}
+.site-footer a:hover { color: var(--text); }
+.site-footer .brand-mark { color: var(--text); font-weight: 600; }

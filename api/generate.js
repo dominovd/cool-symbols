@@ -3,9 +3,10 @@
 // Required environment variables:
 //   ANTHROPIC_API_KEY     — your Anthropic API key (sk-ant-...)
 //
-// Strongly recommended (cost protection):
-//   KV_REST_API_URL       — auto-injected when you link a Vercel KV store
-//   KV_REST_API_TOKEN     — auto-injected when you link a Vercel KV store
+// Strongly recommended (cost protection). Either set works — code accepts both naming
+// conventions so it's compatible with legacy Vercel KV and the new Upstash Marketplace integration:
+//   KV_REST_API_URL  / KV_REST_API_TOKEN          (legacy Vercel KV)
+//   UPSTASH_REDIS_REST_URL / UPSTASH_REDIS_REST_TOKEN  (Upstash Marketplace integration)
 //
 // Optional:
 //   DAILY_BUDGET_USD      — global daily AI spend cap in USD (default: 3)
@@ -24,8 +25,9 @@ const BUDGET_MILLICENTS = Math.floor(BUDGET_USD * 100 * 1000);
 const INPUT_MILLICENTS_PER_TOKEN = 0.08;
 const OUTPUT_MILLICENTS_PER_TOKEN = 0.4;
 
-const KV_URL = process.env.KV_REST_API_URL;
-const KV_TOKEN = process.env.KV_REST_API_TOKEN;
+// Accept both naming conventions: legacy Vercel KV and Upstash Marketplace integration.
+const KV_URL = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
+const KV_TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
 const KV_ENABLED = !!(KV_URL && KV_TOKEN);
 
 if (!KV_ENABLED) {

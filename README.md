@@ -25,15 +25,21 @@ git push
 
 [vercel.com](https://vercel.com) → **Add New → Project** → выбери репо → Import. Build settings оставляешь как есть — Vercel автоматически распознает статический сайт с serverless-функциями.
 
-### 3. Подключить Vercel KV (КРИТИЧЕСКИ ВАЖНО)
+### 3. Подключить Redis (КРИТИЧЕСКИ ВАЖНО)
 
-KV нужен для cost protection — без него любой школьник с прокси-листом может выжечь твой Anthropic-баланс за ночь.
+Нужен для cost protection — без него любой школьник с прокси-листом может выжечь твой Anthropic-баланс за ночь.
 
-1. В Vercel-проекте → **Storage** → **Create Database** → выбираешь **KV (Redis)** → имя `cool-symbols-kv` → регион ближайший к большинству юзеров → Create.
-2. Vercel автоматически добавит env-переменные `KV_REST_API_URL`, `KV_REST_API_TOKEN`, `KV_URL` в проект — ничего вручную не делать.
-3. Redeploy проекта (или сам сделает при следующем push). В Function Logs ты должен увидеть «KV configured» вместо warning'а.
+В 2024-2025 Vercel свернул свой собственный «Vercel KV» и заменил его **Marketplace-интеграцией с Upstash Redis** (это та же база, что была под капотом у KV). Шаги:
 
-**Free tier Vercel KV** — 30K команд/день, 256 MB. Нашему сайту хватит на тысячи юзеров.
+1. В Vercel-проекте → **Storage** → **Create Database** (не Connect — там только существующие БД команды).
+2. На экране выбора провайдера ищи **Upstash for Redis** (или просто **Redis** — это раздел Native Integrations / Marketplace).
+3. Имя `cool-symbols-kv`, регион ближайший к большинству юзеров (для глобального трафика — `us-east-1` или `eu-west-1`), Free plan, Create.
+4. Когда Vercel спросит «Connect to project» — выбери `cool-symbols`. Env-переменные (`UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`) добавятся в проект автоматически.
+5. Redeploy. В Function Logs warning'а про «KV not configured» быть не должно.
+
+**Free tier Upstash** — 10K команд/день, 256 MB. На сайт с тысячами юзеров хватит — каждый AI-запрос делает 2-3 KV-команды.
+
+Код принимает обе схемы env-переменных (`KV_REST_API_*` и `UPSTASH_REDIS_REST_*`) — так что если у тебя старый аккаунт с legacy Vercel KV, тоже сработает.
 
 ### 4. Добавить ANTHROPIC_API_KEY
 

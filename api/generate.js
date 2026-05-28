@@ -1,17 +1,76 @@
-// Vercel Serverless Function — Anthropic Claude proxy with IP-based rate limiting.
-// Required environment variable: ANTHROPIC_API_KEY (set in Vercel → Project → Settings → Environment Variables)
+// Vercel Serverless Function — Anthropic Claude proxy with KV-backed cost protection.
+//
+// Required environment variables:
+//   ANTHROPIC_API_KEY     — your Anthropic API key (sk-ant-...)
+//
+// Strongly recommended (cost protection):
+//   KV_REST_API_URL       — auto-injected when you link a Vercel KV store
+//   KV_REST_API_TOKEN     — auto-injected when you link a Vercel KV store
+//
+// Optional:
+//   DAILY_BUDGET_USD      — global daily AI spend cap in USD (default: 3)
 
 const MODEL = 'claude-haiku-4-5-20251001';
-const DAILY_LIMIT = 20;
+const DAILY_LIMIT_PER_IP = 20;
 const MAX_INPUT_LENGTH = 300;
 
-// In-memory rate limit store. Survives between invocations on the same warm instance.
-// Not perfectly accurate (resets on cold start / per-region), but good enough for a free tier.
-const limits = new Map();
+// $3 default budget cap. Stored as milli-cents (1/1000 of a cent) for integer math.
+const BUDGET_USD = parseFloat(process.env.DAILY_BUDGET_USD || '3');
+const BUDGET_MILLICENTS = Math.floor(BUDGET_USD * 100 * 1000);
 
-function getTodayKey() {
-  return new Date().toISOString().slice(0, 10);
+// Claude Haiku 4.5 pricing in milli-cents per token.
+// $0.80/MTok input  → 80 cents / 1M tokens → 0.08 milli-cents/token
+// $4.00/MTok output → 400 cents / 1M tokens → 0.4 milli-cents/token
+const INPUT_MILLICENTS_PER_TOKEN = 0.08;
+const OUTPUT_MILLICENTS_PER_TOKEN = 0.4;
+
+const KV_URL = process.env.KV_REST_API_URL;
+const KV_TOKEN = process.env.KV_REST_API_TOKEN;
+const KV_ENABLED = !!(KV_URL && KV_TOKEN);
+
+if (!KV_ENABLED) {
+  console.warn(
+    '[generate] KV not configured. Falling back to in-memory rate limit. ' +
+    'This is NOT safe for production — connect a Vercel KV store before going live.'
+  );
 }
+
+// In-memory fallback (local dev only).
+const memoryStore = new Map();
+const TTL_SECONDS = 86400 * 2; // 2 days
+
+async function kvCmd(path) {
+  const r = await fetch(`${KV_URL}/${path}`, {
+    headers: { Authorization: `Bearer ${KV_TOKEN}` },
+    cache: 'no-store',
+  });
+  if (!r.ok) throw new Error(`KV HTTP ${r.status}`);
+  const data = await r.json();
+  return data.result;
+}
+
+async function getCounter(key) {
+  if (!KV_ENABLED) return memoryStore.get(key) || 0;
+  const v = await kvCmd(`get/${encodeURIComponent(key)}`);
+  return v == null ? 0 : parseInt(v, 10) || 0;
+}
+
+async function incrBy(key, amount, ttlSeconds) {
+  if (!KV_ENABLED) {
+    const v = (memoryStore.get(key) || 0) + amount;
+    memoryStore.set(key, v);
+    return v;
+  }
+  const newVal = await kvCmd(`incrby/${encodeURIComponent(key)}/${amount}`);
+  const n = parseInt(newVal, 10);
+  if (n === amount && ttlSeconds) {
+    // First write — set TTL so the key auto-expires
+    await kvCmd(`expire/${encodeURIComponent(key)}/${ttlSeconds}`).catch(() => {});
+  }
+  return n;
+}
+
+const todayUTC = () => new Date().toISOString().slice(0, 10);
 
 function getClientIp(req) {
   const xff = req.headers['x-forwarded-for'];
@@ -19,26 +78,11 @@ function getClientIp(req) {
   return req.headers['x-real-ip'] || req.socket?.remoteAddress || 'unknown';
 }
 
-function checkAndIncrement(ip) {
-  const today = getTodayKey();
-  const key = `${ip}|${today}`;
-  const count = limits.get(key) || 0;
-  if (count >= DAILY_LIMIT) {
-    return { allowed: false, remaining: 0 };
-  }
-  limits.set(key, count + 1);
-  // Cleanup old keys occasionally
-  if (limits.size > 5000) {
-    for (const k of limits.keys()) {
-      if (!k.endsWith(today)) limits.delete(k);
-    }
-  }
-  return { allowed: true, remaining: DAILY_LIMIT - (count + 1) };
-}
-
-function peekRemaining(ip) {
-  const count = limits.get(`${ip}|${getTodayKey()}`) || 0;
-  return Math.max(0, DAILY_LIMIT - count);
+function tokenCostMillicents(usage) {
+  return Math.ceil(
+    (usage.input_tokens || 0) * INPUT_MILLICENTS_PER_TOKEN +
+    (usage.output_tokens || 0) * OUTPUT_MILLICENTS_PER_TOKEN
+  );
 }
 
 // ============= MODE-SPECIFIC PROMPTS =============
@@ -117,7 +161,6 @@ Constraints:
 
 // ============= HANDLER =============
 module.exports = async (req, res) => {
-  // CORS (only same-origin needed in prod, but useful for local testing)
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'content-type');
@@ -138,7 +181,6 @@ module.exports = async (req, res) => {
   if (!config) return res.status(400).json({ error: 'Unknown mode' });
   if (!inputs || typeof inputs !== 'object') return res.status(400).json({ error: 'Missing inputs' });
 
-  // Validate input length to prevent abuse
   for (const v of Object.values(inputs)) {
     if (typeof v === 'string' && v.length > MAX_INPUT_LENGTH) {
       return res.status(400).json({ error: `Input too long (max ${MAX_INPUT_LENGTH} chars)` });
@@ -148,17 +190,49 @@ module.exports = async (req, res) => {
   const primaryInput = Object.values(inputs).find(v => v && typeof v === 'string' && v.trim());
   if (!primaryInput) return res.status(400).json({ error: 'Input is empty' });
 
-  // Rate limit
+  const today = todayUTC();
   const ip = getClientIp(req);
-  const limit = checkAndIncrement(ip);
-  if (!limit.allowed) {
+
+  // ===== 1. Global daily budget check (FAIL CLOSED — protects from runaway spend) =====
+  let spentMc;
+  try {
+    spentMc = await getCounter(`budget:${today}`);
+  } catch (err) {
+    console.error('[generate] Budget check failed:', err.message);
+    return res.status(503).json({
+      error: 'AI service temporarily unavailable. The fancy text and symbol library still work — try those.',
+      reason: 'budget_check_failed',
+    });
+  }
+  if (spentMc >= BUDGET_MILLICENTS) {
+    const spentUsd = (spentMc / 100000).toFixed(2);
+    return res.status(503).json({
+      error: `Daily AI quota reached ($${spentUsd} of $${BUDGET_USD.toFixed(2)} spent). Resets at midnight UTC. The fancy text generator and symbol library are unlimited and still work.`,
+      reason: 'budget_exhausted',
+    });
+  }
+
+  // ===== 2. Per-IP daily rate limit (atomic INCR — fail-open via in-memory fallback) =====
+  let ipCount;
+  try {
+    ipCount = await incrBy(`rl:${ip}:${today}`, 1, TTL_SECONDS);
+  } catch (err) {
+    console.warn('[generate] IP limit KV failed, using in-memory fallback:', err.message);
+    const k = `rl:${ip}:${today}`;
+    ipCount = (memoryStore.get(k) || 0) + 1;
+    memoryStore.set(k, ipCount);
+  }
+  if (ipCount > DAILY_LIMIT_PER_IP) {
     return res.status(429).json({
-      error: `Daily limit reached. You get ${DAILY_LIMIT} free AI generations per day. Try the symbol library below — it's unlimited.`,
+      error: `Daily limit reached. You get ${DAILY_LIMIT_PER_IP} free AI generations per day; resets at midnight UTC. The symbol library and fancy fonts have no limit — keep exploring those.`,
+      reason: 'ip_limit',
       remaining: 0,
     });
   }
 
-  // Call Anthropic
+  const remaining = DAILY_LIMIT_PER_IP - ipCount;
+
+  // ===== 3. Call Anthropic =====
   try {
     const aiRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -177,25 +251,33 @@ module.exports = async (req, res) => {
 
     if (!aiRes.ok) {
       const errText = await aiRes.text();
-      console.error('Anthropic API error:', aiRes.status, errText);
+      console.error('[generate] Anthropic API error:', aiRes.status, errText);
       return res.status(502).json({
         error: 'AI service unavailable. Try again in a moment.',
-        remaining: peekRemaining(ip),
+        remaining,
       });
     }
 
     const data = await aiRes.json();
     const text = (data.content?.[0]?.text || '').trim();
     if (!text) {
-      return res.status(502).json({ error: 'Empty response from AI', remaining: peekRemaining(ip) });
+      return res.status(502).json({ error: 'Empty response from AI', remaining });
     }
 
-    return res.status(200).json({ text, remaining: limit.remaining });
+    // ===== 4. Record actual spend (best-effort — don't fail the user request if KV write fails) =====
+    const cost = tokenCostMillicents(data.usage || {});
+    if (cost > 0) {
+      incrBy(`budget:${today}`, cost, TTL_SECONDS).catch(err =>
+        console.error('[generate] Spend record failed:', err.message)
+      );
+    }
+
+    return res.status(200).json({ text, remaining });
   } catch (err) {
-    console.error('Generate error:', err);
+    console.error('[generate] Generation error:', err);
     return res.status(500).json({
       error: 'Generation failed. Try again.',
-      remaining: peekRemaining(ip),
+      remaining,
     });
   }
 };

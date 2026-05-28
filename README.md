@@ -1,88 +1,127 @@
 # cool-symbols.net
 
-AI-powered symbol art generator, fancy text fonts, and copy-paste Unicode library.
+Free fancy text generator, copy-paste Unicode library, and AI-powered symbol art tools.
 
 ## Стек
 
-- Статический фронтенд (`index.html`) — один файл, без сборки
+- Статический фронтенд (`index.html` + 4 легальные страницы) — без сборки, чистый HTML/CSS/JS
 - Vercel Serverless Function (`api/generate.js`) — прокси к Anthropic Claude Haiku 4.5
-- IP-based rate limit: 20 AI-генераций в день на IP, in-memory (без БД)
+- **Vercel KV (Upstash Redis)** — персистентный rate-limit + глобальный daily budget cap
+- IP-based лимит: 20 AI-генераций в день; глобальный потолок $3/день на AI
+- Vercel Web Analytics + Google Search Console (meta-tag verification)
 
-## Деплой на Vercel
+## Деплой на Vercel — пошагово
 
-### Вариант 1: через GitHub (рекомендую)
-
-1. Залей папку в новый репозиторий на GitHub:
-   ```bash
-   cd /path/to/cool-symbols.net
-   git init
-   git add .
-   git commit -m "init"
-   git branch -M main
-   git remote add origin https://github.com/USERNAME/cool-symbols.git
-   git push -u origin main
-   ```
-
-2. Зайди на [vercel.com](https://vercel.com) → **Add New → Project** → выбери репо → Import.
-   Vercel сам определит, что это статический сайт с serverless-функциями. Никаких настроек сборки менять не надо.
-
-3. На экране настроек проекта перед деплоем разверни **Environment Variables** и добавь:
-   - Name: `ANTHROPIC_API_KEY`
-   - Value: `sk-ant-...` (твой ключ с [console.anthropic.com](https://console.anthropic.com))
-   - Environments: Production + Preview + Development (все три)
-
-4. Жми **Deploy**. Через ~30 секунд получишь URL `cool-symbols.vercel.app`.
-
-### Вариант 2: через Vercel CLI
+### 1. Залить код на GitHub
 
 ```bash
-npm i -g vercel
-cd /path/to/cool-symbols.net
-vercel              # первый раз — линкует папку с проектом
-vercel env add ANTHROPIC_API_KEY    # вставишь ключ, выберешь окружения
-vercel --prod       # боевой деплой
+cd ~/Documents/Claude/Projects/cool-symbols.net
+git add .
+git commit -m "init"
+git push
 ```
+
+### 2. Импортировать в Vercel
+
+[vercel.com](https://vercel.com) → **Add New → Project** → выбери репо → Import. Build settings оставляешь как есть — Vercel автоматически распознает статический сайт с serverless-функциями.
+
+### 3. Подключить Vercel KV (КРИТИЧЕСКИ ВАЖНО)
+
+KV нужен для cost protection — без него любой школьник с прокси-листом может выжечь твой Anthropic-баланс за ночь.
+
+1. В Vercel-проекте → **Storage** → **Create Database** → выбираешь **KV (Redis)** → имя `cool-symbols-kv` → регион ближайший к большинству юзеров → Create.
+2. Vercel автоматически добавит env-переменные `KV_REST_API_URL`, `KV_REST_API_TOKEN`, `KV_URL` в проект — ничего вручную не делать.
+3. Redeploy проекта (или сам сделает при следующем push). В Function Logs ты должен увидеть «KV configured» вместо warning'а.
+
+**Free tier Vercel KV** — 30K команд/день, 256 MB. Нашему сайту хватит на тысячи юзеров.
+
+### 4. Добавить ANTHROPIC_API_KEY
+
+Project → **Settings → Environment Variables** → Add:
+
+| Name | Value | Environments |
+|---|---|---|
+| `ANTHROPIC_API_KEY` | `sk-ant-...` (с [console.anthropic.com](https://console.anthropic.com)) | Production, Preview, Development |
+| `DAILY_BUDGET_USD` | `3` (опционально, default = 3) | Production |
+
+### 5. Подтвердить домен и сайтмап в Google Search Console
+
+1. [search.google.com/search-console](https://search.google.com/search-console) → Add property → URL prefix → `https://cool-symbols.net/`.
+2. Метод верификации: **HTML tag**. Код `ETF-UcFG87KFsVQSFjDxOUMGDEG-hgiQfKpezTHcUUk` уже встроен во все 5 страниц — просто жми Verify.
+3. После верификации: Sitemaps → Add sitemap → `https://cool-symbols.net/sitemap.xml`.
+
+### 6. Включить Vercel Analytics
+
+Project → **Analytics** → Enable. Скрипт уже в HTML, маршрут `/_vercel/insights/script.js` активируется автоматически.
+
+### 7. Настроить алерты на спенд в Anthropic Console
+
+[console.anthropic.com](https://console.anthropic.com) → **Settings → Limits & Notifications**:
+
+1. Установи **monthly usage limit** на разумную сумму (например, $30) — это hard cap, после него API будет возвращать 429.
+2. Включи **email notifications** на 50% / 80% / 100% от лимита.
+
+Это последняя линия защиты, если что-то пошло сильно не так с KV-логикой.
 
 ## Привязка домена cool-symbols.net
 
-1. В Vercel → Project → **Settings → Domains** → введи `cool-symbols.net`.
-2. Vercel покажет 2 варианта:
-   - **Nameservers (рекомендуется)**: меняешь NS-записи у регистратора на `ns1.vercel-dns.com`, `ns2.vercel-dns.com`. Всё работает «из коробки», включая `www.` и SSL.
-   - **A/CNAME**: оставляешь NS у текущего регистратора, добавляешь `A 76.76.21.21` для `cool-symbols.net` и `CNAME cname.vercel-dns.com` для `www`.
-3. SSL выдаётся автоматически за 1-5 минут.
+Vercel → **Settings → Domains** → введи `cool-symbols.net` → Vercel покажет инструкцию (либо смена nameservers, либо A/CNAME записи у текущего регистратора). SSL выдаётся автоматом.
 
-## Локальный запуск для разработки
+## Как работает cost protection
 
-```bash
-npm i -g vercel
-cd /path/to/cool-symbols.net
-echo "ANTHROPIC_API_KEY=sk-ant-..." > .env.local
-vercel dev          # запустит фронт + API на http://localhost:3000
-```
+Каждый AI-запрос проходит через два независимых лимита:
 
-Без AI-фич сайт работает просто как `index.html` — открой файл в браузере напрямую, fancy text и библиотека символов будут пахать без сервера.
+**Per-IP лимит — 20/день.** Атомарный `INCRBY` в KV с ключом `rl:{ip}:{date}` и TTL 2 дня. Возвращает 429 «Daily limit reached».
 
-## Ограничения и стоимость
+**Глобальный budget cap — $3/день.** До вызова Anthropic читаем `budget:{date}` (милли-центы спента за сегодня). Если ≥ потолка — возвращаем 503. После успешного ответа от Claude инкрементим счётчик на actual cost из `usage.input_tokens` и `usage.output_tokens`, посчитанных по тарифу Haiku 4.5 ($0.80 / $4.00 за MTok).
 
-- **Vercel Hobby (бесплатно)**: 100 GB трафика, 100k вызовов функций, 100 GB-часов выполнения в месяц. Хватит на тысячи активных пользователей в день.
-- **Anthropic Claude Haiku 4.5**: ~$1 за миллион входных токенов, ~$5 за выходные. Одна AI-генерация = ~$0.0005-0.001. С лимитом 20/день на IP и кэшем популярных запросов (можно добавить позже) расходы на старте — единицы долларов в месяц.
+Под потолком $3/день при среднем размере генерации (~500 input + 300 output = ~160 милли-центов) сайт выдержит ~1875 успешных AI-вызовов в день. Если больше — endpoint вежливо отвечает «AI quota reached» и юзер перенаправляется на бесплатные тулзы (fancy text + library), которые лимита не имеют вообще.
 
-## Структура
+Поднять потолок: `DAILY_BUDGET_USD=10` в env-переменных, redeploy. Никакой код менять не нужно.
+
+## Структура проекта
 
 ```
 .
-├── index.html          # фронтенд — генератор, библиотека, AI UI
+├── index.html          ← главная: AI tools, fancy text, library, dividers, FAQ
+├── about.html          ← /about
+├── contact.html        ← /contact (info@cool-symbols.net)
+├── privacy.html        ← /privacy
+├── terms.html          ← /terms
+├── styles.css          ← общие стили для статических страниц
+├── favicon.svg         ← векторная иконка
+├── robots.txt          ← + ссылка на sitemap
+├── sitemap.xml         ← 5 URLs
+├── vercel.json         ← cleanUrls, headers, function config
+├── package.json        ← Node 18+ runtime
 ├── api/
-│   └── generate.js     # serverless-функция, прокси к Anthropic API
-├── package.json        # для определения Node 18+ runtime
-├── vercel.json         # конфиг функций и security headers
-└── README.md           # этот файл
+│   └── generate.js     ← Anthropic proxy с KV cost protection
+└── README.md
 ```
 
-## Что добавить дальше
+## Локальный запуск
 
-- **SEO-страницы** — отдельные посадки `/fancy-text-generator`, `/heart-symbols`, `/gaming-names` с уникальными title/description.
-- **Кэш популярных AI-запросов** через Vercel KV (бесплатный тариф) — снизит расходы и ускорит ответ.
-- **Sitemap + robots.txt** для Google.
-- **Аналитика** — Plausible или Vercel Analytics, без cookie-баннера.
-- **Pro-тариф через Stripe** — снять лимит, добавить историю генераций.
+```bash
+npm i -g vercel
+cd ~/Documents/Claude/Projects/cool-symbols.net
+echo "ANTHROPIC_API_KEY=sk-ant-..." > .env.local
+# KV переменные опциональны — без них код переключится на in-memory лимит
+vercel dev
+```
+
+Откроется на `http://localhost:3000`. Fancy text и symbol library работают сразу. AI tools — если задан `ANTHROPIC_API_KEY`.
+
+## Что добавить дальше (после стабильного запуска)
+
+- **Программатик-страницы** под длинный хвост: 13 страниц по категориям символов (/hearts, /stars, /arrows...), 6 по AI-режимам, 22 по fancy fonts. Это открывает 70-80% потенциального organic трафика.
+- **Кэширование популярных AI-промптов** в KV — хэш `(mode + normalize(input))` → выходной текст на 7 дней. Экономит и деньги, и latency.
+- **Cloudflare Turnstile** на AI endpoint — если увидим бот-абуз. Бесплатно, режет 90% автоматических скриптов.
+- **OG-картинки auto-gen** через Vercel `@vercel/og` — генерация preview-картинок для каждой категории на лету.
+- **Pinterest pin-стратегия** — основной источник трафика в этой нише.
+- **5-10 supporting content** статей: «how to add symbols to Instagram bio», «best aesthetic usernames 2026», «what are Unicode block characters» — длинный хвост информационного трафика.
+
+## Что НЕ делать
+
+- Запускать в r/InternetIsBeautiful или Pinterest до того, как сделаны категорийные страницы. Сейчас юзеры с этих источников будут видеть one-page и баунсить.
+- Подавать на AdSense до 30+ страниц контента и 4-6 недель индексации.
+- Поднимать `DAILY_BUDGET_USD` выше $10-15 без анализа трафика. Лучше держать tight и постепенно расширять.

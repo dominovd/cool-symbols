@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Free AI Symbol Art Generator & Fancy Text Fonts — Cool Symbols</title>
-<meta name="description" content="Free AI symbol art generator, fancy text fonts, and copy-paste Unicode library. 20 free AI generations daily — no signup, no credit card. Click any symbol to copy." />
+<title>Fancy Text Generator & Copy-Paste Symbols — Cool Symbols</title>
+<meta name="description" content="Free fancy text generator with 22 Unicode fonts, copy-paste symbol library, and AI symbol art tools. Click any symbol to copy. No signup, no credit card." />
 <meta name="keywords" content="free ai symbol generator, ai ascii art generator, fancy text generator, copy paste symbols, cool symbols, aesthetic text generator, username generator with symbols, free ai tools, no signup ai" />
 <link rel="canonical" href="https://cool-symbols.net/" />
 <meta name="robots" content="index, follow" />
@@ -14,14 +14,14 @@
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://cool-symbols.net/" />
-<meta property="og:title" content="Free AI Symbol Art Generator & Fancy Text Fonts — Cool Symbols" />
-<meta property="og:description" content="Free AI tools for symbol art, ASCII drawings, aesthetic usernames, and decorated bios. Plus 22 fancy text fonts and a Unicode library." />
+<meta property="og:title" content="Fancy Text Generator & Copy-Paste Symbols — Cool Symbols" />
+<meta property="og:description" content="22 fancy Unicode fonts, 13 categories of copy-paste symbols, and free AI tools for ASCII art, usernames, and bios. No signup." />
 <meta property="og:site_name" content="Cool Symbols" />
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Free AI Symbol Art Generator & Fancy Text — Cool Symbols" />
-<meta name="twitter:description" content="Free AI tools for symbol art, ASCII drawings, aesthetic usernames, and decorated bios." />
+<meta name="twitter:title" content="Fancy Text Generator & Copy-Paste Symbols — Cool Symbols" />
+<meta name="twitter:description" content="22 fancy Unicode fonts, 13 categories of copy-paste symbols, and free AI tools for ASCII art, usernames, and bios." />
 
 <!-- Favicon -->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -341,6 +341,20 @@
   }
   @keyframes spin { to { transform: rotate(360deg); } }
   .ai-error { color: var(--err); font-size: 14px; }
+  .ai-notice {
+    font-size: 14px;
+    line-height: 1.55;
+    color: #d8d8e8;
+    padding: 14px 16px;
+    background: rgba(124, 92, 255, 0.08);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+  }
+  .ai-notice.budget {
+    background: rgba(255, 92, 168, 0.08);
+    border-left-color: var(--accent-2);
+  }
+  .ai-notice strong { color: var(--text); }
   /* ===== FANCY TEXT GENERATOR ===== */
   .gen-input {
     width: 100%;
@@ -567,13 +581,13 @@
 <body>
 
 <header>
-  <h1>✨ Free AI Symbol Art & Fancy Text</h1>
-  <p>AI symbol art generator · 22 fancy fonts · copy-paste Unicode library — all in one place</p>
+  <h1>✨ Fancy Text Generator & Cool Symbols</h1>
+  <p>22 Unicode fonts · 13 copy-paste symbol categories · free AI symbol art tools</p>
   <div class="free-badges">
     <span class="free-badge">✓ No signup</span>
     <span class="free-badge">✓ No credit card</span>
-    <span class="free-badge">✓ 20 free AI generations / day</span>
-    <span class="free-badge">✓ Unlimited fonts &amp; symbols</span>
+    <span class="free-badge">✓ Click to copy</span>
+    <span class="free-badge">✓ Free AI · 20/day</span>
   </div>
 </header>
 
@@ -829,14 +843,14 @@ async function generate() {
     });
     const data = await res.json();
     if (!res.ok) {
-      showError(data.error || 'Something went wrong.');
+      showError(data.error || 'Something went wrong.', data.reason);
       if (typeof data.remaining === 'number') aiRemaining.textContent = data.remaining;
       return;
     }
     showResult(data.text, activeMode.monospace);
     if (typeof data.remaining === 'number') aiRemaining.textContent = data.remaining;
   } catch (e) {
-    showError('Network error. Try again.');
+    showError('Network error. Try again.', 'network');
   } finally {
     aiBtn.disabled = false;
   }
@@ -854,9 +868,17 @@ function showResult(text, mono) {
   aiCopyBtn._text = text;
 }
 
-function showError(msg) {
-  aiResultContent.innerHTML = `<div class="ai-error">${msg}</div>`;
+function showError(msg, reason) {
   aiCopyBtn.style.display = 'none';
+  // ip_limit and budget_exhausted are soft notices, not errors — calmer styling
+  if (reason === 'ip_limit' || reason === 'budget_exhausted' || reason === 'budget_check_failed') {
+    const cls = reason === 'budget_exhausted' || reason === 'budget_check_failed' ? 'ai-notice budget' : 'ai-notice';
+    aiResultContent.innerHTML = `<div class="${cls}"></div>`;
+    aiResultContent.querySelector('div').textContent = msg;
+  } else {
+    aiResultContent.innerHTML = '<div class="ai-error"></div>';
+    aiResultContent.querySelector('.ai-error').textContent = msg;
+  }
 }
 
 aiBtn.addEventListener('click', generate);

@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 <title>Fancy Text Generator & Copy-Paste Symbols — Cool Symbols</title>
 <meta name="description" content="Free fancy text generator with 22 Unicode fonts, copy-paste symbol library, and AI symbol art tools. Click any symbol to copy. No signup, no credit card." />
 <meta name="keywords" content="free ai symbol generator, ai ascii art generator, fancy text generator, copy paste symbols, cool symbols, aesthetic text generator, username generator with symbols, free ai tools, no signup ai" />
@@ -141,29 +142,57 @@
 
 <style>
   :root {
+    /* Light theme (default) */
+    --bg: #fafafb;
+    --bg-2: #f0f0f5;
+    --bg-hover: #ebebf2;
+    --panel: #ffffff;
+    --panel-2: #f7f7fb;
+    --border: #e2e2ec;
+    --text: var(--bg-hover);
+    --text-soft: #4a4a60;
+    --text-soft-2: #2a2a40;
+    --muted: #707088;
+    --accent: #7c5cff;
+    --accent-2: #ff5ca8;
+    --link: #6841f0;
+    --ok: #16a34a;
+    --err: #dc2626;
+    --bg-gradient-1: rgba(124, 92, 255, 0.08);
+    --bg-gradient-2: rgba(255, 92, 168, 0.06);
+    --shadow-toast: 0 8px 30px rgba(22, 163, 74, 0.25);
+    --radius: 14px;
+  }
+
+  [data-theme="dark"] {
     --bg: #0f0f17;
     --bg-2: #161623;
+    --bg-hover: var(--bg-hover);
     --panel: #1c1c2e;
     --panel-2: #232338;
     --border: #2a2a40;
     --text: #e8e8f0;
+    --text-soft: var(--text-soft);
+    --text-soft-2: var(--text-soft-2);
     --muted: #8a8aa3;
-    --accent: #7c5cff;
-    --accent-2: #ff5ca8;
+    --link: #a78bfa;
     --ok: #4ade80;
     --err: #f87171;
-    --radius: 14px;
+    --bg-gradient-1: rgba(124, 92, 255, 0.18);
+    --bg-gradient-2: rgba(255, 92, 168, 0.15);
+    --shadow-toast: 0 8px 30px rgba(74, 222, 128, 0.4);
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
   body {
-    background: radial-gradient(1200px 600px at 10% -10%, rgba(124,92,255,0.18), transparent 60%),
-                radial-gradient(900px 500px at 90% 10%, rgba(255,92,168,0.15), transparent 60%),
+    background: radial-gradient(1200px 600px at 10% -10%, var(--bg-gradient-1), transparent 60%),
+                radial-gradient(900px 500px at 90% 10%, var(--bg-gradient-2), transparent 60%),
                 var(--bg);
     color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
     line-height: 1.5;
     min-height: 100vh;
+    transition: background-color 0.2s, color 0.2s;
   }
   header {
     text-align: center;
@@ -344,7 +373,7 @@
   .ai-notice {
     font-size: 14px;
     line-height: 1.55;
-    color: #d8d8e8;
+    color: var(--text-soft-2);
     padding: 14px 16px;
     background: rgba(124, 92, 255, 0.08);
     border-left: 3px solid var(--accent);
@@ -386,7 +415,7 @@
     cursor: pointer;
     transition: transform 0.08s, border-color 0.15s, background 0.15s;
   }
-  .style-row:hover { border-color: var(--accent); background: #1a1a2e; }
+  .style-row:hover { border-color: var(--accent); background: var(--bg-hover); }
   .style-row:active { transform: scale(0.995); }
   .style-row .label {
     font-size: 12px;
@@ -454,7 +483,7 @@
   .sym:hover {
     border-color: var(--accent);
     transform: translateY(-2px);
-    background: #1a1a2e;
+    background: var(--bg-hover);
   }
   .sym:active { transform: scale(0.94); }
   /* ===== TOAST ===== */
@@ -464,14 +493,14 @@
     left: 50%;
     transform: translateX(-50%) translateY(20px);
     background: var(--ok);
-    color: #0a0a14;
+    color: #ffffff;
     font-weight: 600;
     padding: 10px 20px;
     border-radius: 30px;
     opacity: 0;
     pointer-events: none;
     transition: all 0.25s;
-    box-shadow: 0 8px 30px rgba(74, 222, 128, 0.4);
+    box-shadow: var(--shadow-toast);
     z-index: 100;
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -511,7 +540,7 @@
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 26px 28px;
-    color: #c8c8d8;
+    color: var(--text-soft);
     font-size: 15.5px;
     line-height: 1.65;
   }
@@ -561,7 +590,7 @@
   .faq-item[open] summary::after { transform: rotate(45deg); }
   .faq-item .faq-answer {
     padding: 0 22px 18px;
-    color: #c8c8d8;
+    color: var(--text-soft);
     font-size: 15px;
     line-height: 1.6;
   }
@@ -599,10 +628,10 @@
   .category-card:hover {
     border-color: var(--accent);
     transform: translateY(-2px);
-    background: #1a1a2e;
+    background: var(--bg-hover);
   }
   .category-card .emoji { font-size: 28px; }
-  .category-card .name { font-size: 13px; color: #d8d8e8; font-weight: 500; }
+  .category-card .name { font-size: 13px; color: var(--text-soft-2); font-weight: 500; }
   .category-card .count { font-size: 11px; color: var(--muted); }
   footer .footer-categories {
     margin-top: 16px;
@@ -618,9 +647,43 @@
     transition: color 0.15s;
   }
   footer .footer-categories a:hover { color: var(--text); }
+  /* ===== THEME TOGGLE ===== */
+  .theme-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    z-index: 90;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--text);
+    transition: all 0.2s;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  }
+  [data-theme="dark"] .theme-toggle {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  }
+  .theme-toggle:hover {
+    border-color: var(--accent);
+    transform: scale(1.05);
+  }
+  .theme-toggle:active { transform: scale(0.95); }
+  .panel, .ai-tab, .ai-field, .gen-input, .style-row, .sym, .cat-tab,
+  .category-card, .ai-result, .ai-result .copy-btn, .faq-item {
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  }
 </style>
 </head>
 <body>
+
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">☾</button>
 
 <header>
   <h1>✨ Fancy Text Generator & Cool Symbols</h1>
@@ -802,6 +865,27 @@
 </footer>
 
 <script>
+// ============= THEME TOGGLE =============
+(function() {
+  const btn = document.getElementById('themeToggle');
+  function isDark() { return document.documentElement.getAttribute('data-theme') === 'dark'; }
+  function syncIcon() {
+    btn.textContent = isDark() ? '☀' : '☾';
+    btn.setAttribute('aria-label', isDark() ? 'Switch to light theme' : 'Switch to dark theme');
+  }
+  btn.addEventListener('click', () => {
+    if (isDark()) {
+      document.documentElement.removeAttribute('data-theme');
+      try { localStorage.setItem('theme', 'light'); } catch(e) {}
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      try { localStorage.setItem('theme', 'dark'); } catch(e) {}
+    }
+    syncIcon();
+  });
+  syncIcon();
+})();
+
 // ============= AI TOOLS =============
 const AI_MODES = [
   {

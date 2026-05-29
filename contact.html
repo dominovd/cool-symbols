@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 <title>Contact — Cool Symbols</title>
 <meta name="description" content="Contact Cool Symbols — for feedback, bug reports, feature requests, partnerships, or anything else, write to info@cool-symbols.net." />
 <link rel="canonical" href="https://cool-symbols.net/contact" />
@@ -15,6 +16,8 @@
 <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
+
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">☾</button>
 
 <header class="site-header">
   <nav class="nav">
@@ -58,6 +61,23 @@
     <a href="/terms">Terms</a>
   </p>
 </footer>
+
+<script>
+(function(){
+  const btn = document.getElementById('themeToggle');
+  function isDark(){ return document.documentElement.getAttribute('data-theme') === 'dark'; }
+  function syncIcon(){
+    btn.textContent = isDark() ? '☀' : '☾';
+    btn.setAttribute('aria-label', isDark() ? 'Switch to light theme' : 'Switch to dark theme');
+  }
+  btn.addEventListener('click', () => {
+    if (isDark()) { document.documentElement.removeAttribute('data-theme'); try{localStorage.setItem('theme','light');}catch(e){} }
+    else { document.documentElement.setAttribute('data-theme', 'dark'); try{localStorage.setItem('theme','dark');}catch(e){} }
+    syncIcon();
+  });
+  syncIcon();
+})();
+</script>
 
 </body>
 </html>

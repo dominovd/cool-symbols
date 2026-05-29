@@ -2,21 +2,22 @@
    The main app page (index.html) keeps its own inline styles. */
 
 :root {
-  /* Light theme (default) */
-  --bg: #fafafb;
-  --bg-2: #f0f0f5;
-  --bg-hover: #ebebf2;
+  /* Light theme — bolder palette with proper contrast */
+  --bg: #ebecf3;
+  --bg-2: #dadce8;
+  --bg-hover: #c8cadb;
   --panel: #ffffff;
-  --panel-2: #f7f7fb;
-  --border: #e2e2ec;
-  --text: #1a1a2e;
-  --text-soft: #4a4a60;
-  --muted: #707088;
+  --panel-2: #f6f7fc;
+  --border: #b8bacc;
+  --text: #0a0a1a;
+  --text-soft: #2e2e44;
+  --muted: #50526a;
   --accent: #7c5cff;
   --accent-2: #ff5ca8;
-  --link: #6841f0;
-  --bg-gradient-1: rgba(124, 92, 255, 0.08);
-  --bg-gradient-2: rgba(255, 92, 168, 0.06);
+  --link: #5d2dff;
+  --bg-gradient-1: rgba(124, 92, 255, 0.06);
+  --bg-gradient-2: rgba(255, 92, 168, 0.05);
+  --panel-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   --radius: 14px;
 }
 [data-theme="dark"] {
@@ -27,11 +28,12 @@
   --panel-2: #232338;
   --border: #2a2a40;
   --text: #e8e8f0;
-  --text-soft: var(--text-soft);
+  --text-soft: #c8c8d8;
   --muted: #8a8aa3;
   --link: #a78bfa;
   --bg-gradient-1: rgba(124, 92, 255, 0.18);
   --bg-gradient-2: rgba(255, 92, 168, 0.15);
+  --panel-shadow: none;
 }
 
 * { box-sizing: border-box; }

@@ -142,44 +142,52 @@
 
 <style>
   :root {
-    /* Light theme (default) */
-    --bg: #fafafb;
-    --bg-2: #f0f0f5;
-    --bg-hover: #ebebf2;
+    /* Light theme — bolder palette with proper contrast */
+    --bg: #ebecf3;
+    --bg-2: #dadce8;
+    --bg-hover: #c8cadb;
     --panel: #ffffff;
-    --panel-2: #f7f7fb;
-    --border: #e2e2ec;
-    --text: var(--bg-hover);
-    --text-soft: #4a4a60;
-    --text-soft-2: #2a2a40;
-    --muted: #707088;
+    --panel-2: #f6f7fc;
+    --border: #b8bacc;
+    --text: #0a0a1a;
+    --text-soft: #2e2e44;
+    --text-soft-2: #15152a;
+    --muted: #50526a;
     --accent: #7c5cff;
     --accent-2: #ff5ca8;
-    --link: #6841f0;
+    --link: #5d2dff;
     --ok: #16a34a;
     --err: #dc2626;
-    --bg-gradient-1: rgba(124, 92, 255, 0.08);
-    --bg-gradient-2: rgba(255, 92, 168, 0.06);
-    --shadow-toast: 0 8px 30px rgba(22, 163, 74, 0.25);
+    --bg-gradient-1: rgba(124, 92, 255, 0.06);
+    --bg-gradient-2: rgba(255, 92, 168, 0.05);
+    --badge-bg: rgba(124, 92, 255, 0.14);
+    --badge-border: rgba(124, 92, 255, 0.5);
+    --pill-glow-bg: linear-gradient(90deg, rgba(124, 92, 255, 0.18), rgba(255, 92, 168, 0.18));
+    --panel-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+    --shadow-toast: 0 8px 30px rgba(22, 163, 74, 0.3);
     --radius: 14px;
   }
 
   [data-theme="dark"] {
     --bg: #0f0f17;
     --bg-2: #161623;
-    --bg-hover: var(--bg-hover);
+    --bg-hover: #1a1a2e;
     --panel: #1c1c2e;
     --panel-2: #232338;
     --border: #2a2a40;
     --text: #e8e8f0;
-    --text-soft: var(--text-soft);
-    --text-soft-2: var(--text-soft-2);
+    --text-soft: #c8c8d8;
+    --text-soft-2: #d8d8e8;
     --muted: #8a8aa3;
     --link: #a78bfa;
     --ok: #4ade80;
     --err: #f87171;
     --bg-gradient-1: rgba(124, 92, 255, 0.18);
     --bg-gradient-2: rgba(255, 92, 168, 0.15);
+    --badge-bg: rgba(124, 92, 255, 0.15);
+    --badge-border: rgba(124, 92, 255, 0.4);
+    --pill-glow-bg: linear-gradient(90deg, rgba(124, 92, 255, 0.25), rgba(255, 92, 168, 0.25));
+    --panel-shadow: none;
     --shadow-toast: 0 8px 30px rgba(74, 222, 128, 0.4);
   }
   * { box-sizing: border-box; }
@@ -222,7 +230,7 @@
     font-size: 11px;
     font-weight: 600;
     color: var(--muted);
-    background: var(--panel);
+    background: var(--bg-2);
     padding: 3px 10px;
     border-radius: 20px;
     border: 1px solid var(--border);
@@ -230,7 +238,7 @@
     text-transform: uppercase;
   }
   section h2 .pill.glow {
-    background: linear-gradient(90deg, rgba(124,92,255,0.25), rgba(255,92,168,0.25));
+    background: var(--pill-glow-bg);
     color: var(--text);
     border-color: rgba(124,92,255,0.5);
   }
@@ -239,6 +247,7 @@
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 20px;
+    box-shadow: var(--panel-shadow);
   }
   /* ===== AI TOOLS ===== */
   .ai-tabs {
@@ -296,7 +305,7 @@
     gap: 10px;
     align-items: center;
     flex-wrap: wrap;
-    margin-top: 4px;
+    margin-top: 18px;
   }
   .ai-btn {
     background: linear-gradient(135deg, var(--accent), var(--accent-2));
@@ -344,7 +353,7 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    background: var(--panel);
+    background: var(--bg-2);
     border: 1px solid var(--border);
     color: var(--muted);
     padding: 6px 12px;
@@ -447,7 +456,7 @@
     margin-bottom: 16px;
   }
   .cat-tab {
-    background: var(--panel);
+    background: var(--bg-2);
     border: 1px solid var(--border);
     color: var(--muted);
     padding: 8px 14px;
@@ -526,8 +535,8 @@
     flex-wrap: wrap;
   }
   .free-badge {
-    background: rgba(124, 92, 255, 0.15);
-    border: 1px solid rgba(124, 92, 255, 0.4);
+    background: var(--badge-bg);
+    border: 1px solid var(--badge-border);
     color: var(--text);
     padding: 5px 12px;
     border-radius: 30px;

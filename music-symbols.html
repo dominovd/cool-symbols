@@ -340,6 +340,15 @@
     margin: 0 0 28px;
     max-width: 760px;
   }
+  .direct-answer {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    color: var(--text-soft-2);
+    margin: 0 0 16px;
+    max-width: 760px;
+  }
   .meta-line {
     font-size: 13px;
     color: var(--muted);
@@ -404,6 +413,59 @@
     margin: 0 0 6px;
   }
   .use-case p { font-size: 14px; margin: 0; }
+
+  .variants-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .variants-table th,
+  .variants-table td {
+    border-bottom: 1px solid var(--border);
+    padding: 12px 14px;
+    text-align: left;
+    color: var(--text-soft);
+    font-size: 14px;
+  }
+  .variants-table th {
+    background: var(--bg-2);
+    color: var(--text);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .variants-table tr:last-child td { border-bottom: 0; }
+  .variants-table .variant-symbol {
+    color: var(--text);
+    font-size: 22px;
+    width: 72px;
+    text-align: center;
+  }
+  .compat-note {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 14px 16px;
+    color: var(--text-soft);
+  }
+  .keyword-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .keyword-chip {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text-soft-2);
+    display: inline-flex;
+    font-size: 13px;
+    padding: 7px 10px;
+  }
 
   /* FAQ */
   .faq { display: flex; flex-direction: column; gap: 10px; margin: 14px 0; }
@@ -532,6 +594,7 @@
   </div>
 
   <h1>Music Symbols ♪ — Copy and Paste</h1>
+  <p class="direct-answer">Copy music symbols instantly: click any symbol below, then paste it into a bio, caption, username, message, document, or profile field.</p>
   <p class="lead">Music symbols decorate playlists, song titles, lyric posts, and music-themed bios. Unicode includes the four common note shapes (quarter ♩, eighth ♪, beamed ♫ ♬), the accidentals (♭ flat, ♮ natural, ♯ sharp), the treble and bass clefs as 𝄞 𝄢, and the full musical-instrument emoji set 🎵 🎶 🎼 🎷 🎸. Useful for any kind of music-related content where you want a visual cue without breaking the line of text.</p>
   <p class="meta-line">39 symbols · click any one to copy · Miscellaneous Symbols (U+2660–U+266F), Musical Symbols (U+1D100–U+1D1FF)</p>
 
@@ -607,6 +670,100 @@
         <h4>Concert and event posts</h4>
         <p>Add 🎤 or 🎸 next to event details — 🎸 live at the venue, Friday 9pm — for instant visual grouping.</p>
       </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Popular variants</h2>
+    <table class="variants-table">
+      <thead>
+        <tr>
+          <th>Symbol</th>
+          <th>Style</th>
+          <th>Best use</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td class="variant-symbol">♩</td>
+        <td>Common music symbols accent</td>
+        <td>Copy ♩ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">♪</td>
+        <td>Common music symbols accent</td>
+        <td>Copy ♪ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">♫</td>
+        <td>Common music symbols accent</td>
+        <td>Copy ♫ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">♬</td>
+        <td>Common music symbols accent</td>
+        <td>Copy ♬ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">♭</td>
+        <td>Decorative music symbols option</td>
+        <td>Copy ♭ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">♮</td>
+        <td>Decorative music symbols option</td>
+        <td>Copy ♮ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">♯</td>
+        <td>Decorative music symbols option</td>
+        <td>Copy ♯ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">𝄞</td>
+        <td>Decorative music symbols option</td>
+        <td>Copy 𝄞 for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">𝄢</td>
+        <td>Extra music symbols variant</td>
+        <td>Copy 𝄢 for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">𝄪</td>
+        <td>Extra music symbols variant</td>
+        <td>Copy 𝄪 for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">𝄫</td>
+        <td>Extra music symbols variant</td>
+        <td>Copy 𝄫 for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">𝄐</td>
+        <td>Extra music symbols variant</td>
+        <td>Copy 𝄐 for bios, captions, usernames, or messages.</td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Compatibility notes</h2>
+    <p class="compat-note">This collection uses plain Unicode text, so the symbols work in most modern apps. Rare or decorative characters can look different across devices or appear as boxes on older fonts. For maximum compatibility, test the symbol on mobile before using it in a permanent username or profile.</p>
+  </section>
+
+  <section>
+    <h2>Related keyword family</h2>
+    <div class="keyword-chips">
+      <span class="keyword-chip">music symbols</span>
+      <span class="keyword-chip">music symbols copy and paste</span>
+      <span class="keyword-chip">copy paste music symbols</span>
+      <span class="keyword-chip">music symbols text</span>
+      <span class="keyword-chip">music symbols for bio</span>
+      <span class="keyword-chip">music symbols for usernames</span>
+      <span class="keyword-chip">cool music symbols</span>
+      <span class="keyword-chip">music symbols unicode</span>
     </div>
   </section>
 
@@ -691,13 +848,34 @@
 
   // Copy on click
   const toast = document.getElementById('toast');
-  function copyText(text) {
+  function fallbackCopy(text) {
+    const el = document.createElement('textarea');
+    el.value = text;
+    el.setAttribute('readonly', '');
+    el.style.position = 'fixed';
+    el.style.left = '-9999px';
+    document.body.appendChild(el);
+    el.select();
+    let copied = false;
+    try { copied = document.execCommand('copy'); } catch(e) {}
+    document.body.removeChild(el);
+    return copied;
+  }
+  async function copyText(text) {
     if (!text) return;
-    navigator.clipboard.writeText(text).then(() => {
+    let copied = false;
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        copied = true;
+      }
+    } catch(e) {}
+    if (!copied) copied = fallbackCopy(text);
+    if (copied) {
       toast.classList.add('show');
       clearTimeout(toast._t);
       toast._t = setTimeout(() => toast.classList.remove('show'), 1200);
-    });
+    }
   }
   document.querySelectorAll('.sym').forEach(el => {
     el.addEventListener('click', () => copyText(el.textContent));

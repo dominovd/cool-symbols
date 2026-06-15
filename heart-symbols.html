@@ -340,6 +340,15 @@
     margin: 0 0 28px;
     max-width: 760px;
   }
+  .direct-answer {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    color: var(--text-soft-2);
+    margin: 0 0 16px;
+    max-width: 760px;
+  }
   .meta-line {
     font-size: 13px;
     color: var(--muted);
@@ -404,6 +413,59 @@
     margin: 0 0 6px;
   }
   .use-case p { font-size: 14px; margin: 0; }
+
+  .variants-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .variants-table th,
+  .variants-table td {
+    border-bottom: 1px solid var(--border);
+    padding: 12px 14px;
+    text-align: left;
+    color: var(--text-soft);
+    font-size: 14px;
+  }
+  .variants-table th {
+    background: var(--bg-2);
+    color: var(--text);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .variants-table tr:last-child td { border-bottom: 0; }
+  .variants-table .variant-symbol {
+    color: var(--text);
+    font-size: 22px;
+    width: 72px;
+    text-align: center;
+  }
+  .compat-note {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 14px 16px;
+    color: var(--text-soft);
+  }
+  .keyword-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .keyword-chip {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text-soft-2);
+    display: inline-flex;
+    font-size: 13px;
+    padding: 7px 10px;
+  }
 
   /* FAQ */
   .faq { display: flex; flex-direction: column; gap: 10px; margin: 14px 0; }
@@ -532,6 +594,7 @@
   </div>
 
   <h1>Heart Symbols ♥ — Copy and Paste</h1>
+  <p class="direct-answer">Copy heart symbols instantly: click any symbol below, then paste it into a bio, caption, username, message, document, or profile field.</p>
   <p class="lead">Heart symbols are the most-used decorations in modern messaging, from love confessions to playful brand statements. This page gathers every popular heart Unicode supports — the classic black ♥, the outlined ♡, the colored heart emojis in every shade, the floral ❦ and curled ❧, and special combinations like the on-fire ❤️‍🔥 and mending ❤️‍🩹. Click any one to copy it instantly. Paste anywhere Unicode is accepted — captions, bios, texts, comments, song lyrics.</p>
   <p class="meta-line">38 symbols · click any one to copy · Various Unicode blocks (Miscellaneous Symbols, Dingbats, Emoticons)</p>
 
@@ -606,6 +669,100 @@
         <h4>Song lyrics and quotes</h4>
         <p>Visual punctuation between lines: ♡ ⋆ ♡. Adds rhythm without breaking the text flow.</p>
       </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Popular variants</h2>
+    <table class="variants-table">
+      <thead>
+        <tr>
+          <th>Symbol</th>
+          <th>Style</th>
+          <th>Best use</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td class="variant-symbol">♥</td>
+        <td>Common heart symbols accent</td>
+        <td>Copy ♥ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">♡</td>
+        <td>Common heart symbols accent</td>
+        <td>Copy ♡ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">❤</td>
+        <td>Common heart symbols accent</td>
+        <td>Copy ❤ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">❥</td>
+        <td>Common heart symbols accent</td>
+        <td>Copy ❥ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">❦</td>
+        <td>Decorative heart symbols option</td>
+        <td>Copy ❦ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">❧</td>
+        <td>Decorative heart symbols option</td>
+        <td>Copy ❧ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">ღ</td>
+        <td>Decorative heart symbols option</td>
+        <td>Copy ღ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">❣</td>
+        <td>Decorative heart symbols option</td>
+        <td>Copy ❣ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">♥️</td>
+        <td>Extra heart symbols variant</td>
+        <td>Copy ♥️ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">❤️</td>
+        <td>Extra heart symbols variant</td>
+        <td>Copy ❤️ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">🧡</td>
+        <td>Extra heart symbols variant</td>
+        <td>Copy 🧡 for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">💛</td>
+        <td>Extra heart symbols variant</td>
+        <td>Copy 💛 for bios, captions, usernames, or messages.</td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Compatibility notes</h2>
+    <p class="compat-note">This collection uses plain Unicode text, so the symbols work in most modern apps. Rare or decorative characters can look different across devices or appear as boxes on older fonts. For maximum compatibility, test the symbol on mobile before using it in a permanent username or profile.</p>
+  </section>
+
+  <section>
+    <h2>Related keyword family</h2>
+    <div class="keyword-chips">
+      <span class="keyword-chip">heart symbols</span>
+      <span class="keyword-chip">heart symbols copy and paste</span>
+      <span class="keyword-chip">copy paste heart symbols</span>
+      <span class="keyword-chip">heart symbols text</span>
+      <span class="keyword-chip">heart symbols for bio</span>
+      <span class="keyword-chip">heart symbols for usernames</span>
+      <span class="keyword-chip">cool heart symbols</span>
+      <span class="keyword-chip">heart symbols unicode</span>
     </div>
   </section>
 
@@ -690,13 +847,34 @@
 
   // Copy on click
   const toast = document.getElementById('toast');
-  function copyText(text) {
+  function fallbackCopy(text) {
+    const el = document.createElement('textarea');
+    el.value = text;
+    el.setAttribute('readonly', '');
+    el.style.position = 'fixed';
+    el.style.left = '-9999px';
+    document.body.appendChild(el);
+    el.select();
+    let copied = false;
+    try { copied = document.execCommand('copy'); } catch(e) {}
+    document.body.removeChild(el);
+    return copied;
+  }
+  async function copyText(text) {
     if (!text) return;
-    navigator.clipboard.writeText(text).then(() => {
+    let copied = false;
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        copied = true;
+      }
+    } catch(e) {}
+    if (!copied) copied = fallbackCopy(text);
+    if (copied) {
       toast.classList.add('show');
       clearTimeout(toast._t);
       toast._t = setTimeout(() => toast.classList.remove('show'), 1200);
-    });
+    }
   }
   document.querySelectorAll('.sym').forEach(el => {
     el.addEventListener('click', () => copyText(el.textContent));

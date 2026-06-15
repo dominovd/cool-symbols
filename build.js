@@ -57,6 +57,35 @@ function renderRelated(related) {
     .join('\n');
 }
 
+function renderVariantsTable(cat) {
+  const lower = cat.displayName.toLowerCase();
+  return cat.symbols.slice(0, 12)
+    .map((sym, i) => `      <tr>
+        <td class="variant-symbol">${escapeHtml(sym)}</td>
+        <td>${escapeHtml(i < 4 ? `Common ${lower} accent` : i < 8 ? `Decorative ${lower} option` : `Extra ${lower} variant`)}</td>
+        <td>${escapeHtml(`Copy ${sym} for bios, captions, usernames, or messages.`)}</td>
+      </tr>`)
+    .join('\n');
+}
+
+function renderRelatedKeywords(cat) {
+  const lower = cat.displayName.toLowerCase();
+  const compact = lower.replace(/\s+/g, ' ').trim();
+  const keywords = [
+    compact,
+    `${compact} copy and paste`,
+    `copy paste ${compact}`,
+    `${compact} text`,
+    `${compact} for bio`,
+    `${compact} for usernames`,
+    `cool ${compact}`,
+    `${compact} unicode`,
+  ];
+  return keywords
+    .map(keyword => `      <span class="keyword-chip">${escapeHtml(keyword)}</span>`)
+    .join('\n');
+}
+
 function buildItemListJsonLd(cat) {
   // ItemList limited to first 30 symbols to keep schema readable
   const items = cat.symbols.slice(0, 30).map((sym, i) => ({
@@ -106,10 +135,39 @@ function render(template, cat) {
     .replace(/\{\{SYMBOLS_GRID_HTML\}\}/g, renderSymbolsGrid(cat.symbols))
     .replace(/\{\{HOW_TO_USE\}\}/g, escapeHtml(cat.howToUse))
     .replace(/\{\{USE_CASES_HTML\}\}/g, renderUseCases(cat.useCases))
+    .replace(/\{\{VARIANTS_TABLE_HTML\}\}/g, renderVariantsTable(cat))
+    .replace(/\{\{RELATED_KEYWORDS_HTML\}\}/g, renderRelatedKeywords(cat))
     .replace(/\{\{FAQ_HTML\}\}/g, renderFaq(cat.faq))
     .replace(/\{\{RELATED_HTML\}\}/g, renderRelated(cat.related))
     .replace(/\{\{ITEMLIST_JSON_LD\}\}/g, buildItemListJsonLd(cat))
     .replace(/\{\{FAQ_JSON_LD\}\}/g, buildFaqJsonLd(cat.faq));
+}
+
+function buildSitemap(categories) {
+  const lastmod = '2026-06-15';
+  const staticPages = [
+    { loc: '/', changefreq: 'weekly', priority: '1.0' },
+    { loc: '/about', changefreq: 'monthly', priority: '0.5' },
+    { loc: '/contact', changefreq: 'monthly', priority: '0.5' },
+    { loc: '/privacy', changefreq: 'yearly', priority: '0.3' },
+    { loc: '/terms', changefreq: 'yearly', priority: '0.3' },
+  ];
+  const categoryPages = categories.map(cat => ({
+    loc: `/${cat.slug}`,
+    changefreq: 'monthly',
+    priority: '0.8',
+  }));
+  const urls = [...staticPages.slice(0, 1), ...categoryPages, ...staticPages.slice(1)];
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map(url => `  <url>
+    <loc>https://cool-symbols.net${url.loc}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>${url.changefreq}</changefreq>
+    <priority>${url.priority}</priority>
+  </url>`).join('\n')}
+</urlset>
+`;
 }
 
 function main() {
@@ -126,6 +184,9 @@ function main() {
     built.push({ slug: cat.slug, symbols: cat.symbols.length, bytes: html.length });
     console.log(`  ✓ ${cat.slug}.html  (${cat.symbols.length} symbols, ${Math.round(html.length / 1024)}KB)`);
   }
+
+  fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), buildSitemap(catalog.categories), 'utf8');
+  console.log('  ✓ sitemap.xml');
 
   console.log(`\nDone. Generated ${built.length} files.`);
   return built;

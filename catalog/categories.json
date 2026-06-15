@@ -414,6 +414,254 @@
         { "slug": "zodiac-symbols", "name": "Zodiac Symbols", "emoji": "♈" },
         { "slug": "line-symbols", "name": "Lines & Boxes", "emoji": "─" }
       ]
+    },
+
+    {
+      "slug": "text-symbols",
+      "emoji": "✦",
+      "displayName": "Text Symbols",
+      "h1": "Text Symbols ✦ — Copy and Paste",
+      "title": "Text Symbols ✦ Copy & Paste — Cool Unicode Characters",
+      "description": "Text symbols to copy and paste — hearts, stars, arrows, bullets, signs, brackets, and aesthetic Unicode characters for bios and messages.",
+      "unicodeBlock": "Mixed Unicode symbols and punctuation blocks",
+      "intro": "Text symbols are Unicode characters you can paste directly into messages, bios, captions, usernames, notes, and documents. This page collects the most useful all-purpose symbols: hearts, stars, arrows, bullets, check marks, brackets, music notes, weather signs, decorative marks, and aesthetic accents. Click any text symbol to copy it.",
+      "symbols": ["♥", "♡", "❤", "★", "☆", "✦", "✧", "⋆", "→", "←", "↑", "↓", "↔", "✓", "✕", "✖", "•", "◦", "▪", "▫", "◆", "◇", "●", "○", "■", "□", "▲", "▼", "♪", "♫", "☀", "☁", "☾", "☽", "✿", "❀", "❁", "⚡", "☯", "☮", "⚜", "⌘", "⌁", "∞", "§", "¶", "†", "‡", "❝", "❞", "«", "»"],
+      "howToUse": "Click any text symbol to copy it, then paste it anywhere Unicode text is supported. Use small symbols like ✦, ⋆, and • as separators; hearts and stars for social decoration; arrows for calls-to-action; check marks for lists; and quote marks or bullets for clean writing. For maximum compatibility, stick to common symbols such as ♥, ★, →, ✓, •, and ✦.",
+      "useCases": [
+        { "title": "Social bios and captions", "description": "Add lightweight decoration around names, interests, links, and short status lines without uploading an image." },
+        { "title": "Plain-text lists", "description": "Use bullets, checks, arrows, and dividers to make notes, comments, and messages easier to scan." },
+        { "title": "Usernames and display names", "description": "Frame a name with simple text symbols like ★Alex★, ♡Mia♡, or ✦ Nova ✦." },
+        { "title": "Writing and documents", "description": "Paste proper punctuation, section marks, primes, bullets, and other characters that are awkward to type." }
+      ],
+      "faq": [
+        { "question": "Are text symbols the same as emojis?", "answer": "Some overlap, but text symbols usually render like font characters while emojis render as colorful platform artwork. A star like ★ is text; ⭐ is emoji-style on most devices." },
+        { "question": "Why do text symbols look different across apps?", "answer": "Apps and operating systems use different fonts. The Unicode character is the same, but its visual shape can vary by font." },
+        { "question": "Can I combine multiple text symbols?", "answer": "Yes. Most aesthetic bios and usernames combine several symbols, such as ⋆｡˚ ✦ name ✦ ˚｡⋆." }
+      ],
+      "related": [
+        { "slug": "special-characters", "name": "Special Characters", "emoji": "§" },
+        { "slug": "keyboard-symbols", "name": "Keyboard Symbols", "emoji": "⌘" },
+        { "slug": "aesthetic-symbols", "name": "Aesthetic Symbols", "emoji": "✦" },
+        { "slug": "heart-symbols", "name": "Heart Symbols", "emoji": "♥" },
+        { "slug": "star-symbols", "name": "Star Symbols", "emoji": "★" }
+      ]
+    },
+
+    {
+      "slug": "special-characters",
+      "emoji": "§",
+      "displayName": "Special Characters",
+      "h1": "Special Characters § — Copy and Paste",
+      "title": "Special Characters § Copy & Paste — Unicode Signs and Marks",
+      "description": "Special characters to copy and paste — symbols, punctuation marks, bullets, arrows, math signs, currency signs, accents, and Unicode characters.",
+      "unicodeBlock": "General Punctuation, Letterlike Symbols, Math Operators, Currency Symbols",
+      "intro": "Special characters are the Unicode signs that do not sit on a normal keyboard but show up constantly in writing, formatting, math, design, and social profiles. Copy section marks, bullets, arrows, quote marks, currency signs, math operators, check marks, accents, and decorative symbols from one place.",
+      "symbols": ["§", "¶", "†", "‡", "•", "‣", "※", "⁂", "⁕", "‰", "‱", "′", "″", "‴", "…", "—", "–", "«", "»", "‹", "›", "“", "”", "‘", "’", "✓", "✗", "✘", "∞", "≈", "≠", "≤", "≥", "±", "×", "÷", "√", "∑", "∫", "∆", "€", "£", "¥", "₹", "₿", "©", "®", "™", "°", "µ"],
+      "howToUse": "Click a special character to copy it. Use § for legal or policy sections, ¶ for paragraph marks, † and ‡ for footnotes, ™ and ® for brand marks, math signs in notes, currency signs in prices, and proper quotes or dashes in polished writing.",
+      "useCases": [
+        { "title": "Professional writing", "description": "Paste proper punctuation, dashes, quote marks, section signs, and footnote markers." },
+        { "title": "Math and technical notes", "description": "Use ≈, ≠, ≤, ≥, ±, ×, ÷, √, ∑, and ∫ in plain-text explanations." },
+        { "title": "Prices and labels", "description": "Copy currency symbols and brand marks for product listings, invoices, and short labels." },
+        { "title": "Social decoration", "description": "Mix bullets, arrows, marks, and signs into captions, profiles, and status text." }
+      ],
+      "faq": [
+        { "question": "What counts as a special character?", "answer": "A special character is any non-standard letter or number used as a symbol, mark, operator, accent, sign, or punctuation character." },
+        { "question": "Can special characters break in old software?", "answer": "Very old software may not support every Unicode character. Common marks like §, ™, ©, €, and ✓ are widely supported." },
+        { "question": "Are these characters safe to use in filenames?", "answer": "Some are safe, but technical systems vary. For filenames, avoid unusual punctuation and use special characters mainly for display text." }
+      ],
+      "related": [
+        { "slug": "text-symbols", "name": "Text Symbols", "emoji": "✦" },
+        { "slug": "punctuation-symbols", "name": "Punctuation", "emoji": "❝" },
+        { "slug": "math-symbols", "name": "Math Symbols", "emoji": "∞" },
+        { "slug": "currency-symbols", "name": "Currency Symbols", "emoji": "$" },
+        { "slug": "keyboard-symbols", "name": "Keyboard Symbols", "emoji": "⌘" }
+      ]
+    },
+
+    {
+      "slug": "keyboard-symbols",
+      "emoji": "⌘",
+      "displayName": "Keyboard Symbols",
+      "h1": "Keyboard Symbols ⌘ — Copy and Paste",
+      "title": "Keyboard Symbols ⌘ Copy & Paste — Keys, Arrows and Shortcut Signs",
+      "description": "Keyboard symbols to copy and paste — ⌘ ⌥ ⇧ ⌫ ↵ arrows, command signs, check marks, bullets, and shortcut characters.",
+      "unicodeBlock": "Miscellaneous Technical, Arrows, Geometric Shapes",
+      "intro": "Keyboard symbols are useful for documenting shortcuts, showing controls, writing UI instructions, and decorating tech bios. Copy command, option, shift, return, delete, arrow, check, bullet, and box symbols that are difficult to type directly on many keyboards.",
+      "symbols": ["⌘", "⌥", "⇧", "⌃", "⌫", "⌦", "↵", "↩", "⏎", "␣", "⇥", "⇤", "⎋", "⌧", "⌨", "←", "→", "↑", "↓", "↔", "↕", "⇐", "⇒", "⇑", "⇓", "✓", "✕", "•", "◦", "■", "□", "▲", "▼", "▶", "◀", "⏵", "⏸", "⏹", "⏺", "⏭", "⏮", "⏫", "⏬"],
+      "howToUse": "Click a keyboard symbol to copy it. Use ⌘, ⌥, ⇧, and ⌃ for Mac shortcuts; arrows for key directions; ↵ and ⏎ for enter/return; and media-control symbols for UI notes. In tutorials, pair them with letters: ⌘ + C, ⇧ + Tab, or Ctrl + →.",
+      "useCases": [
+        { "title": "Shortcut documentation", "description": "Write compact keyboard shortcuts in docs, onboarding screens, support replies, and app copy." },
+        { "title": "Tech profiles", "description": "Use command and arrow symbols as small visual cues in developer bios and portfolio links." },
+        { "title": "UI mockups", "description": "Represent buttons, controls, media keys, and navigation states in plain text." },
+        { "title": "Game controls", "description": "Show directional arrows and action keys in tutorials, chats, and control lists." }
+      ],
+      "faq": [
+        { "question": "What is the command symbol?", "answer": "⌘ is the command key symbol used on Apple keyboards. It is commonly written as Command or Cmd in text." },
+        { "question": "Can Windows users see Mac keyboard symbols?", "answer": "Modern Windows fonts usually display common technical symbols like ⌘, ⇧, and arrows, though exact styling varies." },
+        { "question": "Should I use symbols or words for accessibility?", "answer": "For important instructions, pair symbols with words, such as Command ⌘ or Shift ⇧, so the meaning is clear." }
+      ],
+      "related": [
+        { "slug": "arrow-symbols", "name": "Arrow Symbols", "emoji": "→" },
+        { "slug": "special-characters", "name": "Special Characters", "emoji": "§" },
+        { "slug": "text-symbols", "name": "Text Symbols", "emoji": "✦" },
+        { "slug": "shape-symbols", "name": "Shape Symbols", "emoji": "◆" },
+        { "slug": "line-symbols", "name": "Lines & Boxes", "emoji": "─" }
+      ]
+    },
+
+    {
+      "slug": "icon-copy-paste",
+      "emoji": "◉",
+      "displayName": "Icon Copy Paste",
+      "h1": "Icon Copy Paste ◉ — Text Icons and Symbols",
+      "title": "Icon Copy Paste ◉ — Text Icons, Signs and Small Symbols",
+      "description": "Copy and paste text icons — hearts, stars, arrows, checks, bullets, weather icons, music icons, shapes, and small Unicode signs.",
+      "unicodeBlock": "Dingbats, Miscellaneous Symbols, Arrows, Geometric Shapes",
+      "intro": "Text icons are small Unicode symbols that behave like normal text but look like tiny interface icons. Use them for callouts, labels, bios, menus, buttons, lists, captions, and decorative navigation. Click any icon to copy it instantly.",
+      "symbols": ["◉", "◎", "○", "●", "◆", "◇", "■", "□", "▲", "▼", "▶", "◀", "★", "☆", "✦", "✧", "♥", "♡", "✓", "✕", "✚", "✖", "→", "➜", "➤", "↳", "☀", "☁", "☂", "⚡", "♪", "♫", "☎", "✉", "✎", "✂", "⌛", "⌚", "⚙", "⚓", "⚔", "⚖", "☮", "☯", "♻", "⚜"],
+      "howToUse": "Copy text icons when you need the feel of an icon without uploading an SVG or image. Use arrows for calls-to-action, checks for benefits, shapes for bullets, hearts and stars for decoration, and small signs for labels in bios or documents.",
+      "useCases": [
+        { "title": "Calls to action", "description": "Use ➜, ➤, or → before links, buttons, and short instructions." },
+        { "title": "Lists and feature bullets", "description": "Use ✓, ◆, ◉, or ✦ to make plain text easier to scan." },
+        { "title": "Profile labels", "description": "Add small icons next to location, music, contact, hobbies, or links in a social bio." },
+        { "title": "No-image UI notes", "description": "Text icons work in places where images or custom icon fonts are not allowed." }
+      ],
+      "faq": [
+        { "question": "Are text icons real icons?", "answer": "They are Unicode text characters that look like icons. They copy, paste, resize, and inherit color like text." },
+        { "question": "Do text icons work in HTML?", "answer": "Yes. You can paste Unicode text icons directly into HTML, Markdown, comments, and text fields." },
+        { "question": "Why use text icons instead of emoji?", "answer": "Text icons are often cleaner, monochrome, and easier to match with surrounding text than colorful emoji." }
+      ],
+      "related": [
+        { "slug": "text-symbols", "name": "Text Symbols", "emoji": "✦" },
+        { "slug": "shape-symbols", "name": "Shape Symbols", "emoji": "◆" },
+        { "slug": "arrow-symbols", "name": "Arrow Symbols", "emoji": "→" },
+        { "slug": "star-symbols", "name": "Star Symbols", "emoji": "★" },
+        { "slug": "heart-symbols", "name": "Heart Symbols", "emoji": "♥" }
+      ]
+    },
+
+    {
+      "slug": "cute-symbols",
+      "emoji": "♡",
+      "displayName": "Cute Symbols",
+      "h1": "Cute Symbols ♡ — Copy and Paste",
+      "title": "Cute Symbols ♡ Copy & Paste — Pretty, Kawaii and Aesthetic Signs",
+      "description": "Cute symbols to copy and paste — ♡ ✦ ꒰꒱ ⋆ ˚ ✿ ʚɞ and pretty aesthetic characters for bios, captions, and usernames.",
+      "unicodeBlock": "Mixed Unicode symbols, Dingbats, decorative marks",
+      "intro": "Cute symbols are soft, pretty, kawaii, and aesthetic Unicode characters used in bios, captions, usernames, edits, and messages. Copy hearts, sparkles, flowers, brackets, moons, dots, butterflies, and decorative marks that make text feel softer without needing an image.",
+      "symbols": ["♡", "♥", "ღ", "❥", "ෆ", "✦", "✧", "⋆", "˚", "⊹", "࿔", "✿", "❀", "❁", "❃", "☾", "☽", "☼", "꒰", "꒱", "⊰", "⊱", "ʚ", "ɞ", "ʚɞ", "୨", "୧", "ᵕ̈", "ᥫ᭡", "ꨄ", "ꨄ︎", "𖦹", "𓆸", "𓂃", "♡⃕", "ྀི", "༘", "❦", "❧", "✩", "✯", "✰"],
+      "howToUse": "Click any cute symbol to copy it. Use hearts around names, sparkles as separators, flowers in soft bios, brackets around short phrases, and moons or dots for dreamy profile decoration. Combine only a few symbols at once so the result stays readable.",
+      "useCases": [
+        { "title": "Cute bios", "description": "Frame short profile lines with hearts, sparkles, and flowers: ♡ writer ⋆ coffee ⋆ city ♡." },
+        { "title": "Kawaii usernames", "description": "Decorate display names with soft brackets and tiny symbols, such as ꒰ mia ꒱ or ʚ nova ɞ." },
+        { "title": "Captions and comments", "description": "Add a cute closer like ˚₊‧꒰ა ♡ ໒꒱ ‧₊˚ or a simple ♡ at the end of a line." },
+        { "title": "Aesthetic edits", "description": "Use symbols as dividers between short words in edits, playlists, and mood boards." }
+      ],
+      "faq": [
+        { "question": "What are the most popular cute symbols?", "answer": "The most common are ♡, ✦, ✧, ⋆, ꒰꒱, ✿, ❀, ☾, ʚɞ, and soft combining marks like ˚ and ࿔." },
+        { "question": "Can cute symbols be used in usernames?", "answer": "Usually in display names, yes. Actual handles may be more restricted depending on the platform." },
+        { "question": "Why do some cute symbols overlap letters?", "answer": "Some are combining marks designed to attach to nearby characters. Use them sparingly and test on mobile." }
+      ],
+      "related": [
+        { "slug": "aesthetic-symbols", "name": "Aesthetic Symbols", "emoji": "✦" },
+        { "slug": "symbols-for-bio", "name": "Symbols for Bio", "emoji": "♡" },
+        { "slug": "heart-symbols", "name": "Heart Symbols", "emoji": "♥" },
+        { "slug": "flower-symbols", "name": "Flower Symbols", "emoji": "❀" },
+        { "slug": "star-symbols", "name": "Star Symbols", "emoji": "★" }
+      ]
+    },
+
+    {
+      "slug": "symbols-for-bio",
+      "emoji": "♡",
+      "displayName": "Symbols for Bio",
+      "h1": "Symbols for Bio ♡ — Copy and Paste",
+      "title": "Symbols for Bio ♡ Copy & Paste — Instagram, TikTok and Discord",
+      "description": "Symbols for bio copy and paste — hearts, stars, dividers, arrows, brackets, cute symbols, and aesthetic Unicode for profiles.",
+      "unicodeBlock": "Mixed Unicode symbols for social profiles",
+      "intro": "Symbols for bio help turn plain profile text into a compact, scannable layout. Copy hearts, stars, dividers, arrows, brackets, flowers, moons, and cute aesthetic symbols for Instagram, TikTok, Discord, Telegram, X/Twitter, and other profile fields.",
+      "symbols": ["♡", "♥", "✦", "✧", "⋆", "•", "◦", "→", "↳", "➜", "✿", "❀", "☾", "☽", "꒰", "꒱", "⊰", "⊱", "ʚ", "ɞ", "˚", "⊹", "࿔", "𓆸", "𓂃", "❝", "❞", "╭", "╮", "╯", "╰", "─", "━", "│", "✩", "✯", "⚡", "☁", "☀", "♪", "♫", "✓"],
+      "howToUse": "Copy one or two symbols and place them around your bio text. Use arrows before links, hearts near personal lines, stars as separators, dividers between sections, and brackets around short labels. Keep bio symbols readable on mobile and avoid stacking too many rare characters.",
+      "useCases": [
+        { "title": "Instagram bios", "description": "Separate interests, location, and links with ⋆, ✦, arrows, or line dividers." },
+        { "title": "TikTok profiles", "description": "Use cute symbols around a short niche statement, pronouns, or call-to-action." },
+        { "title": "Discord statuses", "description": "Add a small symbol before a mood, song lyric, game status, or short update." },
+        { "title": "Link labels", "description": "Point to a link with →, ➜, or ↳ so the CTA is visible in a compact bio." }
+      ],
+      "faq": [
+        { "question": "Which symbols work best in bios?", "answer": "Simple symbols like ♡, ✦, ⋆, →, •, ✿, and ☾ usually work best because they are readable and widely supported." },
+        { "question": "Can bio symbols hurt readability?", "answer": "Yes if overused. Use symbols as separators and accents, not as a replacement for clear profile text." },
+        { "question": "Do these work on Instagram and TikTok?", "answer": "Most do. Very rare Unicode characters can render differently, so check your profile after saving." }
+      ],
+      "related": [
+        { "slug": "cute-symbols", "name": "Cute Symbols", "emoji": "♡" },
+        { "slug": "aesthetic-symbols", "name": "Aesthetic Symbols", "emoji": "✦" },
+        { "slug": "symbols-for-usernames", "name": "Username Symbols", "emoji": "★" },
+        { "slug": "line-symbols", "name": "Lines & Boxes", "emoji": "─" },
+        { "slug": "arrow-symbols", "name": "Arrow Symbols", "emoji": "→" }
+      ]
+    },
+
+    {
+      "slug": "symbols-for-usernames",
+      "emoji": "★",
+      "displayName": "Username Symbols",
+      "h1": "Username Symbols ★ — Copy and Paste",
+      "title": "Username Symbols ★ Copy & Paste — Name Decorations and Nickname Signs",
+      "description": "Username symbols to copy and paste — stars, hearts, brackets, arrows, gamer symbols, cute signs, and name decorations.",
+      "unicodeBlock": "Mixed Unicode decorations for display names",
+      "intro": "Username symbols are small characters that frame or separate names in display names, nicknames, gamer tags, and social profiles. Copy stars, hearts, brackets, arrows, crosses, flowers, moons, and clean shape symbols that look good around short names.",
+      "symbols": ["★", "☆", "✦", "✧", "✩", "✯", "♥", "♡", "ღ", "❥", "ꨄ", "꒰", "꒱", "⊰", "⊱", "『", "』", "【", "】", "「", "」", "༺", "༻", "•", "◦", "◆", "◇", "✿", "❀", "☾", "☽", "⚡", "☠", "⚔", "♛", "♚", "♜", "✞", "✟", "➤", "→"],
+      "howToUse": "Copy username symbols and place them before, after, or around a short name. Simple framing patterns work best: ★Nova★, ♡Mia♡, ꒰ Alex ꒱, or ⊰Kai⊱. Avoid using too many rare symbols in actual account handles because platforms may reject them.",
+      "useCases": [
+        { "title": "Display names", "description": "Add clean symbols around your name for Instagram, Discord, TikTok, Telegram, or gaming profiles." },
+        { "title": "Gaming names", "description": "Use stars, shields, crosses, lightning, and brackets for stronger gamer-tag styling." },
+        { "title": "Cute nicknames", "description": "Use hearts, flowers, moons, and soft brackets for kawaii or aesthetic display names." },
+        { "title": "Name separators", "description": "Use symbols between words when spaces are not visually strong enough." }
+      ],
+      "faq": [
+        { "question": "Can I use symbols in a username handle?", "answer": "Sometimes. Display names are usually flexible, but account handles often allow only letters, numbers, underscores, and periods." },
+        { "question": "Which username symbols are safest?", "answer": "Common symbols like ★, ☆, ♡, ♥, ✦, •, and simple brackets tend to render reliably." },
+        { "question": "How many symbols should I use in a name?", "answer": "One or two framing symbols usually looks cleaner than a long string of decorations." }
+      ],
+      "related": [
+        { "slug": "symbols-for-bio", "name": "Symbols for Bio", "emoji": "♡" },
+        { "slug": "cute-symbols", "name": "Cute Symbols", "emoji": "♡" },
+        { "slug": "star-symbols", "name": "Star Symbols", "emoji": "★" },
+        { "slug": "heart-symbols", "name": "Heart Symbols", "emoji": "♥" },
+        { "slug": "text-symbols", "name": "Text Symbols", "emoji": "✦" }
+      ]
+    },
+
+    {
+      "slug": "weird-symbols",
+      "emoji": "𖦹",
+      "displayName": "Weird Symbols",
+      "h1": "Weird Symbols 𖦹 — Copy and Paste",
+      "title": "Weird Symbols 𖦹 Copy & Paste — Strange Unicode Characters",
+      "description": "Weird symbols to copy and paste — strange Unicode signs, spirals, rare characters, aesthetic marks, unusual icons, and odd text symbols.",
+      "unicodeBlock": "Mixed Unicode symbols, rare scripts, dingbats, and marks",
+      "intro": "Weird symbols are unusual Unicode characters that stand out in bios, usernames, comments, and creative text. Copy spirals, rare marks, odd signs, strange shapes, obscure decorative characters, and aesthetic glyphs that look different from common hearts and stars.",
+      "symbols": ["𖦹", "ꨄ", "ꨄ︎", "⌁", "⌘", "⌇", "⌑", "⍟", "⚝", "☄", "☯", "☢", "☣", "⚛", "♆", "♇", "☿", "⚚", "⚕", "⚜", "✺", "✹", "✸", "❂", "◉", "◎", "◌", "◍", "◐", "◑", "◒", "◓", "𓆸", "𓂃", "࿔", "⊹", "༘", "ྀི", "𖤐", "𖥧", "𖥦", "𖠌", "𖤍"],
+      "howToUse": "Click a weird symbol to copy it. Use unusual characters sparingly because rare Unicode glyphs can render differently across devices. They work best as one-character accents in display names, bios, mood posts, and experimental text layouts.",
+      "useCases": [
+        { "title": "Distinctive bios", "description": "Use one weird symbol as a signature mark before or after a short profile line." },
+        { "title": "Experimental usernames", "description": "Add a rare glyph to a display name when common hearts and stars feel too familiar." },
+        { "title": "Mood captions", "description": "Use spirals, rare marks, and unusual symbols for surreal, dreamcore, or abstract posts." },
+        { "title": "Creative dividers", "description": "Mix one weird symbol with dots or lines to create a unique profile divider." }
+      ],
+      "faq": [
+        { "question": "Why do weird symbols break more often?", "answer": "Many weird symbols come from rare Unicode blocks that not every device font supports. Common symbols render more reliably." },
+        { "question": "Are weird symbols searchable?", "answer": "Some are searchable as Unicode characters, but many are hard to type or name. Copy-paste is usually the easiest way to use them." },
+        { "question": "Can weird symbols be used in usernames?", "answer": "They may work in display names, but many platforms reject rare Unicode in account handles." }
+      ],
+      "related": [
+        { "slug": "aesthetic-symbols", "name": "Aesthetic Symbols", "emoji": "✦" },
+        { "slug": "text-symbols", "name": "Text Symbols", "emoji": "✦" },
+        { "slug": "cute-symbols", "name": "Cute Symbols", "emoji": "♡" },
+        { "slug": "symbols-for-usernames", "name": "Username Symbols", "emoji": "★" },
+        { "slug": "shape-symbols", "name": "Shape Symbols", "emoji": "◆" }
+      ]
     }
   ]
 }

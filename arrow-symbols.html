@@ -340,6 +340,15 @@
     margin: 0 0 28px;
     max-width: 760px;
   }
+  .direct-answer {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    color: var(--text-soft-2);
+    margin: 0 0 16px;
+    max-width: 760px;
+  }
   .meta-line {
     font-size: 13px;
     color: var(--muted);
@@ -404,6 +413,59 @@
     margin: 0 0 6px;
   }
   .use-case p { font-size: 14px; margin: 0; }
+
+  .variants-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .variants-table th,
+  .variants-table td {
+    border-bottom: 1px solid var(--border);
+    padding: 12px 14px;
+    text-align: left;
+    color: var(--text-soft);
+    font-size: 14px;
+  }
+  .variants-table th {
+    background: var(--bg-2);
+    color: var(--text);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .variants-table tr:last-child td { border-bottom: 0; }
+  .variants-table .variant-symbol {
+    color: var(--text);
+    font-size: 22px;
+    width: 72px;
+    text-align: center;
+  }
+  .compat-note {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 14px 16px;
+    color: var(--text-soft);
+  }
+  .keyword-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .keyword-chip {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text-soft-2);
+    display: inline-flex;
+    font-size: 13px;
+    padding: 7px 10px;
+  }
 
   /* FAQ */
   .faq { display: flex; flex-direction: column; gap: 10px; margin: 14px 0; }
@@ -532,6 +594,7 @@
   </div>
 
   <h1>Arrow Symbols → — Copy and Paste</h1>
+  <p class="direct-answer">Copy arrow symbols instantly: click any symbol below, then paste it into a bio, caption, username, message, document, or profile field.</p>
   <p class="lead">Arrows are the most practical category in Unicode — they direct attention, indicate flow, mark causes and effects, and decorate calls-to-action. This page covers every popular arrow shape: cardinal and diagonal directions, single and double lines, curved and looped, decorative dingbat arrows, and special variants like the long ⟶ and the heavy ➜. Useful for diagrams in plain text, navigation hints in bios, step-by-step instructions, and pointer accents.</p>
   <p class="meta-line">88 symbols · click any one to copy · Arrows (U+2190–U+21FF), Supplemental Arrows, Dingbats</p>
 
@@ -660,6 +723,100 @@
   </section>
 
   <section>
+    <h2>Popular variants</h2>
+    <table class="variants-table">
+      <thead>
+        <tr>
+          <th>Symbol</th>
+          <th>Style</th>
+          <th>Best use</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td class="variant-symbol">←</td>
+        <td>Common arrow symbols accent</td>
+        <td>Copy ← for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">→</td>
+        <td>Common arrow symbols accent</td>
+        <td>Copy → for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">↑</td>
+        <td>Common arrow symbols accent</td>
+        <td>Copy ↑ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">↓</td>
+        <td>Common arrow symbols accent</td>
+        <td>Copy ↓ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">↔</td>
+        <td>Decorative arrow symbols option</td>
+        <td>Copy ↔ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">↕</td>
+        <td>Decorative arrow symbols option</td>
+        <td>Copy ↕ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">↖</td>
+        <td>Decorative arrow symbols option</td>
+        <td>Copy ↖ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">↗</td>
+        <td>Decorative arrow symbols option</td>
+        <td>Copy ↗ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">↘</td>
+        <td>Extra arrow symbols variant</td>
+        <td>Copy ↘ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">↙</td>
+        <td>Extra arrow symbols variant</td>
+        <td>Copy ↙ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">⇐</td>
+        <td>Extra arrow symbols variant</td>
+        <td>Copy ⇐ for bios, captions, usernames, or messages.</td>
+      </tr>
+      <tr>
+        <td class="variant-symbol">⇒</td>
+        <td>Extra arrow symbols variant</td>
+        <td>Copy ⇒ for bios, captions, usernames, or messages.</td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Compatibility notes</h2>
+    <p class="compat-note">This collection uses plain Unicode text, so the symbols work in most modern apps. Rare or decorative characters can look different across devices or appear as boxes on older fonts. For maximum compatibility, test the symbol on mobile before using it in a permanent username or profile.</p>
+  </section>
+
+  <section>
+    <h2>Related keyword family</h2>
+    <div class="keyword-chips">
+      <span class="keyword-chip">arrow symbols</span>
+      <span class="keyword-chip">arrow symbols copy and paste</span>
+      <span class="keyword-chip">copy paste arrow symbols</span>
+      <span class="keyword-chip">arrow symbols text</span>
+      <span class="keyword-chip">arrow symbols for bio</span>
+      <span class="keyword-chip">arrow symbols for usernames</span>
+      <span class="keyword-chip">cool arrow symbols</span>
+      <span class="keyword-chip">arrow symbols unicode</span>
+    </div>
+  </section>
+
+  <section>
     <h2>Frequently asked questions</h2>
     <div class="faq">
       <details class="faq-item">
@@ -740,13 +897,34 @@
 
   // Copy on click
   const toast = document.getElementById('toast');
-  function copyText(text) {
+  function fallbackCopy(text) {
+    const el = document.createElement('textarea');
+    el.value = text;
+    el.setAttribute('readonly', '');
+    el.style.position = 'fixed';
+    el.style.left = '-9999px';
+    document.body.appendChild(el);
+    el.select();
+    let copied = false;
+    try { copied = document.execCommand('copy'); } catch(e) {}
+    document.body.removeChild(el);
+    return copied;
+  }
+  async function copyText(text) {
     if (!text) return;
-    navigator.clipboard.writeText(text).then(() => {
+    let copied = false;
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        copied = true;
+      }
+    } catch(e) {}
+    if (!copied) copied = fallbackCopy(text);
+    if (copied) {
       toast.classList.add('show');
       clearTimeout(toast._t);
       toast._t = setTimeout(() => toast.classList.remove('show'), 1200);
-    });
+    }
   }
   document.querySelectorAll('.sym').forEach(el => {
     el.addEventListener('click', () => copyText(el.textContent));

@@ -1,0 +1,40 @@
+---
+interface Props {
+  items: Array<{ title: string; description: string }>;
+  /** Appended as a final card so compatibility advice sits with the rest. */
+  compatibilityNote?: string;
+}
+const { items, compatibilityNote } = Astro.props;
+
+// Decorative only; the heading text carries the meaning.
+const ICONS = ['◍', '✎', '♡', '◈', '✦', '☰'];
+const TINTS = [
+  'var(--tint-purple)',
+  'var(--tint-blue)',
+  'var(--tint-pink)',
+  'var(--tint-green)',
+  'var(--tint-yellow)',
+  'var(--tint-orange)',
+];
+
+const cards = [
+  ...items,
+  ...(compatibilityNote ? [{ title: 'Compatibility notes', description: compatibilityNote }] : []),
+];
+---
+
+<div class="use-cases">
+  {
+    cards.map((card, i) => (
+      <div class="use-case">
+        <span class="use-case-icon" style={`background:${TINTS[i % TINTS.length]}`} aria-hidden="true">
+          {ICONS[i % ICONS.length]}
+        </span>
+        <div>
+          <h3>{card.title}</h3>
+          <p>{card.description}</p>
+        </div>
+      </div>
+    ))
+  }
+</div>

@@ -1,0 +1,39 @@
+---
+import { unicodeCodePoints } from '../lib/unicode';
+
+interface Props {
+  title: string;
+  rows: Array<{ symbol: string; name: string; code?: string; use: string }>;
+}
+const { title, rows } = Astro.props;
+---
+
+<section>
+  <h2>{title}</h2>
+  <div class="table-scroll">
+    <table class="reference-table">
+      <thead>
+        <tr>
+          <th>Symbol</th>
+          <th>Name</th>
+          <th>Code</th>
+          <th>Typical use</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          rows.map((row) => (
+            <tr>
+              <td class="reference-symbol">{row.symbol}</td>
+              <td>{row.name}</td>
+              <td>
+                <code>{row.code || unicodeCodePoints(row.symbol)}</code>
+              </td>
+              <td>{row.use}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

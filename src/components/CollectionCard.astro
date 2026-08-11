@@ -1,0 +1,44 @@
+---
+// Renders entirely on the client from the favourites store, so the markup here
+// is just the shell plus an empty state.
+---
+
+<aside class="side-card" id="collection">
+  <div class="side-card-head">
+    <h2 class="side-card-title">Your collection</h2>
+    <span class="side-badge" id="collectionCount">0</span>
+  </div>
+
+  <div class="collection-grid" id="collectionGrid"></div>
+
+  <p class="collection-empty" id="collectionEmpty">
+    Tap the heart on any symbol to save it here.
+  </p>
+</aside>
+
+<script is:inline>
+  (function () {
+    const grid = document.getElementById('collectionGrid');
+    const empty = document.getElementById('collectionEmpty');
+    const count = document.getElementById('collectionCount');
+    if (!grid || !window.favorites) return;
+
+    window.favorites.subscribe((items) => {
+      count.textContent = String(items.length);
+      empty.hidden = items.length > 0;
+      grid.innerHTML = '';
+
+      // Sidebar is a preview, not the full list.
+      items.slice(0, 8).forEach((symbol) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'collection-item';
+        button.textContent = symbol;
+        button.title = `Copy ${symbol}`;
+        button.setAttribute('aria-label', `Copy ${symbol}`);
+        button.addEventListener('click', () => window.copyText(symbol));
+        grid.appendChild(button);
+      });
+    });
+  })();
+</script>

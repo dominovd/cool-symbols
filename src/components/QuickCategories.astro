@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import { CATEGORY_TINTS } from '../lib/categories';
+
+interface Props {
+  /** Slug of the page being viewed, excluded from the list. */
+  currentSlug?: string;
+}
+const { currentSlug } = Astro.props;
+
+const featured = ['heart-symbols', 'star-symbols', 'flower-symbols', 'aesthetic-symbols', 'arrow-symbols'];
+const all = await getCollection('categories');
+
+const items = featured
+  .filter((slug) => slug !== currentSlug)
+  .map((slug) => all.find((entry) => entry.data.slug === slug)?.data)
+  .filter((category): category is NonNullable<typeof category> => Boolean(category))
+  .slice(0, 4);
+---
+
+<aside class="side-card">
+  <h2 class="side-card-title">Quick categories</h2>
+  <ul class="quick-list">
+    {
+      items.map((category) => (
+        <li>
+          <a href={`/${category.slug}`}>
+            <span class="quick-icon" style={`background:${CATEGORY_TINTS[category.slug] ?? 'var(--tint-gray)'}`}>
+              {category.emoji}
+            </span>
+            <span>{category.displayName.replace(/\s*Symbols$/i, '')}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <a class="link-more" href="/#collections">View all categories <span aria-hidden="true">→</span></a>
+</aside>

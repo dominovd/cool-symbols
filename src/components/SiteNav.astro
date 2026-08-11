@@ -1,0 +1,43 @@
+---
+interface Props {
+  /** Highlights the matching nav item. */
+  current?: 'explore' | 'collections' | 'fancy-text' | 'ai-tools';
+}
+const { current } = Astro.props;
+
+// Anchors resolve on the home page; from any other page they navigate there
+// first, which is why they are absolute rather than bare hashes.
+const links = [
+  { id: 'explore', label: 'Explore', href: '/#explore' },
+  { id: 'collections', label: 'Collections', href: '/#collections' },
+  { id: 'fancy-text', label: 'Fancy Text', href: '/#fancy-text' },
+  { id: 'ai-tools', label: 'AI Tools', href: '/#ai-tools' },
+] as const;
+---
+
+<nav class="site-nav">
+  <div class="shell">
+    <a href="/" class="nav-brand"><span class="mark">✦</span> Cool Symbols</a>
+
+    <div class="nav-links">
+      {
+        links.map((link) => (
+          <a href={link.href} aria-current={current === link.id ? 'page' : undefined}>
+            {link.label}
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="nav-actions">
+      <a class="nav-favorites" href="/#collection" data-favorites-link>
+        <span aria-hidden="true">♡</span>
+        <span>Favorites</span>
+        <span class="count" id="favCount" hidden>0</span>
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle theme"
+        >☾</button
+      >
+    </div>
+  </div>
+</nav>

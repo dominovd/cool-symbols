@@ -1,0 +1,40 @@
+---
+interface Props {
+  /** Each pattern contains a `{name}` placeholder, e.g. "★彡 {name} 彡★". */
+  patterns: string[];
+}
+const { patterns } = Astro.props;
+---
+
+<section>
+  <h2>Username symbol generator</h2>
+  <p>Type a display name, then click any decorated result to copy it.</p>
+  <div class="name-tool panel">
+    <label for="nameInput">Display name</label>
+    <input id="nameInput" type="text" maxlength="40" value="Alex" autocomplete="off" />
+    <div class="name-results" id="nameResults">
+      {patterns.map((pattern) => <button class="name-result" type="button" data-pattern={pattern} />)}
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    const nameInput = document.getElementById('nameInput');
+    if (!nameInput) return;
+    const nameResults = [...document.querySelectorAll('.name-result')];
+
+    function updateNames() {
+      const name = nameInput.value.trim() || 'Name';
+      nameResults.forEach((button) => {
+        button.textContent = button.dataset.pattern.replace('{name}', name);
+      });
+    }
+
+    nameResults.forEach((button) =>
+      button.addEventListener('click', () => window.copyText(button.textContent))
+    );
+    nameInput.addEventListener('input', updateNames);
+    updateNames();
+  })();
+</script>

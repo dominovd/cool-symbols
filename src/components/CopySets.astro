@@ -1,0 +1,30 @@
+---
+interface Props {
+  title: string;
+  intro: string;
+  items: Array<{ label: string; text: string; description: string }>;
+}
+const { title, intro, items } = Astro.props;
+---
+
+<section>
+  <h2>{title}</h2>
+  <p>{intro}</p>
+  <div class="copy-set-grid">
+    {
+      items.map((item) => (
+        <button class="copy-set" type="button" data-copy={item.text}>
+          <span class="copy-set-label">{item.label}</span>
+          <span class="copy-set-text">{item.text}</span>
+          <span class="copy-set-description">{item.description}</span>
+        </button>
+      ))
+    }
+  </div>
+</section>
+
+<script is:inline>
+  document.querySelectorAll('.copy-set').forEach((button) => {
+    button.addEventListener('click', () => window.copyText(button.dataset.copy));
+  });
+</script>

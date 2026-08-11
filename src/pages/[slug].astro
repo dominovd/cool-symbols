@@ -1,0 +1,145 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import SymbolLibrary from '../components/SymbolLibrary.astro';
+import ComboLibrary from '../components/ComboLibrary.astro';
+import CopySets from '../components/CopySets.astro';
+import UsernameTool from '../components/UsernameTool.astro';
+import ReferenceTable from '../components/ReferenceTable.astro';
+import UseCases from '../components/UseCases.astro';
+import FaqList from '../components/FaqList.astro';
+import RelatedGrid from '../components/RelatedGrid.astro';
+import CollectionCard from '../components/CollectionCard.astro';
+import QuickCategories from '../components/QuickCategories.astro';
+import { breadcrumbJsonLd, collectionPageJsonLd, faqJsonLd } from '../lib/seo';
+import '../styles/components.css';
+
+// One static page per catalogue entry. Adding a category to
+// src/data/categories.json is all it takes to publish a new page.
+export async function getStaticPaths() {
+  const categories = await getCollection('categories');
+  return categories.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { category: entry.data },
+  }));
+}
+
+const { category } = Astro.props;
+
+const directAnswer =
+  category.directAnswer ??
+  'Click any symbol below to copy it, then paste it into a bio, caption, username, message, document, or profile field.';
+
+const shortName = category.displayName.toLowerCase();
+
+const COMPATIBILITY_NOTE =
+  'Most symbols here work everywhere, but rare or decorative characters may not render on older devices and apps with limited fonts. Test a symbol on mobile before using it in a permanent username.';
+
+const jsonLd = [
+  breadcrumbJsonLd(category.displayName, category.slug),
+  collectionPageJsonLd(category),
+  faqJsonLd(category.faq),
+];
+---
+
+<Base
+  title={category.title}
+  description={category.description}
+  path={category.slug}
+  jsonLd={jsonLd}>
+  <SiteNav current="collections" />
+
+  <div class="shell category-main">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep" aria-hidden="true">/</span>
+      <span>{category.displayName}</span>
+    </nav>
+
+    <div class="category-head">
+      <h1>{category.h1}</h1>
+      <p class="direct-answer">{directAnswer}</p>
+      <div class="stat-pills">
+        <span class="stat-pill"
+          ><span class="icon" aria-hidden="true">▦</span> {category.symbols.length} symbols</span
+        >
+        <span class="stat-pill"><span class="icon" aria-hidden="true">⧉</span> One-click copy</span>
+        <span class="stat-pill"><span class="icon" aria-hidden="true">U</span> Plain Unicode</span>
+      </div>
+    </div>
+
+    <div class="category-layout">
+      <div>
+        <SymbolLibrary symbols={category.symbols} groups={category.groups} />
+
+        {
+          category.comboGroups?.length && (
+            <ComboLibrary
+              title={category.comboTitle ?? `${category.displayName} combinations`}
+              intro={
+                category.comboIntro ??
+                'Browse ready-made combinations and click any card to copy the complete line.'
+              }
+              groups={category.comboGroups}
+            />
+          )
+        }
+
+        <section>
+          <h2>How to use {shortName}</h2>
+          <p class="lead">{category.howToUse}</p>
+          <UseCases items={category.useCases} compatibilityNote={COMPATIBILITY_NOTE} />
+        </section>
+
+        {
+          category.copySets?.length && (
+            <CopySets
+              title={category.copySetsTitle ?? 'Ready-made combinations'}
+              intro={category.copySetsIntro ?? 'Choose a complete example and copy it in one click.'}
+              items={category.copySets}
+            />
+          )
+        }
+
+        {category.namePatterns?.length && <UsernameTool patterns={category.namePatterns} />}
+
+        {
+          category.referenceRows?.length && (
+            <ReferenceTable
+              title={category.referenceTitle ?? 'Symbol reference'}
+              rows={category.referenceRows}
+            />
+          )
+        }
+
+        <section>
+          <h2>Frequently asked questions</h2>
+          <FaqList items={category.faq} />
+        </section>
+
+        <section>
+          <h2>Explore more symbols</h2>
+          <RelatedGrid items={category.related} />
+        </section>
+      </div>
+
+      <div class="category-sidebar">
+        <CollectionCard />
+        <QuickCategories currentSlug={category.slug} />
+        <aside class="side-card info-card">
+          <span class="info-icon" aria-hidden="true">✦</span>
+          <h2>Symbols are text, not images</h2>
+          <p>
+            Every symbol here is a Unicode character you can copy, paste, resize, and use anywhere
+            text works.
+          </p>
+          <a class="link-more" href="/about">Learn more about Unicode <span aria-hidden="true">→</span></a>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <SiteFooter />
+</Base>

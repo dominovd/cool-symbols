@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import { CATEGORY_TINTS } from '../lib/categories';
+
+interface Props {
+  items: Array<{ slug: string; name: string; emoji: string }>;
+}
+const { items } = Astro.props;
+
+// Symbol counts come from the catalogue so the cards can never advertise a
+// number the page does not actually contain.
+const all = await getCollection('categories');
+const counts = new Map(all.map((entry) => [entry.data.slug, entry.data.symbols.length]));
+---
+
+<div class="related-grid">
+  {
+    items.map((item) => (
+      <a
+        class="related-card"
+        href={`/${item.slug}`}
+        style={`background:${CATEGORY_TINTS[item.slug] ?? 'var(--tint-gray)'}`}>
+        <span class="related-emoji">{item.emoji}</span>
+        <span class="related-name">{item.name}</span>
+        {counts.has(item.slug) && <span class="related-count">{counts.get(item.slug)} symbols</span>}
+        <span class="related-chevron" aria-hidden="true">›</span>
+      </a>
+    ))
+  }
+</div>

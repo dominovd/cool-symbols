@@ -1,0 +1,114 @@
+---
+interface Props {
+  title: string;
+  intro: string;
+  groups: Array<{ name: string; items: string[] }>;
+}
+const { title, intro, groups } = Astro.props;
+
+const total = groups.reduce((sum, group) => sum + group.items.length, 0);
+const cards = groups.flatMap((group) =>
+  group.items.map((item) => ({
+    item,
+    group: group.name.toLowerCase(),
+    search: `${group.name} ${item}`.toLowerCase(),
+  }))
+);
+---
+
+<section class="combo-library" data-combo-library>
+  <h2>{title}</h2>
+  <p>{intro}</p>
+
+  <div class="combo-toolbar">
+    <div class="combo-filters" role="group" aria-label="Filter combinations by style">
+      <button class="combo-filter active" type="button" data-combo-filter="all" aria-pressed="true">
+        All
+      </button>
+      {
+        groups.map((group) => (
+          <button
+            class="combo-filter"
+            type="button"
+            data-combo-filter={group.name.toLowerCase()}
+            aria-pressed="false">
+            {group.name}
+          </button>
+        ))
+      }
+    </div>
+    <div class="combo-search-group">
+      <label class="sr-only" for="comboSearch">Search combinations</label>
+      <input
+        class="combo-search"
+        id="comboSearch"
+        type="search"
+        placeholder="Search combinations"
+        autocomplete="off"
+      />
+      <span class="combo-count" id="comboCount">{total} combinations</span>
+    </div>
+  </div>
+
+  <div class="combo-grid" id="comboGrid">
+    {
+      cards.map((card) => (
+        <button
+          class="combo-card"
+          type="button"
+          data-copy={card.item}
+          data-combo-group={card.group}
+          data-combo-search={card.search}
+          aria-label={`Copy combination ${card.item}`}>
+          <span class="combo-text">{card.item}</span>
+          <span class="combo-action">Copy</span>
+        </button>
+      ))
+    }
+  </div>
+
+  <p class="combo-empty" id="comboEmpty" hidden>No combinations match this search.</p>
+</section>
+
+<script is:inline>
+  (function () {
+    const comboLibrary = document.querySelector('[data-combo-library]');
+    if (!comboLibrary) return;
+
+    const comboCards = [...comboLibrary.querySelectorAll('.combo-card')];
+    const comboFilters = [...comboLibrary.querySelectorAll('[data-combo-filter]')];
+    const comboSearch = comboLibrary.querySelector('#comboSearch');
+    const comboCount = comboLibrary.querySelector('#comboCount');
+    const comboEmpty = comboLibrary.querySelector('#comboEmpty');
+    let activeComboGroup = 'all';
+
+    function updateCombos() {
+      const query = comboSearch.value.trim().toLowerCase();
+      let visible = 0;
+      comboCards.forEach((card) => {
+        const matchesGroup = activeComboGroup === 'all' || card.dataset.comboGroup === activeComboGroup;
+        const matchesSearch = !query || card.dataset.comboSearch.includes(query);
+        card.hidden = !(matchesGroup && matchesSearch);
+        if (!card.hidden) visible += 1;
+      });
+      comboCount.textContent = `${visible} ${visible === 1 ? 'combination' : 'combinations'}`;
+      comboEmpty.hidden = visible !== 0;
+    }
+
+    comboFilters.forEach((filter) => {
+      filter.addEventListener('click', () => {
+        activeComboGroup = filter.dataset.comboFilter;
+        comboFilters.forEach((button) => {
+          const active = button === filter;
+          button.classList.toggle('active', active);
+          button.setAttribute('aria-pressed', String(active));
+        });
+        updateCombos();
+      });
+    });
+    comboCards.forEach((card) =>
+      card.addEventListener('click', () => window.copyText(card.dataset.copy))
+    );
+    comboSearch.addEventListener('input', updateCombos);
+  })();
+</script>

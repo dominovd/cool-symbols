@@ -1,0 +1,285 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import CollectionCard from '../components/CollectionCard.astro';
+import FaqList from '../components/FaqList.astro';
+import { SITE_URL, SITE_NAME } from '../lib/seo';
+import { INTENT_PAGES, HOME_FAQ, HOW_IT_WORKS } from '../lib/home-content';
+import { CATEGORY_TINTS } from '../lib/categories';
+import '../styles/components.css';
+import '../styles/home.css';
+
+const categories = (await getCollection('categories')).map((entry) => entry.data);
+const intentSlugs = new Set(INTENT_PAGES.map((page) => page.slug));
+// Intent-driven pages get their own section, so the thematic grid excludes them.
+const browseCategories = categories.filter((category) => !intentSlugs.has(category.slug));
+
+const title = 'Cool Symbols Copy and Paste - Text Symbols, Emojis & Fancy Icons';
+const description =
+  'Cool symbols to copy and paste: text symbols, special characters, keyboard symbols, cute icons, aesthetic emojis, hearts, stars, arrows, and more.';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: SITE_NAME,
+    url: `${SITE_URL}/`,
+    description:
+      'Free copy-paste library for cool symbols, text symbols, special characters, fancy icons, emojis, and Unicode signs.',
+    applicationCategory: 'UtilityApplication',
+    operatingSystem: 'Any',
+    browserRequirements: 'Requires JavaScript. Modern browser.',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    creator: { '@type': 'Organization', name: SITE_NAME, url: `${SITE_URL}/` },
+    featureList: [
+      `${categories.length} symbol category and intent pages`,
+      'Text symbols and special characters',
+      'Keyboard symbols and icon copy paste',
+      'Cute symbols for bios and usernames',
+      'Aesthetic dividers for profiles',
+      '22 fancy Unicode text fonts',
+      'AI ASCII art and symbol generators',
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: HOME_FAQ.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  },
+];
+---
+
+<Base title={title} description={description} path="" jsonLd={jsonLd}>
+  <Fragment slot="head">
+    <meta
+      name="keywords"
+      content="cool symbols, copy and paste symbols, copy paste symbols, text symbols, special characters, keyboard symbols, cute symbols, icon copy paste, symbols for bio, username symbols"
+    />
+  </Fragment>
+
+  <SiteNav current="explore" />
+
+  <div class="shell home-main">
+    <header class="hero">
+      <span class="hero-spark hero-spark-one" aria-hidden="true">✦</span>
+      <span class="hero-spark hero-spark-two" aria-hidden="true">✧</span>
+      <span class="hero-spark hero-spark-three" aria-hidden="true">✦</span>
+
+      <h1>Cool Symbols Copy and Paste <span class="spark" aria-hidden="true">✦</span></h1>
+      <p class="hero-sub">
+        Find the perfect text symbol for any bio, caption, username, or message. Search, click, copy.
+      </p>
+
+      <div class="hero-search">
+        <label class="sr-only" for="symbolSearch">Search symbols</label>
+        <div class="search-field">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input
+            class="symbol-search"
+            id="symbolSearch"
+            type="search"
+            placeholder="Search hearts, stars, arrows..."
+            autocomplete="off"
+          />
+          <span class="search-shortcut" aria-hidden="true">⌘ K</span>
+        </div>
+      </div>
+
+      <div class="hero-pills" id="catTabs"></div>
+
+      <div class="free-badges">
+        <span class="free-badge">Click to copy</span>
+        <span class="free-badge">Plain Unicode text</span>
+        <span class="free-badge">Works in bios</span>
+        <span class="free-badge">Free symbol library</span>
+      </div>
+    </header>
+
+    <div class="home-layout">
+      <div>
+        <section id="explore">
+          <h2>Copy and Paste Symbols <span class="pill">Main library</span></h2>
+          <div class="panel symbol-panel">
+            <div class="symbol-toolbar">
+              <button class="toolbar-button" id="copyVisible" type="button">
+                <span aria-hidden="true">⧉</span> Copy visible
+              </button>
+              <span class="result-count" id="resultCount"></span>
+            </div>
+            <div class="symbol-cards" id="symbolsGrid"></div>
+            <p class="search-empty" id="searchEmpty" hidden>
+              No matching symbols found. Try another category.
+            </p>
+          </div>
+        </section>
+
+        <section id="popular">
+          <h2>Popular Cool Symbols <span class="pill">Fast copy</span></h2>
+          <p class="section-note">
+            Copy a practical selection of text symbols for bios, captions, usernames, comments, and
+            plain-text decoration.
+          </p>
+          <div class="symbol-cards" id="popularSymbols"></div>
+        </section>
+
+        <section>
+          <h2>Copy Paste Symbols by Need</h2>
+          <div class="intent-grid">
+            {
+              INTENT_PAGES.map((page) => (
+                <a class="intent-card" href={`/${page.slug}`}>
+                  <span class="intent-icon" aria-hidden="true">
+                    {page.icon}
+                  </span>
+                  <span>
+                    <h3>{page.heading}</h3>
+                    <p>{page.blurb}</p>
+                  </span>
+                  <span class="chevron" aria-hidden="true">
+                    ›
+                  </span>
+                </a>
+              ))
+            }
+          </div>
+        </section>
+
+        <section id="collections">
+          <h2>Browse Symbols by Category</h2>
+          <p class="section-note">
+            Each category has a dedicated page with more symbols, use cases, and tips on where they
+            work best.
+          </p>
+          <div class="category-grid">
+            {
+              browseCategories.map((category) => (
+                <a
+                  class="category-card"
+                  href={`/${category.slug}`}
+                  style={`background:${CATEGORY_TINTS[category.slug] ?? 'var(--tint-gray)'}`}>
+                  <span class="emoji">{category.emoji}</span>
+                  <span>
+                    <span class="name">{category.displayName}</span>
+                    <span class="count">{category.symbols.length} symbols</span>
+                  </span>
+                  <span class="chevron" aria-hidden="true">
+                    ›
+                  </span>
+                </a>
+              ))
+            }
+          </div>
+        </section>
+
+        <section id="fancy-text">
+          <h2>Fancy Text Generator <span class="pill">Type to copy</span></h2>
+          <div class="panel fancy-panel">
+            <div class="fancy-intro">
+              <p>Generate stylish text fonts for your bio, captions, and messages.</p>
+              <label for="genInput">Your text</label>
+              <input
+                id="genInput"
+                class="gen-input"
+                type="text"
+                placeholder="Type your text here..."
+                value="Cool Symbols"
+              />
+              <div class="fancy-orb" aria-hidden="true">
+                <span class="o1"></span>
+                <span class="o2"></span>
+                <span class="o3"></span>
+                <span class="o4"></span>
+                <span class="orb-label">Aa</span>
+              </div>
+            </div>
+            <div class="styles" id="styles"></div>
+          </div>
+        </section>
+
+        <section id="dividers-section">
+          <h2>Aesthetic Dividers <span class="pill">For bios &amp; profiles</span></h2>
+          <div class="divider-grid" id="dividers"></div>
+        </section>
+
+        <section id="ai-tools">
+          <h2>AI Symbol Tools <span class="pill glow">extra generators</span></h2>
+          <div class="panel">
+            <div class="ai-panel">
+              <div>
+                <div id="aiTabs" class="ai-tabs"></div>
+                <div id="aiInputArea" class="ai-input-area"></div>
+                <div class="ai-controls">
+                  <button id="aiGenerate" class="ai-btn">
+                    Generate <span aria-hidden="true">✦</span>
+                  </button>
+                  <div class="ai-meta"><b id="aiRemaining">20</b>/20 free generations today</div>
+                </div>
+              </div>
+              <div class="ai-examples">
+                <h3>Try these examples</h3>
+                <div class="ai-example-chips" id="aiExamples"></div>
+              </div>
+            </div>
+
+            <div id="aiResult" class="ai-result">
+              <button class="copy-btn" id="aiCopyBtn">Copy</button>
+              <div id="aiResultContent"></div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>How Cool Symbols Copy and Paste Works</h2>
+          <div class="prose">
+            {
+              HOW_IT_WORKS.map((item) => (
+                <div class="prose-item">
+                  <span class="prose-icon" style={`background:${item.tint}`} aria-hidden="true">
+                    {item.icon}
+                  </span>
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p set:html={item.body} />
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+          <div class="prose-footer">
+            <a class="link-more" href="#collections"
+              >Learn more and explore all symbols <span aria-hidden="true">→</span></a
+            >
+          </div>
+        </section>
+
+        <section>
+          <h2>Frequently Asked Questions</h2>
+          <FaqList items={HOME_FAQ} />
+        </section>
+      </div>
+
+      <div class="home-sidebar">
+        <CollectionCard />
+
+        <aside class="side-card mini-fancy">
+          <h2 class="side-card-title">Fancy text</h2>
+          <label class="sr-only" for="miniFancyInput">Text to stylize</label>
+          <input id="miniFancyInput" type="text" value="Hello World" autocomplete="off" />
+          <div id="miniFancyRows"></div>
+          <a class="link-more" href="#fancy-text">Explore more styles <span aria-hidden="true">→</span></a>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <SiteFooter />
+
+  {/* Must not be slotted: Astro only bundles scripts it processes in place. */}
+  <script src="../scripts/home.js"></script>
+</Base>

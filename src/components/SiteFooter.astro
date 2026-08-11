@@ -1,0 +1,101 @@
+---
+// Social profiles do not exist yet. The icons are kept for layout parity but
+// point at the home page and carry rel="nofollow" so they never leak link
+// equity or send users to a dead handle. Swap the href when accounts exist.
+const socials = [
+  {
+    name: 'X',
+    href: '/',
+    path: 'M18.9 1.2h3.7l-8 9.1L24 22.8h-7.4l-5.8-7.6-6.6 7.6H.5l8.6-9.8L0 1.2h7.6l5.2 6.9zm-1.3 19.4h2L6.5 3.3H4.3z',
+  },
+  {
+    name: 'Instagram',
+    href: '/',
+    path: 'M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.1A6.7 6.7 0 1 0 18.7 12 6.7 6.7 0 0 0 12 5.3zm0 11A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm6.9-11.2a1.6 1.6 0 1 1-1.6-1.6 1.6 1.6 0 0 1 1.6 1.6z',
+  },
+  {
+    name: 'TikTok',
+    href: '/',
+    path: 'M16.6 5.8a4.8 4.8 0 0 1-1-2.8h-3.4v13.6a2.9 2.9 0 1 1-2-2.8V10.3a6.2 6.2 0 1 0 5.4 6.1V9.6a8.2 8.2 0 0 0 4.8 1.5V7.7a4.8 4.8 0 0 1-3.8-1.9z',
+  },
+  {
+    name: 'Pinterest',
+    href: '/',
+    path: 'M12 2a10 10 0 0 0-3.6 19.3 9.6 9.6 0 0 1 0-2.9c.2-.8 1.3-5.4 1.3-5.4a3.7 3.7 0 0 1-.3-1.5c0-1.5.8-2.6 1.9-2.6a1.3 1.3 0 0 1 1.3 1.5 21 21 0 0 1-.8 3.4 1.5 1.5 0 0 0 1.5 1.9c1.9 0 3.2-2.4 3.2-5.3 0-2.2-1.5-3.8-4.2-3.8a4.8 4.8 0 0 0-5 4.8 2.9 2.9 0 0 0 .7 2 .5.5 0 0 1 .1.5l-.2.8c-.1.3-.2.4-.5.2a4.4 4.4 0 0 1-2-3.9c0-2.9 2.4-6.3 7.3-6.3a6.1 6.1 0 0 1 6.4 5.9c0 3.9-2.4 6.9-5.9 6.9a3.2 3.2 0 0 1-2.7-1.3l-.7 2.8a12.9 12.9 0 0 1-1.5 3.1A10 10 0 1 0 12 2z',
+  },
+];
+
+const columns = [
+  {
+    title: 'Symbols',
+    links: [
+      { label: 'Text Symbols', href: '/text-symbols' },
+      { label: 'Special Characters', href: '/special-characters' },
+      { label: 'Keyboard Symbols', href: '/keyboard-symbols' },
+      { label: 'Heart Symbols', href: '/heart-symbols' },
+      { label: 'Star Symbols', href: '/star-symbols' },
+      { label: 'Aesthetic Symbols', href: '/aesthetic-symbols' },
+    ],
+  },
+  {
+    title: 'Tools',
+    links: [
+      { label: 'Fancy Text Generator', href: '/#fancy-text' },
+      { label: 'Aesthetic Dividers', href: '/#dividers' },
+      { label: 'AI Symbol Tools', href: '/#ai-tools' },
+      { label: 'Symbol Collections', href: '/#collections' },
+      { label: 'Copy Paste Symbols', href: '/#explore' },
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      { label: 'About', href: '/about' },
+      { label: 'Contact', href: '/contact' },
+      { label: 'Privacy Policy', href: '/privacy' },
+      { label: 'Terms of Use', href: '/terms' },
+    ],
+  },
+];
+---
+
+<footer class="site-footer">
+  <div class="shell">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="nav-brand"><span class="mark">✦</span> Cool Symbols</a>
+        <p>Copy and paste Unicode symbols for bios, captions, usernames, and messages.</p>
+        <div class="footer-socials">
+          {
+            socials.map((social) => (
+              <a href={social.href} rel="nofollow" aria-label={social.name}>
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d={social.path} />
+                </svg>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      {
+        columns.map((column) => (
+          <div class="footer-column">
+            <h2>{column.title}</h2>
+            {column.links.map((link) => (
+              <a href={link.href}>{link.label}</a>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>cool-symbols.net</span>
+    <span class="sep">·</span>
+    <span>free forever</span>
+    <span class="sep">·</span>
+    <span>made with ✦ and Unicode</span>
+  </div>
+</footer>

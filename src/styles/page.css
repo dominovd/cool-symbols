@@ -1,0 +1,120 @@
+/* Static content pages: about, contact, privacy, terms.
+   Navigation, footer, and design tokens come from base.css. */
+
+.page {
+  max-width: 760px;
+  padding-top: 44px;
+  padding-bottom: 20px;
+}
+
+.page h1 {
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  margin: 0 0 14px;
+  color: var(--text);
+}
+
+.page .lead {
+  font-size: 17px;
+  color: var(--text-soft);
+  margin: 0 0 30px;
+}
+
+.page h2 {
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin: 38px 0 10px;
+  color: var(--text);
+}
+
+.page h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 24px 0 8px;
+  color: var(--text);
+}
+
+.page p,
+.page li {
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: var(--text-soft);
+}
+
+.page strong {
+  color: var(--text);
+}
+
+.page ul,
+.page ol {
+  padding-left: 22px;
+}
+
+.page li {
+  margin-bottom: 7px;
+}
+
+.page a {
+  color: var(--link);
+}
+
+.page .last-updated {
+  font-size: 13px;
+  color: var(--muted);
+  font-style: italic;
+  margin: -6px 0 26px;
+}
+
+.callout {
+  background: var(--accent-soft);
+  border: 1px solid var(--badge-border);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  margin: 26px 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-soft-2);
+}
+
+.contact-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--panel-shadow);
+  padding: 30px;
+  margin-top: 26px;
+  text-align: center;
+}
+
+.contact-card-label {
+  color: var(--muted);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.contact-card a.email {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 11px 22px;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.15s, transform 0.1s;
+}
+
+.contact-card a.email:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+.contact-card-note {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 16px;
+}

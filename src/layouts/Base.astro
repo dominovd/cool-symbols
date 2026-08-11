@@ -1,0 +1,202 @@
+---
+import { SITE_URL, SITE_NAME, GSC_VERIFICATION } from '../lib/seo';
+import '../styles/base.css';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Path without leading slash. Empty string for the home page. */
+  path: string;
+  /** Any number of objects to emit as <script type="application/ld+json">. */
+  jsonLd?: unknown[];
+  bodyClass?: string;
+}
+
+const { title, description, path, jsonLd = [], bodyClass } = Astro.props;
+const canonical = path ? `${SITE_URL}/${path}` : `${SITE_URL}/`;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {/* Applies the saved theme before first paint so there is no light flash. */}
+    <script is:inline>
+      (function () {
+        try {
+          if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#6c4cf5" />
+    <meta name="google-site-verification" content={GSC_VERIFICATION} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content={SITE_NAME} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+
+    <script defer src="/_vercel/insights/script.js"></script>
+
+    {
+      jsonLd.map((block) => (
+        <script type="application/ld+json" set:html={JSON.stringify(block, null, 2)} />
+      ))
+    }
+
+    <slot name="head" />
+  </head>
+
+  <body class={bodyClass}>
+    <slot />
+
+    <div class="toast" id="toast">
+      <span class="check" aria-hidden="true">✓</span>
+      <span>Copied</span>
+    </div>
+
+    {/* Theme switching, clipboard, and the favourites store. Inline so it is
+        available before any bundled page script runs. */}
+    <script is:inline>
+      (function () {
+        // ----- Theme -----
+        const themeBtn = document.getElementById('themeToggle');
+        const isDark = () => document.documentElement.getAttribute('data-theme') === 'dark';
+        function syncThemeIcon() {
+          if (!themeBtn) return;
+          themeBtn.textContent = isDark() ? '☀' : '☾';
+          themeBtn.setAttribute(
+            'aria-label',
+            isDark() ? 'Switch to light theme' : 'Switch to dark theme'
+          );
+        }
+        if (themeBtn) {
+          themeBtn.addEventListener('click', () => {
+            if (isDark()) {
+              document.documentElement.removeAttribute('data-theme');
+              try { localStorage.setItem('theme', 'light'); } catch (e) {}
+            } else {
+              document.documentElement.setAttribute('data-theme', 'dark');
+              try { localStorage.setItem('theme', 'dark'); } catch (e) {}
+            }
+            syncThemeIcon();
+          });
+          syncThemeIcon();
+        }
+
+        // ----- Clipboard -----
+        // execCommand fallback covers non-secure contexts and in-app browsers
+        // (Instagram / TikTok webviews) where the async API is unavailable.
+        const toast = document.getElementById('toast');
+        function fallbackCopy(text) {
+          const el = document.createElement('textarea');
+          el.value = text;
+          el.setAttribute('readonly', '');
+          el.style.position = 'fixed';
+          el.style.left = '-9999px';
+          document.body.appendChild(el);
+          el.select();
+          let copied = false;
+          try { copied = document.execCommand('copy'); } catch (e) {}
+          document.body.removeChild(el);
+          return copied;
+        }
+        window.copyText = async function (text) {
+          if (!text) return false;
+          let copied = false;
+          try {
+            if (navigator.clipboard && window.isSecureContext) {
+              await navigator.clipboard.writeText(text);
+              copied = true;
+            }
+          } catch (e) {}
+          if (!copied) copied = fallbackCopy(text);
+          if (copied && toast) {
+            toast.classList.add('show');
+            clearTimeout(toast._t);
+            toast._t = setTimeout(() => toast.classList.remove('show'), 1300);
+          }
+          return copied;
+        };
+
+        // ----- Favourites -----
+        // Plain localStorage, no accounts. Pages subscribe via
+        // window.favorites.subscribe() to re-render when the set changes.
+        const KEY = 'favorites';
+        const MAX = 60;
+        let items = [];
+        try {
+          const raw = localStorage.getItem(KEY);
+          if (raw) items = JSON.parse(raw).filter((s) => typeof s === 'string');
+        } catch (e) {}
+
+        const listeners = new Set();
+        const countEl = document.getElementById('favCount');
+
+        function persist() {
+          try { localStorage.setItem(KEY, JSON.stringify(items)); } catch (e) {}
+        }
+        function syncCount() {
+          if (!countEl) return;
+          countEl.textContent = String(items.length);
+          countEl.hidden = items.length === 0;
+        }
+        function emit() {
+          syncCount();
+          listeners.forEach((fn) => {
+            try { fn(items.slice()); } catch (e) {}
+          });
+        }
+
+        window.favorites = {
+          all: () => items.slice(),
+          has: (symbol) => items.includes(symbol),
+          toggle(symbol) {
+            const i = items.indexOf(symbol);
+            if (i === -1) {
+              items.unshift(symbol);
+              if (items.length > MAX) items.length = MAX;
+            } else {
+              items.splice(i, 1);
+            }
+            persist();
+            emit();
+            return items.includes(symbol);
+          },
+          remove(symbol) {
+            const i = items.indexOf(symbol);
+            if (i !== -1) {
+              items.splice(i, 1);
+              persist();
+              emit();
+            }
+          },
+          subscribe(fn) {
+            listeners.add(fn);
+            fn(items.slice());
+            return () => listeners.delete(fn);
+          },
+        };
+
+        syncCount();
+      })();
+    </script>
+
+    <slot name="scripts" />
+  </body>
+</html>

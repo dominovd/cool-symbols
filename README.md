@@ -1,133 +1,125 @@
 # cool-symbols.net
 
-Free fancy text generator, copy-paste Unicode library, and AI-powered symbol art tools.
+Free copy-paste Unicode symbol library, fancy text generator, and AI symbol tools.
+Built with Astro, deployed on Vercel.
 
 ## Стек
 
-- Статический фронтенд (`index.html` + 4 легальные страницы) — без сборки, чистый HTML/CSS/JS
-- Vercel Serverless Function (`api/generate.js`) — прокси к Anthropic Claude Haiku 4.5
-- **Vercel KV (Upstash Redis)** — персистентный rate-limit + глобальный daily budget cap
-- IP-based лимит: 20 AI-генераций в день; глобальный потолок $3/день на AI
-- Vercel Web Analytics + Google Search Console (meta-tag verification)
+- **Astro 5** в статическом режиме: все страницы пререндерятся в HTML на билде
+- **@astrojs/vercel** адаптер: единственная serverless-функция это `/api/generate`
+- **Upstash Redis** для rate-limit и глобального бюджета AI
+- **Anthropic Claude Haiku** для AI-генераторов
 
-## Деплой на Vercel — пошагово
+## Структура
 
-### 1. Залить код на GitHub
+```
+src/
+├── data/categories.json      единственный источник правды по всем категориям
+├── content.config.ts         Zod-схема каталога, билд падает на кривых данных
+├── pages/
+│   ├── index.astro           главная
+│   ├── [slug].astro          все 21 категорийная страница из каталога
+│   ├── about|contact|privacy|terms.astro
+│   ├── sitemap.xml.ts        генерится из каталога, статика
+│   └── api/generate.ts       Anthropic proxy, единственная функция
+├── layouts/                  Base (head, SEO, тема, clipboard) + ContentPage
+├── components/               SymbolLibrary, ComboLibrary, FaqList и т.д.
+├── styles/                   base + home + category + page
+├── scripts/home.js           интерактив главной
+└── lib/                      unicode, seo (JSON-LD), home-content
+public/                       favicon.svg, robots.txt
+```
+
+### Как добавить категорию
+
+1. Добавить объект в `src/data/categories.json`
+2. `npm run build`
+
+Страница, запись в sitemap и внутренние ссылки появятся сами. Никаких ручных
+правок HTML и никаких сгенерированных файлов в гите.
+
+## Локальная разработка
 
 ```bash
-cd ~/Documents/Claude/Projects/cool-symbols.net
-git add .
-git commit -m "init"
-git push
-```
-
-### 2. Импортировать в Vercel
-
-[vercel.com](https://vercel.com) → **Add New → Project** → выбери репо → Import. Build settings оставляешь как есть — Vercel автоматически распознает статический сайт с serverless-функциями.
-
-### 3. Подключить Redis (КРИТИЧЕСКИ ВАЖНО)
-
-Нужен для cost protection — без него любой школьник с прокси-листом может выжечь твой Anthropic-баланс за ночь.
-
-В 2024-2025 Vercel свернул свой собственный «Vercel KV» и заменил его **Marketplace-интеграцией с Upstash Redis** (это та же база, что была под капотом у KV). Шаги:
-
-1. В Vercel-проекте → **Storage** → **Create Database** (не Connect — там только существующие БД команды).
-2. На экране выбора провайдера ищи **Upstash for Redis** (или просто **Redis** — это раздел Native Integrations / Marketplace).
-3. Имя `cool-symbols-kv`, регион ближайший к большинству юзеров (для глобального трафика — `us-east-1` или `eu-west-1`), Free plan, Create.
-4. Когда Vercel спросит «Connect to project» — выбери `cool-symbols`. Env-переменные (`UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`) добавятся в проект автоматически.
-5. Redeploy. В Function Logs warning'а про «KV not configured» быть не должно.
-
-**Free tier Upstash** — 10K команд/день, 256 MB. На сайт с тысячами юзеров хватит — каждый AI-запрос делает 2-3 KV-команды.
-
-Код принимает обе схемы env-переменных (`KV_REST_API_*` и `UPSTASH_REDIS_REST_*`) — так что если у тебя старый аккаунт с legacy Vercel KV, тоже сработает.
-
-### 4. Добавить ANTHROPIC_API_KEY
-
-Project → **Settings → Environment Variables** → Add:
-
-| Name | Value | Environments |
-|---|---|---|
-| `ANTHROPIC_API_KEY` | `sk-ant-...` (с [console.anthropic.com](https://console.anthropic.com)) | Production, Preview, Development |
-| `DAILY_BUDGET_USD` | `3` (опционально, default = 3) | Production |
-
-### 5. Подтвердить домен и сайтмап в Google Search Console
-
-1. [search.google.com/search-console](https://search.google.com/search-console) → Add property → URL prefix → `https://cool-symbols.net/`.
-2. Метод верификации: **HTML tag**. Код `ETF-UcFG87KFsVQSFjDxOUMGDEG-hgiQfKpezTHcUUk` уже встроен во все 5 страниц — просто жми Verify.
-3. После верификации: Sitemaps → Add sitemap → `https://cool-symbols.net/sitemap.xml`.
-
-### 6. Включить Vercel Analytics
-
-Project → **Analytics** → Enable. Скрипт уже в HTML, маршрут `/_vercel/insights/script.js` активируется автоматически.
-
-### 7. Настроить алерты на спенд в Anthropic Console
-
-[console.anthropic.com](https://console.anthropic.com) → **Settings → Limits & Notifications**:
-
-1. Установи **monthly usage limit** на разумную сумму (например, $30) — это hard cap, после него API будет возвращать 429.
-2. Включи **email notifications** на 50% / 80% / 100% от лимита.
-
-Это последняя линия защиты, если что-то пошло сильно не так с KV-логикой.
-
-## Привязка домена cool-symbols.net
-
-Vercel → **Settings → Domains** → введи `cool-symbols.net` → Vercel покажет инструкцию (либо смена nameservers, либо A/CNAME записи у текущего регистратора). SSL выдаётся автоматом.
-
-## Как работает cost protection
-
-Каждый AI-запрос проходит через два независимых лимита:
-
-**Per-IP лимит — 20/день.** Атомарный `INCRBY` в KV с ключом `rl:{ip}:{date}` и TTL 2 дня. Возвращает 429 «Daily limit reached».
-
-**Глобальный budget cap — $3/день.** До вызова Anthropic читаем `budget:{date}` (милли-центы спента за сегодня). Если ≥ потолка — возвращаем 503. После успешного ответа от Claude инкрементим счётчик на actual cost из `usage.input_tokens` и `usage.output_tokens`, посчитанных по тарифу Haiku 4.5 ($0.80 / $4.00 за MTok).
-
-Под потолком $3/день при среднем размере генерации (~500 input + 300 output = ~160 милли-центов) сайт выдержит ~1875 успешных AI-вызовов в день. Если больше — endpoint вежливо отвечает «AI quota reached» и юзер перенаправляется на бесплатные тулзы (fancy text + library), которые лимита не имеют вообще.
-
-Поднять потолок: `DAILY_BUDGET_USD=10` в env-переменных, redeploy. Никакой код менять не нужно.
-
-## Структура проекта
-
-```
-.
-├── index.html          ← главная: AI tools, fancy text, library, dividers, FAQ
-├── about.html          ← /about
-├── contact.html        ← /contact (info@cool-symbols.net)
-├── privacy.html        ← /privacy
-├── terms.html          ← /terms
-├── styles.css          ← общие стили для статических страниц
-├── favicon.svg         ← векторная иконка
-├── robots.txt          ← + ссылка на sitemap
-├── sitemap.xml         ← 5 URLs
-├── vercel.json         ← cleanUrls, headers, function config
-├── package.json        ← Node 18+ runtime
-├── api/
-│   └── generate.js     ← Anthropic proxy с KV cost protection
-└── README.md
-```
-
-## Локальный запуск
-
-```bash
-npm i -g vercel
-cd ~/Documents/Claude/Projects/cool-symbols.net
+npm install
 echo "ANTHROPIC_API_KEY=sk-ant-..." > .env.local
-# KV переменные опциональны — без них код переключится на in-memory лимит
-vercel dev
+npm run dev          # http://localhost:4321
 ```
 
-Откроется на `http://localhost:3000`. Fancy text и symbol library работают сразу. AI tools — если задан `ANTHROPIC_API_KEY`.
+Без KV-переменных лимит падает на in-memory счётчик, в логах будет warning.
+Это ожидаемо локально и недопустимо в проде.
 
-## Что добавить дальше (после стабильного запуска)
+```bash
+npm run build        # прод-сборка в dist/ + .vercel/output/
+npm run preview      # посмотреть собранное
+```
 
-- **Программатик-страницы** под длинный хвост: 13 страниц по категориям символов (/hearts, /stars, /arrows...), 6 по AI-режимам, 22 по fancy fonts. Это открывает 70-80% потенциального organic трафика.
-- **Кэширование популярных AI-промптов** в KV — хэш `(mode + normalize(input))` → выходной текст на 7 дней. Экономит и деньги, и latency.
-- **Cloudflare Turnstile** на AI endpoint — если увидим бот-абуз. Бесплатно, режет 90% автоматических скриптов.
-- **OG-картинки auto-gen** через Vercel `@vercel/og` — генерация preview-картинок для каждой категории на лету.
-- **Pinterest pin-стратегия** — основной источник трафика в этой нише.
-- **5-10 supporting content** статей: «how to add symbols to Instagram bio», «best aesthetic usernames 2026», «what are Unicode block characters» — длинный хвост информационного трафика.
+## Что поменять на Vercel
 
-## Что НЕ делать
+Проект уже подключён к Vercel, но после перехода на Astro нужно поправить
+настройки сборки. Всё в **Project Settings**.
 
-- Запускать в r/InternetIsBeautiful или Pinterest до того, как сделаны категорийные страницы. Сейчас юзеры с этих источников будут видеть one-page и баунсить.
-- Подавать на AdSense до 30+ страниц контента и 4-6 недель индексации.
-- Поднимать `DAILY_BUDGET_USD` выше $10-15 без анализа трафика. Лучше держать tight и постепенно расширять.
+### 1. Build & Development Settings
+
+| Поле | Значение |
+|---|---|
+| Framework Preset | **Astro** (было Other) |
+| Build Command | `npm run build` (или оставить Override выключенным) |
+| Output Directory | оставить пустым, адаптер сам пишет в `.vercel/output` |
+| Install Command | `npm install` |
+| Node.js Version | **20.x** или новее |
+
+Обычно достаточно выставить Framework Preset = Astro и убрать все Override,
+дальше Vercel определит остальное сам.
+
+### 2. Environment Variables
+
+Ничего добавлять не нужно, всё уже на месте с прошлого раза:
+
+- `ANTHROPIC_API_KEY`
+- `KV_REST_API_URL`, `KV_REST_API_TOKEN` (от интеграции Upstash)
+- `DAILY_BUDGET_USD` если задавал
+
+`api/generate.ts` читает и `KV_REST_API_*`, и `UPSTASH_REDIS_REST_*`, так что
+переименование интеграции ничего не сломает.
+
+### 3. Что удалить в vercel.json
+
+Уже сделано: из `vercel.json` убраны `cleanUrls`, `trailingSlash` и блок
+`functions`. Теперь этим управляет адаптер, а дублирование настроек в
+`vercel.json` при Build Output API v3 приводит к конфликтам. Остались только
+security-заголовки.
+
+### 4. Проверить после первого деплоя
+
+- `/heart-symbols` открывается, `/heart-symbols/` редиректится на него с 308
+- `/sitemap.xml` отдаёт 26 URL
+- `/robots.txt` и `/favicon.svg` на месте
+- В **Functions** ровно одна функция, `/api/generate`
+- AI-генерация работает, в логах нет `KV not configured`
+
+Ничего в Google Search Console менять не надо: URL, canonical, sitemap и
+verification-мета не изменились.
+
+## Cost protection
+
+Каждый вызов `/api/generate` проходит два независимых лимита:
+
+**Глобальный бюджет, $3/день по умолчанию.** Счётчик `budget:{дата}` в
+милли-центах. Перед вызовом Anthropic читаем, после ответа инкрементим на
+фактическую стоимость из `usage`. Fail-closed: если KV недоступен, запрос
+отклоняется, а не пропускается.
+
+**Лимит на IP, 20/день.** Атомарный `INCRBY` по ключу `rl:{ip}:{дата}` с TTL.
+Fail-open на in-memory счётчик: сбой KV не должен ронять фичу, потолок всё
+равно держит глобальный бюджет.
+
+Поднять потолок: `DAILY_BUDGET_USD=10` в переменных окружения, редеплой.
+
+## Дальше по плану
+
+- Редизайн главной и категорийных страниц по новым макетам
+- Избранное (localStorage) в сайдбаре
+- Расширение каталога до 100+ символов в категории
+- OG-картинки через `@vercel/og` для Pinterest
+- Supporting-контент: how-to статьи под длинный хвост

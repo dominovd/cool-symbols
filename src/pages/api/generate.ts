@@ -1,4 +1,6 @@
 import type { APIRoute } from 'astro';
+import { DAILY_LIMIT_PER_IP, DAILY_BUDGET_USD } from '../../lib/limits';
+import { envVar } from '../../lib/env';
 
 /**
  * Anthropic proxy with two independent spend guards.
@@ -13,28 +15,27 @@ import type { APIRoute } from 'astro';
  *   UPSTASH_REDIS_REST_URL / UPSTASH_REDIS_REST_TOKEN
  *
  * Optional:
- *   DAILY_BUDGET_USD  global daily AI spend cap in USD (default: 3)
+ *   DAILY_BUDGET_USD     global daily AI spend cap in USD (default: 3)
+ *   DAILY_LIMIT_PER_IP   generations per IP per UTC day (default: 3)
  */
 export const prerender = false;
 
 const MODEL = 'claude-haiku-4-5-20251001';
-const DAILY_LIMIT_PER_IP = 20;
 const MAX_INPUT_LENGTH = 300;
 const TTL_SECONDS = 86_400 * 2;
 
-const BUDGET_USD = Number.parseFloat(import.meta.env.DAILY_BUDGET_USD ?? process.env.DAILY_BUDGET_USD ?? '3');
 // Tracked in milli-cents so the counter stays integer-only.
-const BUDGET_MILLICENTS = Math.floor(BUDGET_USD * 100 * 1000);
+const BUDGET_MILLICENTS = Math.floor(DAILY_BUDGET_USD * 100 * 1000);
 
 // Claude Haiku 4.5: $0.80/MTok in, $4.00/MTok out.
 const INPUT_MILLICENTS_PER_TOKEN = 0.08;
 const OUTPUT_MILLICENTS_PER_TOKEN = 0.4;
 
-const env = (key: string): string | undefined =>
-  (import.meta.env as Record<string, string | undefined>)[key] ?? process.env[key];
+const ANTHROPIC_API_KEY = envVar('ANTHROPIC_API_KEY');
 
-const KV_URL = env('KV_REST_API_URL') ?? env('UPSTASH_REDIS_REST_URL');
-const KV_TOKEN = env('KV_REST_API_TOKEN') ?? env('UPSTASH_REDIS_REST_TOKEN');
+// Accepts both the legacy Vercel KV names and the current Upstash integration.
+const KV_URL = envVar('KV_REST_API_URL') ?? envVar('UPSTASH_REDIS_REST_URL');
+const KV_TOKEN = envVar('KV_REST_API_TOKEN') ?? envVar('UPSTASH_REDIS_REST_TOKEN');
 const KV_ENABLED = Boolean(KV_URL && KV_TOKEN);
 
 // Only used when KV is unavailable (local dev). Per-instance, so it is not a
@@ -177,8 +178,7 @@ Constraints:
 };
 
 export const POST: APIRoute = async ({ request }) => {
-  const apiKey = env('ANTHROPIC_API_KEY');
-  if (!apiKey) {
+  if (!ANTHROPIC_API_KEY) {
     return json({ error: 'Server misconfigured: missing API key' }, 500);
   }
 
@@ -226,7 +226,7 @@ export const POST: APIRoute = async ({ request }) => {
     const spentUsd = (spentMillicents / 100_000).toFixed(2);
     return json(
       {
-        error: `Daily AI quota reached ($${spentUsd} of $${BUDGET_USD.toFixed(2)} spent). Resets at midnight UTC. The fancy text generator and symbol library are unlimited and still work.`,
+        error: `Daily AI quota reached ($${spentUsd} of $${DAILY_BUDGET_USD.toFixed(2)} spent). Resets at midnight UTC. The fancy text generator and symbol library are unlimited and still work.`,
         reason: 'budget_exhausted',
       },
       503
@@ -262,7 +262,7 @@ export const POST: APIRoute = async ({ request }) => {
     const aiResponse = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
-        'x-api-key': apiKey,
+        'x-api-key': ANTHROPIC_API_KEY,
         'anthropic-version': '2023-06-01',
         'content-type': 'application/json',
       },

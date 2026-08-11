@@ -8,6 +8,7 @@ import FaqList from '../components/FaqList.astro';
 import { SITE_URL, SITE_NAME } from '../lib/seo';
 import { INTENT_PAGES, HOME_FAQ, HOW_IT_WORKS } from '../lib/home-content';
 import { CATEGORY_TINTS } from '../lib/categories';
+import { DAILY_LIMIT_PER_IP } from '../lib/limits';
 import '../styles/components.css';
 import '../styles/home.css';
 
@@ -218,7 +219,10 @@ const jsonLd = [
                   <button id="aiGenerate" class="ai-btn">
                     Generate <span aria-hidden="true">✦</span>
                   </button>
-                  <div class="ai-meta"><b id="aiRemaining">20</b>/20 free generations today</div>
+                  <div class="ai-meta">
+                    <b id="aiRemaining">{DAILY_LIMIT_PER_IP}</b>/{DAILY_LIMIT_PER_IP} free generations
+                    today
+                  </div>
                 </div>
               </div>
               <div class="ai-examples">
@@ -270,7 +274,7 @@ const jsonLd = [
         <aside class="side-card mini-fancy">
           <h2 class="side-card-title">Fancy text</h2>
           <label class="sr-only" for="miniFancyInput">Text to stylize</label>
-          <input id="miniFancyInput" type="text" value="Hello World" autocomplete="off" />
+          <input id="miniFancyInput" type="text" value="Fancy text" autocomplete="off" />
           <div id="miniFancyRows"></div>
           <a class="link-more" href="#fancy-text">Explore more styles <span aria-hidden="true">→</span></a>
         </aside>

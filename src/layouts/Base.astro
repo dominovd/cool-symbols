@@ -21,7 +21,10 @@ const canonical = path ? `${SITE_URL}/${path}` : `${SITE_URL}/`;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {/* Applies the saved theme before first paint so there is no light flash. */}
+    {/* Runs before the body is parsed. Applies the saved theme so there is no
+        light flash, and defines the clipboard helper plus the favourites store
+        so component scripts further down the document can use them on parse.
+        Both look up DOM nodes lazily for that reason. */}
     <script is:inline>
       (function () {
         try {
@@ -29,6 +32,108 @@ const canonical = path ? `${SITE_URL}/${path}` : `${SITE_URL}/`;
             document.documentElement.setAttribute('data-theme', 'dark');
           }
         } catch (e) {}
+
+        // ----- Clipboard -----
+        // execCommand fallback covers non-secure contexts and in-app browsers
+        // (Instagram / TikTok webviews) where the async API is unavailable.
+        function fallbackCopy(text) {
+          const el = document.createElement('textarea');
+          el.value = text;
+          el.setAttribute('readonly', '');
+          el.style.position = 'fixed';
+          el.style.left = '-9999px';
+          document.body.appendChild(el);
+          el.select();
+          let copied = false;
+          try { copied = document.execCommand('copy'); } catch (e) {}
+          document.body.removeChild(el);
+          return copied;
+        }
+
+        window.copyText = async function (text) {
+          if (!text) return false;
+          let copied = false;
+          try {
+            if (navigator.clipboard && window.isSecureContext) {
+              await navigator.clipboard.writeText(text);
+              copied = true;
+            }
+          } catch (e) {}
+          if (!copied) copied = fallbackCopy(text);
+          const toast = document.getElementById('toast');
+          if (copied && toast) {
+            toast.classList.add('show');
+            clearTimeout(toast._t);
+            toast._t = setTimeout(() => toast.classList.remove('show'), 1300);
+          }
+          return copied;
+        };
+
+        // ----- Favourites -----
+        // Plain localStorage, no accounts. Views call subscribe() and are
+        // re-rendered on every change, including their own.
+        const KEY = 'favorites';
+        const MAX = 60;
+        let items = [];
+        try {
+          const raw = localStorage.getItem(KEY);
+          if (raw) items = JSON.parse(raw).filter((s) => typeof s === 'string');
+        } catch (e) {}
+
+        const listeners = new Set();
+
+        function persist() {
+          try { localStorage.setItem(KEY, JSON.stringify(items)); } catch (e) {}
+        }
+        function syncCount() {
+          const el = document.getElementById('favCount');
+          if (!el) return;
+          el.textContent = String(items.length);
+          el.hidden = items.length === 0;
+        }
+        function emit() {
+          syncCount();
+          listeners.forEach((fn) => {
+            try { fn(items.slice()); } catch (e) {}
+          });
+        }
+
+        window.favorites = {
+          all: () => items.slice(),
+          has: (symbol) => items.includes(symbol),
+          toggle(symbol) {
+            const i = items.indexOf(symbol);
+            if (i === -1) {
+              items.unshift(symbol);
+              if (items.length > MAX) items.length = MAX;
+            } else {
+              items.splice(i, 1);
+            }
+            persist();
+            emit();
+            return items.includes(symbol);
+          },
+          remove(symbol) {
+            const i = items.indexOf(symbol);
+            if (i === -1) return;
+            items.splice(i, 1);
+            persist();
+            emit();
+          },
+          clear() {
+            items = [];
+            persist();
+            emit();
+          },
+          subscribe(fn) {
+            listeners.add(fn);
+            fn(items.slice());
+            return () => listeners.delete(fn);
+          },
+        };
+
+        // The nav counter is parsed after this script, so sync once it exists.
+        document.addEventListener('DOMContentLoaded', syncCount);
       })();
     </script>
     <title>{title}</title>
@@ -70,130 +175,31 @@ const canonical = path ? `${SITE_URL}/${path}` : `${SITE_URL}/`;
       <span>Copied</span>
     </div>
 
-    {/* Theme switching, clipboard, and the favourites store. Inline so it is
-        available before any bundled page script runs. */}
+    {/* Theme button wiring. The store and clipboard helper are set up in the
+        head; this only needs the button, which exists by now. */}
     <script is:inline>
       (function () {
-        // ----- Theme -----
         const themeBtn = document.getElementById('themeToggle');
+        if (!themeBtn) return;
         const isDark = () => document.documentElement.getAttribute('data-theme') === 'dark';
         function syncThemeIcon() {
-          if (!themeBtn) return;
           themeBtn.textContent = isDark() ? '☀' : '☾';
           themeBtn.setAttribute(
             'aria-label',
             isDark() ? 'Switch to light theme' : 'Switch to dark theme'
           );
         }
-        if (themeBtn) {
-          themeBtn.addEventListener('click', () => {
-            if (isDark()) {
-              document.documentElement.removeAttribute('data-theme');
-              try { localStorage.setItem('theme', 'light'); } catch (e) {}
-            } else {
-              document.documentElement.setAttribute('data-theme', 'dark');
-              try { localStorage.setItem('theme', 'dark'); } catch (e) {}
-            }
-            syncThemeIcon();
-          });
-          syncThemeIcon();
-        }
-
-        // ----- Clipboard -----
-        // execCommand fallback covers non-secure contexts and in-app browsers
-        // (Instagram / TikTok webviews) where the async API is unavailable.
-        const toast = document.getElementById('toast');
-        function fallbackCopy(text) {
-          const el = document.createElement('textarea');
-          el.value = text;
-          el.setAttribute('readonly', '');
-          el.style.position = 'fixed';
-          el.style.left = '-9999px';
-          document.body.appendChild(el);
-          el.select();
-          let copied = false;
-          try { copied = document.execCommand('copy'); } catch (e) {}
-          document.body.removeChild(el);
-          return copied;
-        }
-        window.copyText = async function (text) {
-          if (!text) return false;
-          let copied = false;
-          try {
-            if (navigator.clipboard && window.isSecureContext) {
-              await navigator.clipboard.writeText(text);
-              copied = true;
-            }
-          } catch (e) {}
-          if (!copied) copied = fallbackCopy(text);
-          if (copied && toast) {
-            toast.classList.add('show');
-            clearTimeout(toast._t);
-            toast._t = setTimeout(() => toast.classList.remove('show'), 1300);
+        themeBtn.addEventListener('click', () => {
+          if (isDark()) {
+            document.documentElement.removeAttribute('data-theme');
+            try { localStorage.setItem('theme', 'light'); } catch (e) {}
+          } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            try { localStorage.setItem('theme', 'dark'); } catch (e) {}
           }
-          return copied;
-        };
-
-        // ----- Favourites -----
-        // Plain localStorage, no accounts. Pages subscribe via
-        // window.favorites.subscribe() to re-render when the set changes.
-        const KEY = 'favorites';
-        const MAX = 60;
-        let items = [];
-        try {
-          const raw = localStorage.getItem(KEY);
-          if (raw) items = JSON.parse(raw).filter((s) => typeof s === 'string');
-        } catch (e) {}
-
-        const listeners = new Set();
-        const countEl = document.getElementById('favCount');
-
-        function persist() {
-          try { localStorage.setItem(KEY, JSON.stringify(items)); } catch (e) {}
-        }
-        function syncCount() {
-          if (!countEl) return;
-          countEl.textContent = String(items.length);
-          countEl.hidden = items.length === 0;
-        }
-        function emit() {
-          syncCount();
-          listeners.forEach((fn) => {
-            try { fn(items.slice()); } catch (e) {}
-          });
-        }
-
-        window.favorites = {
-          all: () => items.slice(),
-          has: (symbol) => items.includes(symbol),
-          toggle(symbol) {
-            const i = items.indexOf(symbol);
-            if (i === -1) {
-              items.unshift(symbol);
-              if (items.length > MAX) items.length = MAX;
-            } else {
-              items.splice(i, 1);
-            }
-            persist();
-            emit();
-            return items.includes(symbol);
-          },
-          remove(symbol) {
-            const i = items.indexOf(symbol);
-            if (i !== -1) {
-              items.splice(i, 1);
-              persist();
-              emit();
-            }
-          },
-          subscribe(fn) {
-            listeners.add(fn);
-            fn(items.slice());
-            return () => listeners.delete(fn);
-          },
-        };
-
-        syncCount();
+          syncThemeIcon();
+        });
+        syncThemeIcon();
       })();
     </script>
 

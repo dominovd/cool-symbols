@@ -1,6 +1,6 @@
 ---
-// Renders entirely on the client from the favourites store, so the markup here
-// is just the shell plus an empty state.
+// Rendered entirely on the client from the favourites store, so the markup
+// here is the shell plus an empty state.
 ---
 
 <aside class="side-card" id="collection">
@@ -14,6 +14,13 @@
   <p class="collection-empty" id="collectionEmpty">
     Tap the heart on any symbol to save it here.
   </p>
+
+  <div class="collection-actions" id="collectionActions" hidden>
+    <button class="link-more" type="button" id="collectionCopyAll">
+      Copy all <span aria-hidden="true">⧉</span>
+    </button>
+    <button class="collection-clear" type="button" id="collectionClear">Clear</button>
+  </div>
 </aside>
 
 <script is:inline>
@@ -21,24 +28,50 @@
     const grid = document.getElementById('collectionGrid');
     const empty = document.getElementById('collectionEmpty');
     const count = document.getElementById('collectionCount');
+    const actions = document.getElementById('collectionActions');
+    const copyAll = document.getElementById('collectionCopyAll');
+    const clear = document.getElementById('collectionClear');
     if (!grid || !window.favorites) return;
 
-    window.favorites.subscribe((items) => {
-      count.textContent = String(items.length);
-      empty.hidden = items.length > 0;
+    let current = [];
+
+    window.favorites.subscribe((saved) => {
+      current = saved;
+      count.textContent = String(saved.length);
+      empty.hidden = saved.length > 0;
+      actions.hidden = saved.length === 0;
       grid.innerHTML = '';
 
-      // Sidebar is a preview, not the full list.
-      items.slice(0, 8).forEach((symbol) => {
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.className = 'collection-item';
-        button.textContent = symbol;
-        button.title = `Copy ${symbol}`;
-        button.setAttribute('aria-label', `Copy ${symbol}`);
-        button.addEventListener('click', () => window.copyText(symbol));
-        grid.appendChild(button);
+      saved.forEach((symbol) => {
+        const cell = document.createElement('div');
+        cell.className = 'collection-item';
+
+        const copy = document.createElement('button');
+        copy.type = 'button';
+        copy.className = 'collection-copy';
+        copy.textContent = symbol;
+        copy.title = 'Copy ' + symbol;
+        copy.setAttribute('aria-label', 'Copy ' + symbol);
+        copy.addEventListener('click', () => window.copyText(symbol));
+
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.className = 'collection-remove';
+        remove.textContent = '×';
+        remove.title = 'Remove from collection';
+        remove.setAttribute('aria-label', 'Remove ' + symbol + ' from your collection');
+        remove.addEventListener('click', () => window.favorites.remove(symbol));
+
+        cell.append(copy, remove);
+        grid.appendChild(cell);
       });
+    });
+
+    copyAll.addEventListener('click', () => window.copyText(current.join(' ')));
+    clear.addEventListener('click', () => {
+      if (current.length && confirm('Remove all ' + current.length + ' saved symbols?')) {
+        window.favorites.clear();
+      }
     });
   })();
 </script>

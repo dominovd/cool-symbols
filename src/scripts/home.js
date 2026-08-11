@@ -350,7 +350,7 @@ const miniRows = document.getElementById('miniFancyRows');
 const MINI_STYLES = ['Bubble', 'Small caps', 'Script'];
 
 function renderMiniFancy() {
-  const text = miniInput.value || 'Hello World';
+  const text = miniInput.value || 'Fancy text';
   miniRows.innerHTML = '';
   MINI_STYLES.forEach((name) => {
     const style = STYLES.find((s) => s.name === name);

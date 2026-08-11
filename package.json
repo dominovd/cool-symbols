@@ -8,7 +8,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "test": "tsx test/rate-limit.test.mjs"
   },
   "engines": {
     "node": ">=20"
@@ -16,5 +17,8 @@
   "dependencies": {
     "@astrojs/vercel": "^8.0.0",
     "astro": "^5.0.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0"
   }
 }

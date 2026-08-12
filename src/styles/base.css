@@ -557,3 +557,48 @@ body {
   font-size: 14px;
   line-height: 1.65;
 }
+
+/* Glyph in front of a nav or footer label. Muted so it guides the eye without
+   competing with the text, and it picks up the accent on hover. */
+.nav-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.nav-icon {
+  font-size: 13px;
+  opacity: 0.6;
+  transition: opacity 0.15s, color 0.15s;
+}
+
+.nav-links a:hover .nav-icon,
+.nav-links a[aria-current='page'] .nav-icon {
+  opacity: 1;
+  color: var(--accent);
+}
+
+.footer-column a {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.footer-icon {
+  width: 15px;
+  flex-shrink: 0;
+  font-size: 12px;
+  text-align: center;
+  opacity: 0.55;
+  transition: opacity 0.15s;
+}
+
+.footer-column a:hover .footer-icon {
+  opacity: 1;
+}
+
+@media (max-width: 860px) {
+  .nav-icon {
+    display: none;
+  }
+}

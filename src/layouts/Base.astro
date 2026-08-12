@@ -1,5 +1,12 @@
 ---
-import { SITE_URL, SITE_NAME, GSC_VERIFICATION } from '../lib/seo';
+import {
+  SITE_URL,
+  SITE_NAME,
+  GSC_VERIFICATION,
+  ogImage,
+  organizationJsonLd,
+  webSiteJsonLd,
+} from '../lib/seo';
 import '../styles/base.css';
 
 interface Props {
@@ -10,10 +17,22 @@ interface Props {
   /** Any number of objects to emit as <script type="application/ld+json">. */
   jsonLd?: unknown[];
   bodyClass?: string;
+  /**
+   * Slug of the generated preview image. Defaults to the page path, which is
+   * what every page wants; only pass this to borrow another page's card.
+   */
+  imageSlug?: string;
+  /** Describes the preview image for screen readers and image search. */
+  imageAlt?: string;
 }
 
-const { title, description, path, jsonLd = [], bodyClass } = Astro.props;
+const { title, description, path, jsonLd = [], bodyClass, imageSlug, imageAlt } = Astro.props;
 const canonical = path ? `${SITE_URL}/${path}` : `${SITE_URL}/`;
+const image = ogImage(imageSlug ?? path);
+
+// Organization and WebSite belong on every page: they describe the site rather
+// than the document, and repeating them lets any page be the entry point.
+const graph = [organizationJsonLd(), webSiteJsonLd(), ...jsonLd];
 ---
 
 <!DOCTYPE html>
@@ -148,10 +167,18 @@ const canonical = path ? `${SITE_URL}/${path}` : `${SITE_URL}/`;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content={imageAlt ?? title} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image:alt" content={imageAlt ?? title} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
@@ -159,7 +186,7 @@ const canonical = path ? `${SITE_URL}/${path}` : `${SITE_URL}/`;
     <script defer src="/_vercel/insights/script.js"></script>
 
     {
-      jsonLd.map((block) => (
+      graph.map((block) => (
         <script type="application/ld+json" set:html={JSON.stringify(block, null, 2)} />
       ))
     }

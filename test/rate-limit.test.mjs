@@ -158,14 +158,42 @@ await test('blocks everyone once the daily budget is exhausted', async () => {
   assert.equal(anthropicCalls, 0, 'no Anthropic call once the budget is spent');
 });
 
-await test('fails closed when the counter cannot be read', async () => {
+await test('keeps serving on a reduced cap when the counter is unreachable', async () => {
   kvShouldFail = true;
 
-  const response = await callAs('203.0.113.99');
+  const response = await callAs('203.0.113.98');
   const body = await response.json();
-  assert.equal(response.status, 503);
-  assert.equal(body.reason, 'budget_check_failed');
-  assert.equal(anthropicCalls, 0, 'a KV outage must not allow unmetered spend');
+  assert.equal(response.status, 200, 'a KV outage must not kill the feature');
+  assert.ok(body.text);
+  assert.equal(anthropicCalls, 1);
+});
+
+await test('still enforces the per-IP limit while the counter is unreachable', async () => {
+  kvShouldFail = true;
+  const ip = '203.0.113.97';
+
+  for (let i = 0; i < 3; i++) {
+    assert.equal((await callAs(ip)).status, 200);
+  }
+  assert.equal((await callAs(ip)).status, 429, 'the memory fallback must still count');
+});
+
+await test('caps degraded mode at $0.25 per instance', async () => {
+  kvShouldFail = true;
+  // 232 milli-cents per call, so the $0.25 (25000) ceiling allows ~107 calls.
+  // Use a fresh IP each time so the per-IP limit is not what stops us.
+  let allowed = 0;
+  for (let i = 0; i < 200; i++) {
+    const response = await callAs(`198.18.${Math.floor(i / 250)}.${i % 250}`);
+    if (response.status === 200) allowed += 1;
+    else {
+      const body = await response.json();
+      assert.equal(body.reason, 'budget_exhausted');
+      break;
+    }
+  }
+  assert.ok(allowed > 50 && allowed < 120, `expected roughly 107 calls, got ${allowed}`);
+  assert.ok(anthropicCalls <= 120, 'degraded mode must stay bounded');
 });
 
 await test('rejects oversized input before spending anything', async () => {

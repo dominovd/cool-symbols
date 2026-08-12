@@ -118,3 +118,24 @@
   font-size: 13px;
   margin-top: 16px;
 }
+
+/* Breadcrumb trail, matching the one on category pages. */
+.page .breadcrumb {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.page .breadcrumb a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.page .breadcrumb a:hover {
+  color: var(--text);
+}
+
+.page .breadcrumb .sep {
+  margin: 0 7px;
+  opacity: 0.5;
+}

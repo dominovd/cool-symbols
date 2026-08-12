@@ -25,35 +25,40 @@ const socials = [
   },
 ];
 
+// A glyph in front of each link makes the column scannable: the eye finds the
+// row by shape before it reads the label.
 const columns = [
   {
     title: 'Symbols',
     links: [
-      { label: 'Text Symbols', href: '/text-symbols' },
-      { label: 'Special Characters', href: '/special-characters' },
-      { label: 'Keyboard Symbols', href: '/keyboard-symbols' },
-      { label: 'Heart Symbols', href: '/heart-symbols' },
-      { label: 'Star Symbols', href: '/star-symbols' },
-      { label: 'Aesthetic Symbols', href: '/aesthetic-symbols' },
+      { icon: '◍', label: 'Text Symbols', href: '/text-symbols' },
+      { icon: '§', label: 'Special Characters', href: '/special-characters' },
+      { icon: '⌘', label: 'Keyboard Symbols', href: '/keyboard-symbols' },
+      { icon: '♥', label: 'Heart Symbols', href: '/heart-symbols' },
+      { icon: '★', label: 'Star Symbols', href: '/star-symbols' },
+      { icon: '✦', label: 'Aesthetic Symbols', href: '/aesthetic-symbols' },
+      { icon: '❀', label: 'Flower Symbols', href: '/flower-symbols' },
+      { icon: '→', label: 'Arrow Symbols', href: '/arrow-symbols' },
     ],
   },
   {
     title: 'Tools',
     links: [
-      { label: 'Fancy Text Generator', href: '/#fancy-text' },
-      { label: 'Aesthetic Dividers', href: '/#dividers' },
-      { label: 'AI Symbol Tools', href: '/#ai-tools' },
-      { label: 'Symbol Collections', href: '/#collections' },
-      { label: 'Copy Paste Symbols', href: '/#explore' },
+      { icon: '𝓐', label: 'Fancy Text Generator', href: '/#fancy-text' },
+      { icon: '⋆', label: 'Symbol Combinations', href: '/#combinations' },
+      { icon: '─', label: 'Aesthetic Dividers', href: '/#dividers-section' },
+      { icon: '✧', label: 'AI Symbol Tools', href: '/#ai-tools' },
+      { icon: '▦', label: 'Symbol Collections', href: '/#collections' },
+      { icon: '⧉', label: 'Copy Paste Symbols', href: '/#explore' },
     ],
   },
   {
     title: 'Company',
     links: [
-      { label: 'About', href: '/about' },
-      { label: 'Contact', href: '/contact' },
-      { label: 'Privacy Policy', href: '/privacy' },
-      { label: 'Terms of Use', href: '/terms' },
+      { icon: 'ⓘ', label: 'About', href: '/about' },
+      { icon: '✉', label: 'Contact', href: '/contact' },
+      { icon: '⚿', label: 'Privacy Policy', href: '/privacy' },
+      { icon: '§', label: 'Terms of Use', href: '/terms' },
     ],
   },
 ];
@@ -83,7 +88,12 @@ const columns = [
           <div class="footer-column">
             <h2>{column.title}</h2>
             {column.links.map((link) => (
-              <a href={link.href}>{link.label}</a>
+              <a href={link.href}>
+                <span class="footer-icon" aria-hidden="true">
+                  {link.icon}
+                </span>
+                {link.label}
+              </a>
             ))}
           </div>
         ))

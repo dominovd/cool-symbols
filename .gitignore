@@ -26,3 +26,9 @@ npm-debug.log*
 *.swp
 *.swo
 .vercel
+
+# Generated social preview images (npm run og)
+public/og/
+
+# Local preview scratch
+.preview/

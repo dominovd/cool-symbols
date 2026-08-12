@@ -1,0 +1,83 @@
+---
+import { SITE_URL, pinImage } from '../lib/seo';
+
+interface Props {
+  /** Page path without a leading slash. */
+  slug: string;
+  /** Used as the pin description and the tweet text. */
+  title: string;
+  description: string;
+}
+const { slug, title, description } = Astro.props;
+
+const pageUrl = `${SITE_URL}/${slug}`;
+const shareText = `${title} - copy and paste`;
+
+// Pinterest builds the pin from the media parameter, so it gets the vertical
+// card rather than the landscape og:image it would otherwise scrape.
+const pinterest =
+  'https://pinterest.com/pin/create/button/' +
+  `?url=${encodeURIComponent(pageUrl)}` +
+  `&media=${encodeURIComponent(pinImage(slug))}` +
+  `&description=${encodeURIComponent(description)}`;
+
+const twitter =
+  'https://twitter.com/intent/tweet' +
+  `?text=${encodeURIComponent(shareText)}` +
+  `&url=${encodeURIComponent(pageUrl)}`;
+
+const telegram =
+  'https://t.me/share/url' +
+  `?url=${encodeURIComponent(pageUrl)}` +
+  `&text=${encodeURIComponent(shareText)}`;
+---
+
+<div class="share-row">
+  <span class="share-label">Share</span>
+
+  <a class="share-button pinterest" href={pinterest} target="_blank" rel="noopener nofollow">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path
+        d="M12 2a10 10 0 0 0-3.6 19.3 9.6 9.6 0 0 1 0-2.9c.2-.8 1.3-5.4 1.3-5.4a3.7 3.7 0 0 1-.3-1.5c0-1.5.8-2.6 1.9-2.6a1.3 1.3 0 0 1 1.3 1.5 21 21 0 0 1-.8 3.4 1.5 1.5 0 0 0 1.5 1.9c1.9 0 3.2-2.4 3.2-5.3 0-2.2-1.5-3.8-4.2-3.8a4.8 4.8 0 0 0-5 4.8 2.9 2.9 0 0 0 .7 2 .5.5 0 0 1 .1.5l-.2.8c-.1.3-.2.4-.5.2a4.4 4.4 0 0 1-2-3.9c0-2.9 2.4-6.3 7.3-6.3a6.1 6.1 0 0 1 6.4 5.9c0 3.9-2.4 6.9-5.9 6.9a3.2 3.2 0 0 1-2.7-1.3l-.7 2.8a12.9 12.9 0 0 1-1.5 3.1A10 10 0 1 0 12 2z"
+      ></path>
+    </svg>
+    Save
+  </a>
+
+  <a class="share-button" href={twitter} target="_blank" rel="noopener nofollow">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path
+        d="M18.9 1.2h3.7l-8 9.1L24 22.8h-7.4l-5.8-7.6-6.6 7.6H.5l8.6-9.8L0 1.2h7.6l5.2 6.9zm-1.3 19.4h2L6.5 3.3H4.3z"
+      ></path>
+    </svg>
+    Post
+  </a>
+
+  <a class="share-button" href={telegram} target="_blank" rel="noopener nofollow">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path
+        d="M23.9 3.8 20.3 20.9c-.3 1.2-1 1.5-2 .9l-5.5-4-2.7 2.6c-.3.3-.6.6-1.2.6l.4-5.6L19.4 5.6c.4-.4-.1-.6-.7-.2L5.1 13.8l-5.5-1.7c-1.2-.4-1.2-1.2.2-1.8L22.4 2c1-.4 1.9.2 1.5 1.8z"
+      ></path>
+    </svg>
+    Send
+  </a>
+
+  <button class="share-button" type="button" data-copy-link={pageUrl}>
+    <span aria-hidden="true">⧉</span>
+    Copy link
+  </button>
+</div>
+
+<script is:inline>
+  document.querySelectorAll('[data-copy-link]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const ok = await window.copyText(button.dataset.copyLink);
+      if (!ok) return;
+      const original = button.lastChild.textContent;
+      button.lastChild.textContent = ' Copied';
+      setTimeout(() => {
+        button.lastChild.textContent = original;
+      }, 1400);
+    });
+  });
+</script>

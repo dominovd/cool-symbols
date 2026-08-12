@@ -9,7 +9,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "test": "tsx test/rate-limit.test.mjs"
+    "test": "tsx test/rate-limit.test.mjs",
+    "prebuild": "node scripts/generate-og.mjs",
+    "og": "node scripts/generate-og.mjs"
   },
   "engines": {
     "node": ">=20"
@@ -19,6 +21,9 @@
     "astro": "^5.0.0"
   },
   "devDependencies": {
-    "tsx": "^4.19.0"
+    "tsx": "^4.19.0",
+    "satori": "^0.12.0",
+    "@resvg/resvg-js": "^2.6.2",
+    "fontkit": "^2.0.4"
   }
 }

@@ -2,19 +2,34 @@
 import Base from './Base.astro';
 import SiteNav from '../components/SiteNav.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import { breadcrumbJsonLd, webPageJsonLd } from '../lib/seo';
 import '../styles/page.css';
 
 interface Props {
   title: string;
   description: string;
   path: string;
+  /** Short label for the breadcrumb trail. */
+  breadcrumb: string;
+  /** Narrows the page entity so it is not just a generic WebPage. */
+  pageType?: 'AboutPage' | 'ContactPage' | 'WebPage';
 }
-const { title, description, path } = Astro.props;
+const { title, description, path, breadcrumb, pageType = 'WebPage' } = Astro.props;
+
+const jsonLd = [
+  webPageJsonLd({ type: pageType, name: title, description, slug: path }),
+  breadcrumbJsonLd(breadcrumb, path),
+];
 ---
 
-<Base title={title} description={description} path={path}>
+<Base title={title} description={description} path={path} jsonLd={jsonLd} imageSlug="home">
   <SiteNav />
   <main class="page shell">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep" aria-hidden="true">/</span>
+      <span>{breadcrumb}</span>
+    </nav>
     <slot />
   </main>
   <SiteFooter />

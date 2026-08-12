@@ -34,9 +34,28 @@ const OUTPUT_MILLICENTS_PER_TOKEN = 0.4;
 const ANTHROPIC_API_KEY = envVar('ANTHROPIC_API_KEY');
 
 // Accepts both the legacy Vercel KV names and the current Upstash integration.
-const KV_URL = envVar('KV_REST_API_URL') ?? envVar('UPSTASH_REDIS_REST_URL');
+const KV_URL = (envVar('KV_REST_API_URL') ?? envVar('UPSTASH_REDIS_REST_URL'))?.replace(/\/+$/, '');
 const KV_TOKEN = envVar('KV_REST_API_TOKEN') ?? envVar('UPSTASH_REDIS_REST_TOKEN');
-const KV_ENABLED = Boolean(KV_URL && KV_TOKEN);
+
+// The REST API needs an https endpoint. KV_URL / KV_REDIS_URL are redis://
+// connection strings for a TCP client and would only produce a confusing
+// network error here, so reject anything that is not HTTP up front.
+const KV_URL_IS_REST = Boolean(KV_URL && /^https?:\/\//i.test(KV_URL));
+const KV_ENABLED = Boolean(KV_URL_IS_REST && KV_TOKEN);
+
+if (KV_URL && !KV_URL_IS_REST) {
+  console.error(
+    '[generate] KV endpoint is not an HTTP REST URL. Expected KV_REST_API_URL ' +
+      '(https://...), got a value starting with ' +
+      KV_URL.slice(0, 12)
+  );
+}
+
+// If the shared counter is unreachable we keep serving, but against a much
+// smaller per-instance ceiling. A KV outage then degrades the feature instead
+// of killing it, while the worst case stays a few dollars rather than
+// unbounded. The real cause is logged so it can be fixed.
+const FALLBACK_BUDGET_MILLICENTS = 25_000; // $0.25 per instance
 
 // Only used when KV is unavailable (local dev). Per-instance, so it is not a
 // real safeguard in production, hence the warning.
@@ -54,7 +73,12 @@ async function kvCmd(path: string): Promise<unknown> {
     headers: { Authorization: `Bearer ${KV_TOKEN}` },
     cache: 'no-store',
   });
-  if (!response.ok) throw new Error(`KV HTTP ${response.status}`);
+  if (!response.ok) {
+    // The body usually explains the problem (bad token, wrong endpoint), and
+    // without it a 401 is indistinguishable from a 404.
+    const detail = await response.text().catch(() => '');
+    throw new Error(`KV HTTP ${response.status} on ${path.split('/')[0]}: ${detail.slice(0, 200)}`);
+  }
   const data = (await response.json()) as { result: unknown };
   return data.result;
 }
@@ -206,27 +230,38 @@ export const POST: APIRoute = async ({ request }) => {
   const today = todayUTC();
   const ip = getClientIp(request);
 
-  // 1. Global daily budget. Fails CLOSED: if the counter cannot be read we
-  //    refuse rather than risk unbounded spend.
+  // 1. Global daily budget.
+  const budgetKey = `budget:${today}`;
   let spentMillicents: number;
+  let budgetCeiling = BUDGET_MILLICENTS;
+  let degraded = false;
+
   try {
-    spentMillicents = await getCounter(`budget:${today}`);
+    spentMillicents = await getCounter(budgetKey);
   } catch (error) {
-    console.error('[generate] Budget check failed:', error);
-    return json(
-      {
-        error:
-          'AI service temporarily unavailable. The fancy text and symbol library still work, try those.',
-        reason: 'budget_check_failed',
-      },
-      503
+    // Loud on purpose: this is the line to look for in the Vercel logs when
+    // the AI tools start reporting a reduced quota. undici reports connection
+    // problems as a bare "fetch failed", so the cause and the host it tried to
+    // reach are what actually identify the problem.
+    const message = error instanceof Error ? error.message : String(error);
+    const cause = error instanceof Error && error.cause ? ` cause=${String((error.cause as Error).message ?? error.cause)}` : '';
+    const host = KV_URL ? new URL(KV_URL).host : 'not configured';
+    console.error(
+      `[generate] Shared budget counter unreachable, falling back to a per-instance cap: ${message}${cause} host=${host}`
     );
+    degraded = true;
+    budgetCeiling = FALLBACK_BUDGET_MILLICENTS;
+    spentMillicents = memoryStore.get(budgetKey) ?? 0;
   }
-  if (spentMillicents >= BUDGET_MILLICENTS) {
+
+  if (spentMillicents >= budgetCeiling) {
     const spentUsd = (spentMillicents / 100_000).toFixed(2);
+    const capUsd = (budgetCeiling / 100_000).toFixed(2);
     return json(
       {
-        error: `Daily AI quota reached ($${spentUsd} of $${DAILY_BUDGET_USD.toFixed(2)} spent). Resets at midnight UTC. The fancy text generator and symbol library are unlimited and still work.`,
+        error: degraded
+          ? 'AI tools are running on a reduced quota right now and today\'s allowance is used up. The fancy text generator and symbol library are unlimited and still work.'
+          : `Daily AI quota reached ($${spentUsd} of $${capUsd} spent). Resets at midnight UTC. The fancy text generator and symbol library are unlimited and still work.`,
         reason: 'budget_exhausted',
       },
       503
@@ -287,12 +322,18 @@ export const POST: APIRoute = async ({ request }) => {
     if (!text) return json({ error: 'Empty response from AI', remaining }, 502);
 
     // Record actual spend. Best effort: a failed write must not fail the
-    // response the user already paid for.
+    // response the user has already received.
     const cost = tokenCostMillicents(data.usage ?? {});
     if (cost > 0) {
-      void incrBy(`budget:${today}`, cost, TTL_SECONDS).catch((error) =>
-        console.error('[generate] Spend record failed:', error)
-      );
+      if (degraded) {
+        // KV is already known to be down, so keep the fallback ceiling moving.
+        memoryStore.set(budgetKey, (memoryStore.get(budgetKey) ?? 0) + cost);
+      } else {
+        void incrBy(budgetKey, cost, TTL_SECONDS).catch((error) => {
+          console.error('[generate] Spend record failed:', error);
+          memoryStore.set(budgetKey, (memoryStore.get(budgetKey) ?? 0) + cost);
+        });
+      }
     }
 
     return json({ text, remaining });

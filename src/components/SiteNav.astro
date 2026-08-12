@@ -8,10 +8,11 @@ const { current } = Astro.props;
 // Anchors resolve on the home page; from any other page they navigate there
 // first, which is why they are absolute rather than bare hashes.
 const links = [
-  { id: 'explore', label: 'Explore', href: '/#explore' },
-  { id: 'collections', label: 'Collections', href: '/#collections' },
-  { id: 'fancy-text', label: 'Fancy Text', href: '/#fancy-text' },
-  { id: 'ai-tools', label: 'AI Tools', href: '/#ai-tools' },
+  { id: 'explore', icon: '⧉', label: 'Explore', href: '/#explore' },
+  { id: 'combinations', icon: '⋆', label: 'Combinations', href: '/#combinations' },
+  { id: 'collections', icon: '▦', label: 'Collections', href: '/#collections' },
+  { id: 'fancy-text', icon: '𝓐', label: 'Fancy Text', href: '/#fancy-text' },
+  { id: 'ai-tools', icon: '✧', label: 'AI Tools', href: '/#ai-tools' },
 ] as const;
 ---
 
@@ -23,6 +24,9 @@ const links = [
       {
         links.map((link) => (
           <a href={link.href} aria-current={current === link.id ? 'page' : undefined}>
+            <span class="nav-icon" aria-hidden="true">
+              {link.icon}
+            </span>
             {link.label}
           </a>
         ))

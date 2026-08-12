@@ -849,3 +849,81 @@
 .prose-footer {
   margin-top: 20px;
 }
+
+/* ===== Combination browser ===== */
+.chip-count {
+  margin-left: 5px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--bg-2);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.chip.active .chip-count {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+.combo-browser {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.combo-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  min-height: 84px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--panel);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.combo-tile[hidden] {
+  display: none;
+}
+
+.combo-tile:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.combo-tile.is-copied {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.combo-tile-text {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text);
+  /* Frames and boxes are authored with real line breaks. */
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.combo-tile-meta {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.combo-tile.is-copied .combo-tile-meta {
+  color: var(--accent);
+}

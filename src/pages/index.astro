@@ -4,6 +4,7 @@ import Base from '../layouts/Base.astro';
 import SiteNav from '../components/SiteNav.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import CollectionCard from '../components/CollectionCard.astro';
+import ComboBrowser from '../components/ComboBrowser.astro';
 import FaqList from '../components/FaqList.astro';
 import { SITE_URL, SITE_NAME } from '../lib/seo';
 import { INTENT_PAGES, HOME_FAQ, HOW_IT_WORKS } from '../lib/home-content';
@@ -56,7 +57,12 @@ const jsonLd = [
 ];
 ---
 
-<Base title={title} description={description} path="" jsonLd={jsonLd}>
+<Base
+  title={title}
+  description={description}
+  path=""
+  jsonLd={jsonLd}
+  imageAlt="Cool Symbols: copy and paste Unicode symbols, special characters, and fancy text">
   <Fragment slot="head">
     <meta
       name="keywords"
@@ -128,6 +134,8 @@ const jsonLd = [
           </p>
           <div class="symbol-cards" id="popularSymbols"></div>
         </section>
+
+        <ComboBrowser />
 
         <section>
           <h2>Copy Paste Symbols by Need</h2>

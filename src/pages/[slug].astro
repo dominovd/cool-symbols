@@ -13,6 +13,7 @@ import FaqList from '../components/FaqList.astro';
 import RelatedGrid from '../components/RelatedGrid.astro';
 import CollectionCard from '../components/CollectionCard.astro';
 import QuickCategories from '../components/QuickCategories.astro';
+import ShareRow from '../components/ShareRow.astro';
 import { breadcrumbJsonLd, collectionPageJsonLd, faqJsonLd } from '../lib/seo';
 import '../styles/components.css';
 
@@ -48,7 +49,8 @@ const jsonLd = [
   title={category.title}
   description={category.description}
   path={category.slug}
-  jsonLd={jsonLd}>
+  jsonLd={jsonLd}
+  imageAlt={`${category.displayName}: ${category.symbols.length} Unicode symbols to copy and paste`}>
   <SiteNav current="collections" />
 
   <div class="shell category-main">
@@ -123,6 +125,12 @@ const jsonLd = [
           <h2>Explore more symbols</h2>
           <RelatedGrid items={category.related} />
         </section>
+
+        <ShareRow
+          slug={category.slug}
+          title={category.displayName}
+          description={category.description}
+        />
       </div>
 
       <div class="category-sidebar">

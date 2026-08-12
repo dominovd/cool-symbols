@@ -1,0 +1,135 @@
+---
+import { getCollection } from 'astro:content';
+
+interface Props {
+  /** How many combinations to pull from each category. */
+  perCategory?: number;
+}
+const { perCategory = 6 } = Astro.props;
+
+const categories = await getCollection('categories');
+
+/**
+ * Pulls a spread from each category rather than the first N, so the browser
+ * shows one line from each group instead of six variations of the same idea.
+ */
+function spread(groups: Array<{ name: string; items: readonly string[] }>, limit: number) {
+  const picked: Array<{ item: string; group: string }> = [];
+  let round = 0;
+  while (picked.length < limit) {
+    let addedThisRound = false;
+    for (const group of groups) {
+      if (picked.length >= limit) break;
+      const item = group.items[round];
+      if (item === undefined) continue;
+      picked.push({ item, group: group.name });
+      addedThisRound = true;
+    }
+    if (!addedThisRound) break;
+    round += 1;
+  }
+  return picked;
+}
+
+const sources = categories
+  .map((entry) => entry.data)
+  .filter((category) => category.comboGroups?.length)
+  .map((category) => ({
+    slug: category.slug,
+    label: category.displayName.replace(/\s*Symbols$/i, ''),
+    emoji: category.emoji,
+    picks: spread(category.comboGroups!, perCategory),
+  }));
+
+const total = sources.reduce((n, source) => n + source.picks.length, 0);
+
+// Everything is rendered into the HTML rather than fetched. Filtering only
+// toggles visibility, so a crawler sees all of it and the interaction costs
+// nothing.
+const cards = sources.flatMap((source) =>
+  source.picks.map((pick) => ({
+    text: pick.item,
+    slug: source.slug,
+    label: source.label,
+    group: pick.group,
+  }))
+);
+---
+
+<section id="combinations">
+  <h2>Symbol Combinations <span class="pill">Ready to paste</span></h2>
+  <p class="section-note">
+    {total} complete arrangements pulled from every collection. Click one to copy the whole line,
+    then swap the words for your own.
+  </p>
+
+  <div class="combo-filters" role="group" aria-label="Filter combinations by category">
+    <button class="chip active" type="button" data-combo-cat="all" aria-pressed="true">
+      All <span class="chip-count">{total}</span>
+    </button>
+    {
+      sources.map((source) => (
+        <button class="chip" type="button" data-combo-cat={source.slug} aria-pressed="false">
+          <span aria-hidden="true">{source.emoji}</span>
+          {source.label}
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="combo-browser" id="comboBrowser">
+    {
+      cards.map((card) => (
+        <button
+          class="combo-tile"
+          type="button"
+          data-copy={card.text}
+          data-cat={card.slug}
+          aria-label={`Copy ${card.text}`}>
+          <span class="combo-tile-text">{card.text}</span>
+          <span class="combo-tile-meta">{card.group}</span>
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="section-footer">
+    <a class="link-more" href="#collections">
+      Open a collection for the full set <span aria-hidden="true">→</span>
+    </a>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    const browser = document.getElementById('comboBrowser');
+    if (!browser) return;
+
+    const tiles = [...browser.querySelectorAll('.combo-tile')];
+    const chips = [...document.querySelectorAll('[data-combo-cat]')];
+
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const wanted = chip.dataset.comboCat;
+        chips.forEach((other) => {
+          const active = other === chip;
+          other.classList.toggle('active', active);
+          other.setAttribute('aria-pressed', String(active));
+        });
+        tiles.forEach((tile) => {
+          tile.hidden = wanted !== 'all' && tile.dataset.cat !== wanted;
+        });
+      });
+    });
+
+    tiles.forEach((tile) => {
+      tile.addEventListener('click', async () => {
+        const ok = await window.copyText(tile.dataset.copy);
+        if (!ok) return;
+        tile.classList.add('is-copied');
+        clearTimeout(tile._t);
+        tile._t = setTimeout(() => tile.classList.remove('is-copied'), 1300);
+      });
+    });
+  })();
+</script>

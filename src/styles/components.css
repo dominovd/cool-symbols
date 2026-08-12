@@ -208,6 +208,7 @@
 }
 
 .collection-item:hover .collection-remove,
+.collection-row:hover .collection-remove,
 .collection-remove:focus-visible {
   opacity: 1;
 }
@@ -703,7 +704,18 @@
   gap: 8px;
 }
 
+/* Wrapper, not a button: the save control has to sit outside the copy button
+   because nesting buttons is invalid HTML. */
 .combo-card {
+  position: relative;
+  display: flex;
+}
+
+.combo-card[hidden] {
+  display: none;
+}
+
+.combo-card-copy {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -721,12 +733,25 @@
   transition: all 0.15s;
 }
 
-.combo-card[hidden] {
-  display: none;
+.combo-card:hover .combo-card-copy {
+  border-color: var(--accent);
 }
 
-.combo-card:hover {
-  border-color: var(--accent);
+.combo-fav {
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+}
+
+.combo-card:hover .combo-fav,
+.combo-fav.is-saved,
+.combo-fav:focus-visible {
+  opacity: 1;
+}
+
+/* Keeps the label clear of the save control. */
+.combo-card .combo-action {
+  margin-right: 26px;
 }
 
 .combo-text {
@@ -748,6 +773,11 @@
 .combo-card:hover .combo-action {
   border-color: var(--accent);
   color: var(--accent);
+}
+
+.combo-card.is-copied .combo-card-copy {
+  border-color: var(--accent);
+  background: var(--accent-soft);
 }
 
 .combo-empty {
@@ -1017,3 +1047,68 @@
   background: #e60023;
   color: #ffffff;
 }
+
+/* ===== Collection zones ===== */
+.collection-zone {
+  margin-bottom: 14px;
+}
+
+.collection-zone[hidden] {
+  display: none;
+}
+
+.collection-zone-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Saved combinations are full-width rows: a line like ╭─ ⋆⋅☆⋅⋆ ─╮ will not
+   fit the square tile a single symbol uses. */
+.collection-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.collection-row {
+  position: relative;
+  display: flex;
+}
+
+.collection-row-copy {
+  width: 100%;
+  padding: 8px 24px 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-2);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: left;
+  cursor: pointer;
+  white-space: pre-line;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.15s;
+}
+
+.collection-row-copy:hover {
+  border-color: var(--accent);
+  background: var(--panel);
+}
+
+.collection-row .collection-remove {
+  top: 50%;
+  right: 4px;
+  transform: translateY(-50%);
+}
+

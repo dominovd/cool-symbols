@@ -177,6 +177,8 @@ function buildSymbolCard(symbol, group) {
   card.dataset.group = group || '';
   card.dataset.search = symbol + ' ' + codePoints(symbol);
 
+  // The click is handled by the delegated listener in Base.astro, so this
+  // only needs the data attribute.
   const fav = document.createElement('button');
   fav.type = 'button';
   fav.className = 'fav-toggle';
@@ -184,7 +186,6 @@ function buildSymbolCard(symbol, group) {
   fav.textContent = '♡';
   fav.title = 'Save to collection';
   fav.setAttribute('aria-label', 'Save ' + symbol + ' to your collection');
-  fav.addEventListener('click', () => window.favorites.toggle(symbol));
 
   const glyph = document.createElement('span');
   glyph.className = 'symbol-glyph';
@@ -211,17 +212,14 @@ function buildSymbolCard(symbol, group) {
   return card;
 }
 
-/** Keeps every heart icon on the page in sync with the favourites store. */
-function bindFavoriteSync() {
-  if (!window.favorites) return;
-  window.favorites.subscribe((items) => {
-    const set = new Set(items);
-    document.querySelectorAll('[data-fav]').forEach((button) => {
-      const saved = set.has(button.dataset.fav);
-      button.textContent = saved ? '♥' : '♡';
-      button.classList.toggle('is-saved', saved);
-    });
-  });
+/**
+ * Repaints the save icons after this page renders cards of its own.
+ *
+ * The store repaints on every change, but the symbol grid is rebuilt on every
+ * search keystroke and category switch, and those new buttons start blank.
+ */
+function syncFavoriteIcons() {
+  window.favorites?.syncIcons();
 }
 
 /* ============================================================
@@ -258,6 +256,7 @@ function renderLibrary() {
 
   resultCountEl.textContent = shown + (shown === 1 ? ' symbol' : ' symbols');
   searchEmptyEl.hidden = shown !== 0;
+  syncFavoriteIcons();
 }
 
 function renderCategoryPills() {
@@ -294,6 +293,7 @@ function renderPopular() {
   const el = document.getElementById('popularSymbols');
   el.innerHTML = '';
   POPULAR_SYMBOLS.forEach((symbol) => el.appendChild(buildSymbolCard(symbol, 'Popular')));
+  syncFavoriteIcons();
 }
 
 /* ============================================================
@@ -563,7 +563,7 @@ renderDividers();
 renderAiTabs();
 renderAiFields();
 renderAiExamples();
-bindFavoriteSync();
+syncFavoriteIcons();
 
 searchInput?.addEventListener('input', renderLibrary);
 genInput.addEventListener('input', renderStyles);

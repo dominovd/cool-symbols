@@ -101,6 +101,27 @@ const graph = [organizationJsonLd(), webSiteJsonLd(), ...jsonLd];
 
         const listeners = new Set();
 
+        /**
+         * Tells a single symbol apart from a saved combination.
+         *
+         * Both are stored as plain strings, so the distinction is derived
+         * rather than recorded. That keeps collections saved before
+         * combinations were addable working without a migration.
+         *
+         * Counting code points would be wrong: ❤️‍🔥 is four of them and one
+         * symbol. Intl.Segmenter counts what a person would call a character.
+         */
+        const segmenter =
+          typeof Intl !== 'undefined' && Intl.Segmenter
+            ? new Intl.Segmenter('en', { granularity: 'grapheme' })
+            : null;
+
+        function isCombination(value) {
+          if (/\s/.test(value)) return true;
+          if (segmenter) return [...segmenter.segment(value)].length > 1;
+          return [...value].length > 3;
+        }
+
         function persist() {
           try { localStorage.setItem(KEY, JSON.stringify(items)); } catch (e) {}
         }
@@ -120,6 +141,14 @@ const graph = [organizationJsonLd(), webSiteJsonLd(), ...jsonLd];
         window.favorites = {
           all: () => items.slice(),
           has: (symbol) => items.includes(symbol),
+          isCombination,
+          /** Splits the collection into the two shapes the sidebar renders. */
+          split() {
+            return {
+              symbols: items.filter((item) => !isCombination(item)),
+              combinations: items.filter(isCombination),
+            };
+          },
           toggle(symbol) {
             const i = items.indexOf(symbol);
             if (i === -1) {
@@ -149,10 +178,43 @@ const graph = [organizationJsonLd(), webSiteJsonLd(), ...jsonLd];
             fn(items.slice());
             return () => listeners.delete(fn);
           },
+          /**
+           * Repaints every save control currently in the DOM. Called on every
+           * store change, and by pages that render cards themselves after the
+           * store has already settled.
+           */
+          syncIcons() {
+            const saved = new Set(items);
+            document.querySelectorAll('[data-fav]').forEach((button) => {
+              const isSaved = saved.has(button.dataset.fav);
+              button.textContent = isSaved ? '♥' : '♡';
+              button.classList.toggle('is-saved', isSaved);
+              button.setAttribute(
+                'aria-label',
+                `${isSaved ? 'Remove' : 'Save'} ${button.dataset.fav} ${isSaved ? 'from' : 'to'} your collection`
+              );
+            });
+          },
         };
 
-        // The nav counter is parsed after this script, so sync once it exists.
-        document.addEventListener('DOMContentLoaded', syncCount);
+        listeners.add(() => window.favorites.syncIcons());
+
+        // Delegated rather than bound per button. Save controls appear in
+        // several components, some rendered after this script runs and some
+        // created dynamically, and delegation covers all of them without
+        // caring about document order.
+        document.addEventListener('click', (event) => {
+          const button = event.target.closest('[data-fav]');
+          if (!button) return;
+          event.preventDefault();
+          window.favorites.toggle(button.dataset.fav);
+        });
+
+        // The nav counter and the save controls are parsed after this script.
+        document.addEventListener('DOMContentLoaded', () => {
+          syncCount();
+          window.favorites.syncIcons();
+        });
       })();
     </script>
     <title>{title}</title>

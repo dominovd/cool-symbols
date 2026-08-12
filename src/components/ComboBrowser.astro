@@ -77,18 +77,29 @@ const cards = sources.flatMap((source) =>
     }
   </div>
 
+  {/* A wrapper rather than a button: the save control is a button of its own
+      and nesting one inside another is invalid markup. */}
   <div class="combo-browser" id="comboBrowser">
     {
       cards.map((card) => (
-        <button
-          class="combo-tile"
-          type="button"
-          data-copy={card.text}
-          data-cat={card.slug}
-          aria-label={`Copy ${card.text}`}>
-          <span class="combo-tile-text">{card.text}</span>
-          <span class="combo-tile-meta">{card.group}</span>
-        </button>
+        <div class="combo-tile" data-cat={card.slug}>
+          <button
+            class="fav-toggle"
+            type="button"
+            data-fav={card.text}
+            aria-label={`Save ${card.text} to your collection`}
+            title="Save to collection">
+            ♡
+          </button>
+          <button
+            class="combo-tile-copy"
+            type="button"
+            data-copy={card.text}
+            aria-label={`Copy ${card.text}`}>
+            <span class="combo-tile-text">{card.text}</span>
+            <span class="combo-tile-meta">{card.group}</span>
+          </button>
+        </div>
       ))
     }
   </div>
@@ -123,13 +134,17 @@ const cards = sources.flatMap((source) =>
     });
 
     tiles.forEach((tile) => {
-      tile.addEventListener('click', async () => {
-        const ok = await window.copyText(tile.dataset.copy);
+      const copyButton = tile.querySelector('.combo-tile-copy');
+      copyButton.addEventListener('click', async () => {
+        const ok = await window.copyText(copyButton.dataset.copy);
         if (!ok) return;
         tile.classList.add('is-copied');
         clearTimeout(tile._t);
         tile._t = setTimeout(() => tile.classList.remove('is-copied'), 1300);
       });
     });
+
+    // Saving is wired centrally in src/scripts/home.js, which binds every
+    // [data-fav] on the page and keeps them in sync with the store.
   })();
 </script>

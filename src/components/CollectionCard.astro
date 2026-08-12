@@ -1,6 +1,10 @@
 ---
 // Rendered entirely on the client from the favourites store, so the markup
 // here is the shell plus an empty state.
+//
+// Two zones rather than one list: a single symbol fits a square tile, a saved
+// combination like ╭─ ⋆⋅☆⋅⋆ ─╮ does not. The store keeps one flat list and
+// tells the two apart by grapheme count.
 ---
 
 <aside class="side-card" id="collection">
@@ -9,10 +13,18 @@
     <span class="side-badge" id="collectionCount">0</span>
   </div>
 
-  <div class="collection-grid" id="collectionGrid"></div>
+  <div class="collection-zone" id="collectionSymbolsZone" hidden>
+    <span class="collection-zone-label">Symbols</span>
+    <div class="collection-grid" id="collectionGrid"></div>
+  </div>
+
+  <div class="collection-zone" id="collectionCombosZone" hidden>
+    <span class="collection-zone-label">Combinations</span>
+    <div class="collection-list" id="collectionList"></div>
+  </div>
 
   <p class="collection-empty" id="collectionEmpty">
-    Tap the heart on any symbol to save it here.
+    Tap the heart on any symbol or combination to save it here.
   </p>
 
   <div class="collection-actions" id="collectionActions" hidden>
@@ -26,6 +38,9 @@
 <script is:inline>
   (function () {
     const grid = document.getElementById('collectionGrid');
+    const list = document.getElementById('collectionList');
+    const symbolsZone = document.getElementById('collectionSymbolsZone');
+    const combosZone = document.getElementById('collectionCombosZone');
     const empty = document.getElementById('collectionEmpty');
     const count = document.getElementById('collectionCount');
     const actions = document.getElementById('collectionActions');
@@ -35,14 +50,30 @@
 
     let current = [];
 
+    /** Small circular remove control shared by both zones. */
+    function removeButton(value) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'collection-remove';
+      button.textContent = '×';
+      button.title = 'Remove from collection';
+      button.setAttribute('aria-label', 'Remove ' + value + ' from your collection');
+      button.addEventListener('click', () => window.favorites.remove(value));
+      return button;
+    }
+
     window.favorites.subscribe((saved) => {
       current = saved;
+      const { symbols, combinations } = window.favorites.split();
+
       count.textContent = String(saved.length);
       empty.hidden = saved.length > 0;
       actions.hidden = saved.length === 0;
-      grid.innerHTML = '';
+      symbolsZone.hidden = symbols.length === 0;
+      combosZone.hidden = combinations.length === 0;
 
-      saved.forEach((symbol) => {
+      grid.innerHTML = '';
+      symbols.forEach((symbol) => {
         const cell = document.createElement('div');
         cell.className = 'collection-item';
 
@@ -54,22 +85,39 @@
         copy.setAttribute('aria-label', 'Copy ' + symbol);
         copy.addEventListener('click', () => window.copyText(symbol));
 
-        const remove = document.createElement('button');
-        remove.type = 'button';
-        remove.className = 'collection-remove';
-        remove.textContent = '×';
-        remove.title = 'Remove from collection';
-        remove.setAttribute('aria-label', 'Remove ' + symbol + ' from your collection');
-        remove.addEventListener('click', () => window.favorites.remove(symbol));
-
-        cell.append(copy, remove);
+        cell.append(copy, removeButton(symbol));
         grid.appendChild(cell);
+      });
+
+      list.innerHTML = '';
+      combinations.forEach((combo) => {
+        const row = document.createElement('div');
+        row.className = 'collection-row';
+
+        const copy = document.createElement('button');
+        copy.type = 'button';
+        copy.className = 'collection-row-copy';
+        copy.textContent = combo;
+        copy.title = 'Copy ' + combo;
+        copy.setAttribute('aria-label', 'Copy ' + combo);
+        copy.addEventListener('click', () => window.copyText(combo));
+
+        row.append(copy, removeButton(combo));
+        list.appendChild(row);
       });
     });
 
-    copyAll.addEventListener('click', () => window.copyText(current.join(' ')));
+    copyAll.addEventListener('click', () => {
+      // Combinations go on their own lines; loose symbols share one.
+      const { symbols, combinations } = window.favorites.split();
+      const parts = [];
+      if (symbols.length) parts.push(symbols.join(' '));
+      parts.push(...combinations);
+      window.copyText(parts.join('\n'));
+    });
+
     clear.addEventListener('click', () => {
-      if (current.length && confirm('Remove all ' + current.length + ' saved symbols?')) {
+      if (current.length && confirm('Remove all ' + current.length + ' saved items?')) {
         window.favorites.clear();
       }
     });

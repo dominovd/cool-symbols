@@ -131,27 +131,8 @@ const cards = (groups?.length
       });
     });
 
-    // Favourite toggles, kept in sync with the shared store.
-    const favButtons = [...document.querySelectorAll('[data-fav]')];
-    if (window.favorites) {
-      favButtons.forEach((button) => {
-        button.addEventListener('click', () => {
-          window.favorites.toggle(button.dataset.fav);
-        });
-      });
-      window.favorites.subscribe((items) => {
-        const set = new Set(items);
-        favButtons.forEach((button) => {
-          const saved = set.has(button.dataset.fav);
-          button.textContent = saved ? '♥' : '♡';
-          button.classList.toggle('is-saved', saved);
-          button.setAttribute(
-            'aria-label',
-            `${saved ? 'Remove' : 'Save'} ${button.dataset.fav} ${saved ? 'from' : 'to'} your collection`
-          );
-        });
-      });
-    }
+    // Save controls are handled centrally in src/layouts/Base.astro, which
+    // delegates clicks and repaints every icon on change.
 
     chips.forEach((chip) => {
       chip.addEventListener('click', () => {

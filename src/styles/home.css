@@ -873,11 +873,23 @@
   margin-top: 16px;
 }
 
+/* Wrapper, not a button: the save control sits alongside the copy button
+   rather than inside it, since nested buttons are invalid HTML. */
 .combo-tile {
+  position: relative;
+  display: flex;
+}
+
+.combo-tile[hidden] {
+  display: none;
+}
+
+.combo-tile-copy {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
+  width: 100%;
   min-height: 84px;
   padding: 14px 16px;
   border: 1px solid var(--border);
@@ -889,22 +901,32 @@
   transition: all 0.15s;
 }
 
-.combo-tile[hidden] {
-  display: none;
-}
-
-.combo-tile:hover {
+.combo-tile:hover .combo-tile-copy {
   border-color: var(--accent);
   transform: translateY(-2px);
   box-shadow: var(--card-shadow-hover);
 }
 
-.combo-tile.is-copied {
+.combo-tile.is-copied .combo-tile-copy {
   border-color: var(--accent);
   background: var(--accent-soft);
 }
 
+.combo-tile .fav-toggle {
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+}
+
+.combo-tile:hover .fav-toggle,
+.combo-tile .fav-toggle.is-saved,
+.combo-tile .fav-toggle:focus-visible {
+  opacity: 1;
+}
+
+/* Leaves room for the save control in the top-right corner. */
 .combo-tile-text {
+  padding-right: 24px;
   flex: 1;
   display: flex;
   align-items: center;
@@ -927,3 +949,4 @@
 .combo-tile.is-copied .combo-tile-meta {
   color: var(--accent);
 }
+

@@ -50,19 +50,28 @@ const cards = groups.flatMap((group) =>
     </div>
   </div>
 
+  {/* Wrapper rather than a button, so the save control can be a button too. */}
   <div class="combo-grid" id="comboGrid">
     {
       cards.map((card) => (
-        <button
-          class="combo-card"
-          type="button"
-          data-copy={card.item}
-          data-combo-group={card.group}
-          data-combo-search={card.search}
-          aria-label={`Copy combination ${card.item}`}>
-          <span class="combo-text">{card.item}</span>
-          <span class="combo-action">Copy</span>
-        </button>
+        <div class="combo-card" data-combo-group={card.group} data-combo-search={card.search}>
+          <button
+            class="combo-card-copy"
+            type="button"
+            data-copy={card.item}
+            aria-label={`Copy combination ${card.item}`}>
+            <span class="combo-text">{card.item}</span>
+            <span class="combo-action">Copy</span>
+          </button>
+          <button
+            class="fav-toggle combo-fav"
+            type="button"
+            data-fav={card.item}
+            aria-label={`Save ${card.item} to your collection`}
+            title="Save to collection">
+            ♡
+          </button>
+        </div>
       ))
     }
   </div>
@@ -106,9 +115,13 @@ const cards = groups.flatMap((group) =>
         updateCombos();
       });
     });
-    comboCards.forEach((card) =>
-      card.addEventListener('click', () => window.copyText(card.dataset.copy))
-    );
+    comboCards.forEach((card) => {
+      const copyButton = card.querySelector('.combo-card-copy');
+      copyButton.addEventListener('click', () => window.copyText(copyButton.dataset.copy));
+    });
     comboSearch.addEventListener('input', updateCombos);
+
+    // Save controls are bound by the shared handler in SymbolLibrary, which
+    // covers every [data-fav] on the page including these.
   })();
 </script>

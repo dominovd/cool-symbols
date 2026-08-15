@@ -370,11 +370,20 @@
   gap: 28px;
 }
 
+/* minmax(0, 1fr), not 1fr: a bare 1fr track refuses to shrink below the
+   min-content of its widest item, and the fullwidth preview row
+   (Ｃｏｏｌ　Ｓｙｍｂｏｌｓ) is 382px wide. That dragged the whole page into
+   horizontal scroll on phones. */
 @media (max-width: 860px) {
   .fancy-panel {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 20px;
   }
+}
+
+.fancy-intro,
+.styles {
+  min-width: 0;
 }
 
 .fancy-intro p {
@@ -561,8 +570,12 @@
 
 @media (max-width: 860px) {
   .ai-panel {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
+}
+
+.ai-panel > * {
+  min-width: 0;
 }
 
 .ai-tabs {

@@ -287,12 +287,26 @@ body {
   background: var(--bg-2);
 }
 
-@media (max-width: 720px) {
+/* 860, not 720: between those two widths the links, the brand, Favorites and
+   the theme button together are wider than the viewport, and the nav pushed a
+   horizontal scrollbar onto every page. */
+@media (max-width: 860px) {
   .nav-links {
     display: none;
   }
   .nav-brand {
     margin-right: auto;
+  }
+}
+
+/* On the narrowest phones the heart alone carries the meaning. */
+@media (max-width: 380px) {
+  .site-nav .shell {
+    gap: 10px;
+    padding: 0 14px;
+  }
+  .nav-favorites .label {
+    display: none;
   }
 }
 
